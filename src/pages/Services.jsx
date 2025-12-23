@@ -3,48 +3,56 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+// ▼▼▼ IMPORT YOUR IMAGES HERE ▼▼▼
+import bandsawImg from "../assets/bandsaw.jpg";
+import chemicalImg from "../assets/chemical.jpg";
+import seasoningImg from "../assets/seasoning.jpg";
+import planingImg from "../assets/planing.jpg";
+import peelingImg from "../assets/peeling.jpg";
+import sizingImg from "../assets/sizing.jpg";
+
 const services = [
     {
         id: 1,
         name: "Horizontal Band Saw",
         capacity: "Precision Cutting",
         desc: "Advanced horizontal cutting for massive logs. Ensures minimum wastage and precise thickness.",
-        image: "https://images.unsplash.com/photo-1504198458649-3128b932f49e?q=80&w=800&auto=format&fit=crop"
+        image: bandsawImg
     },
     {
         id: 2,
         name: "Chemical Treatment",
         capacity: "Termite Proofing",
         desc: "Vacuum pressure impregnation plant to treat wood against termites, fungus, and borers.",
-        image: "https://images.unsplash.com/photo-1621252179027-94459d27d3ee?q=80&w=800&auto=format&fit=crop"
+        image: chemicalImg
     },
     {
         id: 3,
         name: "Kiln Seasoning",
         capacity: "Moisture Control",
         desc: "Computerized steam seasoning chambers to reduce wood moisture content to standard levels.",
-        image: "https://images.unsplash.com/photo-1530125866079-7ef1d8583492?q=80&w=800&auto=format&fit=crop"
+        image: seasoningImg
     },
     {
         id: 4,
         name: "Surface Planing",
         capacity: "Finishing",
         desc: "High-speed planing machines to smooth rough timber surfaces for immediate joinery use.",
-        image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=800&auto=format&fit=crop"
+        image: planingImg
     },
     {
         id: 5,
         name: "Log Peeling",
         capacity: "Veneer Making",
         desc: "Rotary peeling setup for converting logs into thin veneer sheets for plywood manufacturing.",
-        image: "https://images.unsplash.com/photo-1585314062604-1a357de8b000?q=80&w=800&auto=format&fit=crop"
+        image: peelingImg
     },
     {
         id: 6,
         name: "Custom Sizing",
         capacity: "Order to Size",
         desc: "We cut timber to your exact architectural specifications for bulk construction orders.",
-        image: "https://images.unsplash.com/photo-1565514020176-db8b1228c2e6?q=80&w=800&auto=format&fit=crop"
+        image: sizingImg
     }
 ];
 
@@ -83,7 +91,11 @@ const Services = () => {
                                 <p className="text-blue-500 text-xs font-bold uppercase tracking-widest mb-4">{item.capacity}</p>
                                 <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6">{item.desc}</p>
 
-                                <Link to="/contact" className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1e293b] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors">
+                                {/* Button -> Contact Page */}
+                                <Link
+                                    to="/contact"
+                                    className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1e293b] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+                                >
                                     Book Service
                                 </Link>
                             </div>

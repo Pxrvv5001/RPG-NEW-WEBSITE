@@ -1,8 +1,17 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-// Data for the Catalog
+// ▼▼▼ IMPORTING LOCAL IMAGES ▼▼▼
+// Ensure these files exist in your src/assets folder!
+import teakImg from "../assets/teak.jpg";
+import merantiImg from "../assets/meranti.jpg";
+import pineImg from "../assets/pine.jpg";
+import spruceImg from "../assets/spruce.jpg";
+import walnutImg from "../assets/walnut.jpg";
+import ashImg from "../assets/ash.jpg";
+
 const products = [
     {
         id: 1,
@@ -10,7 +19,7 @@ const products = [
         origin: "Tanzania & Benin",
         grade: "Premium Hardwood",
         desc: "The gold standard for furniture. Rich golden-brown color with excellent weather resistance.",
-        image: "https://images.unsplash.com/photo-1543445884-25cb48197771?q=80&w=800&auto=format&fit=crop"
+        image: teakImg // <--- Using the imported variable
     },
     {
         id: 2,
@@ -18,7 +27,7 @@ const products = [
         origin: "Malaysia",
         grade: "Structural Grade",
         desc: "Reddish-brown hardwood ideal for window frames, molding, and interior joinery.",
-        image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800&auto=format&fit=crop"
+        image: merantiImg // <--- Using the imported variable
     },
     {
         id: 3,
@@ -26,7 +35,7 @@ const products = [
         origin: "USA",
         grade: "Grade A Softwood",
         desc: "Strong, dense pine with a distinctive grain pattern. Perfect for flooring and decking.",
-        image: "https://images.unsplash.com/photo-1513161455079-7dc1bad1501c?q=80&w=800&auto=format&fit=crop"
+        image: pineImg // <--- Using the imported variable
     },
     {
         id: 4,
@@ -34,7 +43,7 @@ const products = [
         origin: "Germany",
         grade: "Construction Grade",
         desc: "Lightweight and light-colored. Widely used for packaging, pallets, and framing.",
-        image: "https://images.unsplash.com/photo-1610505466046-5c654d245050?q=80&w=800&auto=format&fit=crop"
+        image: spruceImg // <--- Using the imported variable
     },
     {
         id: 5,
@@ -42,7 +51,7 @@ const products = [
         origin: "North America",
         grade: "Luxury Hardwood",
         desc: "Dark, chocolate brown heartwood. The preferred choice for high-end furniture and veneers.",
-        image: "https://images.unsplash.com/photo-1620121474677-4402eb6b345a?q=80&w=800&auto=format&fit=crop"
+        image: walnutImg // <--- Using the imported variable
     },
     {
         id: 6,
@@ -50,7 +59,7 @@ const products = [
         origin: "Europe",
         grade: "Joinery Grade",
         desc: "Light creamy color with straight grain. Excellent shock resistance, used in sports equipment.",
-        image: "https://images.unsplash.com/photo-1558618007-8e6fa303780a?q=80&w=800&auto=format&fit=crop"
+        image: ashImg // <--- Using the imported variable
     }
 ];
 
@@ -77,7 +86,7 @@ const Catalog = () => {
                             viewport={{ once: true }}
                             className="group bg-[#f9f8f4] dark:bg-[#1e293b] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
                         >
-                            {/* Image */}
+                            {/* Image Section */}
                             <div className="h-64 overflow-hidden relative">
                                 <img
                                     src={item.image}
@@ -89,7 +98,7 @@ const Catalog = () => {
                                 </div>
                             </div>
 
-                            {/* Content */}
+                            {/* Content Section */}
                             <div className="p-6">
                                 <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-1">{item.name}</h3>
                                 <p className="text-[#d97706] text-xs font-bold uppercase tracking-widest mb-4">{item.origin}</p>
@@ -97,9 +106,13 @@ const Catalog = () => {
                                     {item.desc}
                                 </p>
 
-                                <button className="w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1c1c1c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors">
+                                {/* Button -> Contact Page */}
+                                <Link
+                                    to="/contact"
+                                    className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1c1c1c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+                                >
                                     Inquire Now
-                                </button>
+                                </Link>
                             </div>
                         </motion.div>
                     ))}
