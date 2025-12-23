@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 const Contact = () => {
     // ▼▼▼ REMEMBER TO PASTE YOUR FORMSPREE ID HERE AGAIN ▼▼▼
-    const [state, handleSubmit] = useForm("YOUR_FORM_ID");
+    const [state, handleSubmit] = useForm("mykgkgjq");
 
     if (state.succeeded) {
         return (
