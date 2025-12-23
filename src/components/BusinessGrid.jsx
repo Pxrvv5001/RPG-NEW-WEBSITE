@@ -128,7 +128,8 @@ const BusinessGrid = () => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 onClick={() => setSelectedId(null)}
-                                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+                                // Added 'md:backdrop-blur-sm' -> No blur on phone, Blur on laptop
+                                className="fixed inset-0 bg-black/80 md:bg-black/60 md:backdrop-blur-sm z-50"
                             />
 
                             <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none p-4 md:p-8">

@@ -6,8 +6,20 @@ const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    // Theme State
-    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+    // --- SMART THEME LOGIC ---
+    const [theme, setTheme] = useState(() => {
+        // 1. Check local storage first (User override)
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) return savedTheme;
+
+        // 2. If no save, check Device Settings
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            return "dark";
+        }
+
+        // 3. Default to light
+        return "light";
+    });
 
     // Handle Scroll Effect
     useEffect(() => {
@@ -18,7 +30,7 @@ const Header = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Handle Theme Switch
+    // Handle Theme Application
     useEffect(() => {
         if (theme === "dark") {
             document.documentElement.classList.add("dark");
@@ -36,7 +48,8 @@ const Header = () => {
         <header
             className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
                 isScrolled
-                    ? "bg-[#1c1c1c]/90 backdrop-blur-md py-4 shadow-lg"
+                    // Mobile: Solid Black (Fast) | Laptop: Glassy Blur (Premium)
+                    ? "bg-[#1c1c1c] md:bg-[#1c1c1c]/90 md:backdrop-blur-md py-4 shadow-lg"
                     : "bg-transparent py-6"
             }`}
         >
@@ -57,6 +70,7 @@ const Header = () => {
                     <button
                         onClick={toggleTheme}
                         className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors border border-white/10"
+                        aria-label="Toggle Dark Mode"
                     >
                         {theme === "light" ? <Moon size={18} /> : <Sun size={18} className="text-[#d97706]" />}
                     </button>
