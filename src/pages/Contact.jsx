@@ -72,8 +72,8 @@ const Contact = () => {
                                 <div>
                                     <h4 className="font-bold text-gray-900 dark:text-white">Head Office</h4>
                                     <p className="text-gray-600 dark:text-slate-400 text-sm mt-1">
-                                        Unit No. 322, 3rd Floor, Ring Road Mall,<br />
-                                        Sector 3, Rohini, New Delhi - 110085
+                                        Imam Bara, Timber Market, Railway Road,<br />
+                                        Karnal, Haryana - 132001
                                     </p>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ const Contact = () => {
                                 <div>
                                     <h4 className="font-bold text-gray-900 dark:text-white">Phone</h4>
                                     <p className="text-gray-600 dark:text-slate-400 text-sm mt-1">+91 98765 43210</p>
-                                    <p className="text-gray-500 dark:text-slate-500 text-xs mt-1">Mon-Sat, 9am - 7pm</p>
+                                    <p className="text-gray-500 dark:text-slate-500 text-xs mt-1">Mon-Sat, 9am - 8pm</p>
                                 </div>
                             </div>
 
@@ -106,7 +106,7 @@ const Contact = () => {
                     {/* Map Embed - Fixed Grayscale */}
                     <div className="h-64 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-slate-700 transition-all duration-500">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.463777558667!2d77.1139!3d28.6992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d03b29c9c8e5f%3A0x123456789abcdef!2sRing%20Road%20Mall!5e0!3m2!1sen!2sin!4v1700000000000"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3466.087943713134!2d76.98218497533058!3d29.688229875104927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e7022e3722017%3A0x42af99a573aa933!2s1493%2C%20Sadar%20Bazar%20Rd%2C%20Ramesh%20Nagar%2C%20Karnal%2C%20Haryana%20132001!5e0!3m2!1sen!2sin!4v1766591456771!5m2!1sen!2sin"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
@@ -136,7 +136,7 @@ const Contact = () => {
                                     name="name"
                                     required
                                     className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded p-3 text-gray-900 dark:text-white focus:outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] transition-all"
-                                    placeholder="John Doe"
+                                    placeholder="Parv Goyal"
                                 />
                                 <ValidationError prefix="Name" field="name" errors={state.errors} />
                             </div>
