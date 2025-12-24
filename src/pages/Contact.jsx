@@ -106,7 +106,7 @@ const Contact = () => {
                     {/* Map Embed - Fixed Grayscale */}
                     <div className="h-64 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-slate-700 transition-all duration-500">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3466.087943713134!2d76.98218497533058!3d29.688229875104927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e7022e3722017%3A0x42af99a573aa933!2s1493%2C%20Sadar%20Bazar%20Rd%2C%20Ramesh%20Nagar%2C%20Karnal%2C%20Haryana%20132001!5e0!3m2!1sen!2sin!4v1766591456771!5m2!1sen!2sin"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d216.63054829712888!2d76.9847227033182!3d29.688205837308004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e7022e3089c75%3A0x278c784abefd48a3!2sR%20P%20Goyal%20%26%20Sons%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1766596304282!5m2!1sen!2sin"
                             width="100%"
                             height="100%"
                             style={{ border: 0 }}
