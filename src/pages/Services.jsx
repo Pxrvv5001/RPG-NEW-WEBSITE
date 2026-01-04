@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -59,6 +60,11 @@ const services = [
 const Services = () => {
     return (
         <div className="bg-white dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
+            <Helmet>
+                <title>Sawmill Services | R.P. Goyal & Sons</title>
+                <meta name="description" content="Professional wood processing services: Horizontal Band Saw, Chemical Treatment, and Kiln Seasoning." />
+            </Helmet>
+
             <Header />
 
             {/* Hero Header */}
@@ -94,6 +100,7 @@ const Services = () => {
                                 {/* Button -> Contact Page */}
                                 <Link
                                     to="/contact"
+                                    state={{ interest: "Sawmill Services" }} // <--- PASSING STATE HERE
                                     className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1e293b] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                                 >
                                     Book Service

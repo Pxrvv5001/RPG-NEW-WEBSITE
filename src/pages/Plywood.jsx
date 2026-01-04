@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -65,6 +66,11 @@ const plywoods = [
 const Plywood = () => {
     return (
         <div className="bg-white dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
+            <Helmet>
+                <title>Plywood & Laminates | R.P. Goyal & Sons</title>
+                <meta name="description" content="Manufacturers of Marine Grade (IS:710), Commercial Plywood, and Decorative Laminates in Karnal." />
+            </Helmet>
+
             <Header />
 
             {/* Hero Header */}
@@ -100,6 +106,7 @@ const Plywood = () => {
                                 {/* Button -> Contact Page */}
                                 <Link
                                     to="/contact"
+                                    state={{ interest: "Plywood & Laminates" }} // <--- PASSING STATE HERE
                                     className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#451a03] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                                 >
                                     Get Quote

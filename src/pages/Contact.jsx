@@ -1,23 +1,26 @@
-// 1. IMPORT useEffect
 import { useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, Send, CheckCircle } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Contact = () => {
-    // ▼▼▼ PASTE YOUR FORMSPREE ID HERE AGAIN ▼▼▼
+    // ▼▼▼ PASTE YOUR FORMSPREE ID HERE ▼▼▼
     const [state, handleSubmit] = useForm("mykgkgjq");
 
-    // 2. ADD THIS "SCROLL WATCHER"
+    // Get incoming state (e.g., from Plywood/Services pages)
+    const location = useLocation();
+    const initialInterest = location.state?.interest || "Bulk Timber Supply";
+
     useEffect(() => {
         if (state.succeeded) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, [state.succeeded]);
 
-    // 3. SUCCESS MESSAGE VIEW
     if (state.succeeded) {
         return (
             <div className="bg-white dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
@@ -45,9 +48,13 @@ const Contact = () => {
         );
     }
 
-    // 4. NORMAL FORM VIEW
     return (
         <div className="bg-white dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
+            <Helmet>
+                <title>Contact Us | R.P. Goyal & Sons</title>
+                <meta name="description" content="Get in touch for timber inquiries, sawmill services, or plywood orders. Located in Karnal, Haryana." />
+            </Helmet>
+
             <Header />
 
             {/* Page Header */}
@@ -103,7 +110,7 @@ const Contact = () => {
                         </div>
                     </div>
 
-                    {/* Map Embed - Fixed Grayscale */}
+                    {/* Map Embed */}
                     <div className="h-64 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-slate-700 transition-all duration-500">
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d216.63054829712888!2d76.9847227033182!3d29.688205837308004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e7022e3089c75%3A0x278c784abefd48a3!2sR%20P%20Goyal%20%26%20Sons%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1766596304282!5m2!1sen!2sin"
@@ -112,6 +119,8 @@ const Contact = () => {
                             style={{ border: 0 }}
                             allowFullScreen=""
                             loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            className="grayscale hover:grayscale-0 transition-all duration-500"
                         ></iframe>
                     </div>
                 </div>
@@ -173,12 +182,13 @@ const Contact = () => {
                             <select
                                 id="interest"
                                 name="interest"
+                                defaultValue={initialInterest} // <--- AUTO SELECTS BASED ON SOURCE
                                 className="w-full bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded p-3 text-gray-900 dark:text-white focus:outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] transition-all"
                             >
-                                <option>Bulk Timber Supply</option>
-                                <option>Plywood & Laminates</option>
-                                <option>Sawmill Services</option>
-                                <option>Other Inquiry</option>
+                                <option value="Bulk Timber Supply">Bulk Timber Supply</option>
+                                <option value="Plywood & Laminates">Plywood & Laminates</option>
+                                <option value="Sawmill Services">Sawmill Services</option>
+                                <option value="Other Inquiry">Other Inquiry</option>
                             </select>
                         </div>
 

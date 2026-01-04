@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { motion, AnimatePresence } from "framer-motion";
+import { FilterX } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import InfoCard from "../components/InfoCard";
@@ -82,25 +84,50 @@ const Catalog = () => {
 
             {/* Product Grid */}
             <div className="max-w-7xl mx-auto px-6 pb-20">
-                {filteredProducts.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {filteredProducts.map((item, index) => (
-                            <InfoCard
-                                key={item.id}
-                                delay={index}
-                                image={imageMap[item.imageKey]}
-                                title={item.name}
-                                subtitle={item.origin}
-                                tag={item.grade}
-                                description={item.desc}
-                            />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-20 text-gray-500 dark:text-slate-500">
-                        <p>No products match your search criteria.</p>
-                    </div>
-                )}
+                <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <AnimatePresence mode="popLayout">
+                        {filteredProducts.length > 0 ? (
+                            filteredProducts.map((item) => (
+                                <motion.div
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.3 }}
+                                    key={item.id}
+                                >
+                                    <InfoCard
+                                        delay={0} // Layout animation handles the entry now
+                                        image={imageMap[item.imageKey]}
+                                        title={item.name}
+                                        subtitle={item.origin}
+                                        tag={item.grade}
+                                        description={item.desc}
+                                    />
+                                </motion.div>
+                            ))
+                        ) : (
+                            // Empty State
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="col-span-full py-20 text-center"
+                            >
+                                <div className="inline-block p-4 bg-gray-100 dark:bg-slate-800 rounded-full mb-4">
+                                    <FilterX className="text-gray-400 w-12 h-12" />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">No Match Found</h3>
+                                <p className="text-gray-500 dark:text-slate-400 mb-6">We couldn't find any timber matching your search.</p>
+                                <button
+                                    onClick={() => {setSearchTerm(""); setFilterCategory("All");}}
+                                    className="text-[#d97706] font-bold uppercase text-xs tracking-widest hover:underline cursor-pointer"
+                                >
+                                    Clear Filters
+                                </button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
             </div>
 
             <Footer />
