@@ -4,7 +4,8 @@ import Contact from './pages/Contact';
 import Catalog from './pages/Catalog';
 import Plywood from './pages/Plywood';
 import Services from './pages/Services';
-import Gallery from './pages/Gallery'; // <--- 1. Import Gallery
+import Gallery from './pages/Gallery';
+import NotFound from './pages/NotFound'; // Import the new page
 
 function App() {
     return (
@@ -14,9 +15,10 @@ function App() {
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/plywood" element={<Plywood />} />
             <Route path="/services" element={<Services />} />
-
-            {/* 2. Add Gallery Route */}
             <Route path="/gallery" element={<Gallery />} />
+
+            {/* Catch-all route for 404 errors */}
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }

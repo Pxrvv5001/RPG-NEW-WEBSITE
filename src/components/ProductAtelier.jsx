@@ -2,25 +2,28 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, AlertCircle } from "lucide-react";
 
-// Reliable Unsplash IDs for specific wood textures
+// ▼▼▼ CHANGE THE FILE NAMES BELOW TO MATCH YOUR IMAGES ▼▼▼
+import pineImg from "../assets/newpine.jpg";      // <--- REPLACE "pine.jpg" WITH YOUR PINE IMAGE NAME
+import veneerImg from "../assets/newgurjan.jpg";  // <--- REPLACE "gurjan.jpg" WITH YOUR VENEER IMAGE NAME
+
 const products = [
     {
         id: "teak",
         name: "Burma Teak",
         origin: "Tanzania / Myanmar",
         desc: "The gold standard. Known for rich oil content and weather resistance.",
-        // Dark, rich wood texture
+        // This keeps loading the Teak image from your public folder
         image: "/Burma%20teak.jpg",
         accent: "from-amber-700 to-amber-900",
-        fallbackColor: "bg-[#5D4037]" // Fallback color if image fails
+        fallbackColor: "bg-[#5D4037]"
     },
     {
         id: "pine",
         name: "Yellow Pine",
         origin: "USA / Canada",
         desc: "Robust softwood with bold grain patterns. Ideal for heavy construction.",
-        // Light, knotty wood texture
-        image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=1200&auto=format&fit=crop",
+        // Uses the pine image you imported above
+        image: pineImg,
         accent: "from-yellow-600 to-orange-800",
         fallbackColor: "bg-[#E2C290]"
     },
@@ -29,8 +32,8 @@ const products = [
         name: "Exotic Veneer",
         origin: "Global Select",
         desc: "Precision-sliced hardwood for luxury cabinetry and paneling.",
-        // Decorative, swirling grain
-        image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop",
+        // Uses the veneer image you imported above
+        image: veneerImg,
         accent: "from-stone-600 to-stone-800",
         fallbackColor: "bg-[#4E342E]"
     }
@@ -61,7 +64,7 @@ const ProductAtelier = () => {
     );
 };
 
-// Extracted Card Component to handle Image Loading Logic
+// Extracted Card Component
 const Card = ({ product }) => {
     const [imgError, setImgError] = useState(false);
 
@@ -81,22 +84,22 @@ const Card = ({ product }) => {
                         className="w-full h-full object-cover"
                         whileHover={{ scale: 1.25 }}
                         transition={{ duration: 1.2, ease: "easeOut" }}
-                        onError={() => setImgError(true)} // Keeps the layout intact if image fails
+                        onError={() => setImgError(true)}
                     />
                 ) : (
-                    // Fallback UI if image breaks
+                    // Fallback if image name is wrong or missing
                     <div className="w-full h-full flex flex-col items-center justify-center opacity-30">
                         <AlertCircle className="text-white w-12 h-12 mb-2" />
-                        <span className="text-white text-xs uppercase tracking-widest">Texture Preview</span>
+                        <span className="text-white text-xs uppercase tracking-widest">Image Not Found</span>
                     </div>
                 )}
 
-                {/* Dark Overlay (Only visible if image loads) */}
+                {/* Dark Overlay */}
                 {!imgError && (
                     <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-all duration-500"></div>
                 )}
 
-                {/* Magnifying Glass Icon (On Hover) */}
+                {/* Hover Icon */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                     <div className="bg-black/60 p-3 rounded-full backdrop-blur-sm border border-white/20">
                         <Search className="text-white w-6 h-6" />
