@@ -55,7 +55,7 @@ const Footer = () => {
                         <li className="flex items-start gap-3">
                             <MapPin className="text-[#d97706] shrink-0" size={18} />
                             <a
-                                href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d216.63054829712888!2d76.9847227033182!3d29.688205837308004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e7022e3089c75%3A0x278c784abefd48a3!2sR%20P%20Goyal%20%26%20Sons%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1766596304282!5m2!1sen!2sin"
+                                href="https://maps.google.com/?q=R.P.+Goyal+and+Sons+Timber+Market+Karnal"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-600 dark:text-slate-300 hover:text-[#d97706] dark:hover:text-[#d97706] transition-colors"

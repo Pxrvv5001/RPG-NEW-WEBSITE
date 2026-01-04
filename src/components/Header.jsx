@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion"; // <--- 1. Import Framer Motion
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -42,7 +42,6 @@ const Header = () => {
     // --- SCROLL LOGIC ---
     const handleScroll = (id) => {
         setIsMobileMenuOpen(false);
-
         if (location.pathname !== '/') {
             navigate('/');
             setTimeout(() => {
@@ -53,6 +52,25 @@ const Header = () => {
             const element = document.getElementById(id);
             if (element) element.scrollIntoView({ behavior: 'smooth' });
         }
+    };
+
+    // Helper to check active state
+    const isActive = (path) => location.pathname === path ? "text-[#d97706]" : "text-white/90 hover:text-[#d97706]";
+
+    // Animation Variants
+    const menuVariants = {
+        hidden: { opacity: 0, height: 0 },
+        show: {
+            opacity: 1,
+            height: "auto",
+            transition: { staggerChildren: 0.1, duration: 0.3 }
+        },
+        exit: { opacity: 0, height: 0, transition: { duration: 0.2 } }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, x: -20 },
+        show: { opacity: 1, x: 0 }
     };
 
     return (
@@ -70,27 +88,25 @@ const Header = () => {
                 </Link>
 
                 {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide text-white/90">
-                    <Link to="/" className="hover:text-[#d97706] transition-colors">Home</Link>
+                <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+                    <Link to="/" className={`transition-colors ${isActive('/')}`}>Home</Link>
 
-                    <button onClick={() => handleScroll('divisions')} className="hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
+                    <button onClick={() => handleScroll('divisions')} className="text-white/90 hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
                         Divisions
                     </button>
-                    <button onClick={() => handleScroll('atelier')} className="hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
+                    <button onClick={() => handleScroll('atelier')} className="text-white/90 hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
                         Materials
                     </button>
 
-                    {/* NEW GALLERY LINK */}
-                    <Link to="/gallery" className="hover:text-[#d97706] transition-colors">Gallery</Link>
-
-                    <Link to="/contact" className="hover:text-[#d97706] transition-colors">Contact</Link>
+                    <Link to="/gallery" className={`transition-colors ${isActive('/gallery')}`}>Gallery</Link>
+                    <Link to="/contact" className={`transition-colors ${isActive('/contact')}`}>Contact</Link>
 
                     {/* THEME TOGGLE */}
                     <button
                         onClick={toggleTheme}
                         className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors border border-white/10"
                     >
-                        {theme === "light" ? <Moon size={18} /> : <Sun size={18} className="text-[#d97706]" />}
+                        {theme === "light" ? <Moon size={18} className="text-white" /> : <Sun size={18} className="text-[#d97706]" />}
                     </button>
                 </nav>
 
@@ -110,21 +126,32 @@ const Header = () => {
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="md:hidden absolute top-full left-0 w-full bg-[#1c1c1c] border-t border-gray-800 shadow-xl"
+                        variants={menuVariants}
+                        initial="hidden"
+                        animate="show"
+                        exit="exit"
+                        className="md:hidden absolute top-full left-0 w-full bg-[#1c1c1c] border-t border-gray-800 shadow-xl overflow-hidden"
                     >
-                        <div className="flex flex-col p-6 gap-4 text-white">
-                            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                        <div className="flex flex-col p-6 gap-6 text-white text-lg font-serif">
+                            <motion.div variants={itemVariants}>
+                                <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+                            </motion.div>
 
-                            <button onClick={() => handleScroll('divisions')} className="text-left hover:text-[#d97706]">Divisions</button>
-                            <button onClick={() => handleScroll('atelier')} className="text-left hover:text-[#d97706]">Materials</button>
+                            <motion.div variants={itemVariants}>
+                                <button onClick={() => handleScroll('divisions')} className="text-left hover:text-[#d97706]">Divisions</button>
+                            </motion.div>
 
-                            <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">Gallery</Link>
+                            <motion.div variants={itemVariants}>
+                                <button onClick={() => handleScroll('atelier')} className="text-left hover:text-[#d97706]">Materials</button>
+                            </motion.div>
 
-                            <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+                            <motion.div variants={itemVariants}>
+                                <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">Gallery</Link>
+                            </motion.div>
+
+                            <motion.div variants={itemVariants}>
+                                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+                            </motion.div>
                         </div>
                     </motion.div>
                 )}

@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
-
-// ▼▼▼ IMPORT YOUR IMAGE HERE ▼▼▼
-// Make sure this path matches your actual file in src/assets/
-import heroBg from "../assets/my-new-hero.jpg";
+import { ChevronDown } from "lucide-react";
+import heroBg from "../assets/my-new-hero.jpg"; // Check if this path is correct for you
 
 const Hero = () => {
     const scrollToDivisions = () => {
@@ -15,17 +13,15 @@ const Hero = () => {
     return (
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
 
-            {/* 1. REAL IMAGE TAG (Loads Faster on Mobile) */}
+            {/* Background Image */}
             <img
                 src={heroBg}
                 alt="Timber Yard"
                 className="absolute inset-0 w-full h-full object-cover"
-                // This attribute tells the browser: "Download this NOW"
                 fetchPriority="high"
             />
 
-            {/* 2. DARK OVERLAY (Sits on top of the image) */}
-            {/* Adjust opacity (/40) here if needed */}
+            {/* Dark Overlay */}
             <div className="absolute inset-0 bg-[#0f172a]/40"></div>
 
             {/* Content Container */}
@@ -70,6 +66,17 @@ const Hero = () => {
                     </button>
                 </motion.div>
             </div>
+
+            {/* Scroll Down Indicator */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, y: [0, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 z-20 cursor-pointer"
+                onClick={scrollToDivisions}
+            >
+                <ChevronDown size={32} />
+            </motion.div>
         </section>
     );
 };

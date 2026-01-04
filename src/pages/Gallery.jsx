@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ZoomIn } from "lucide-react";
+import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -16,6 +16,24 @@ const galleryImages = [
 
 const Gallery = () => {
     const [selectedId, setSelectedId] = useState(null);
+    const [index, setIndex] = useState(0);
+
+    const openLightbox = (i) => {
+        setIndex(i);
+        setSelectedId(galleryImages[i].id);
+    };
+
+    const nextImage = (e) => {
+        e.stopPropagation();
+        const newIndex = (index + 1) % galleryImages.length;
+        setIndex(newIndex);
+    };
+
+    const prevImage = (e) => {
+        e.stopPropagation();
+        const newIndex = (index - 1 + galleryImages.length) % galleryImages.length;
+        setIndex(newIndex);
+    };
 
     return (
         <div className="bg-white dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
@@ -38,11 +56,11 @@ const Gallery = () => {
             {/* Gallery Grid */}
             <div className="max-w-7xl mx-auto px-6 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {galleryImages.map((image) => (
+                    {galleryImages.map((image, i) => (
                         <motion.div
                             key={image.id}
                             layoutId={`card-${image.id}`}
-                            onClick={() => setSelectedId(image.id)}
+                            onClick={() => openLightbox(i)}
                             className="group relative h-72 cursor-pointer overflow-hidden rounded-lg shadow-lg"
                             whileHover={{ y: -5 }}
                         >
@@ -64,7 +82,7 @@ const Gallery = () => {
                 </div>
             </div>
 
-            {/* Lightbox Modal (Click to Expand) */}
+            {/* Lightbox Modal */}
             <AnimatePresence>
                 {selectedId && (
                     <motion.div
@@ -74,24 +92,43 @@ const Gallery = () => {
                         className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4"
                         onClick={() => setSelectedId(null)}
                     >
-                        <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors">
+                        {/* Close Button */}
+                        <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50">
                             <X size={40} />
                         </button>
 
-                        {galleryImages.map((image) => {
-                            if (image.id === selectedId) {
-                                return (
-                                    <motion.img
-                                        layoutId={`card-${image.id}`}
-                                        key={image.id}
-                                        src={image.src}
-                                        className="max-h-[85vh] max-w-full rounded shadow-2xl"
-                                        onClick={(e) => e.stopPropagation()}
-                                    />
-                                );
-                            }
-                            return null;
-                        })}
+                        {/* Prev Button */}
+                        <button
+                            onClick={prevImage}
+                            className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50"
+                        >
+                            <ChevronLeft size={48} />
+                        </button>
+
+                        {/* Next Button */}
+                        <button
+                            onClick={nextImage}
+                            className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50"
+                        >
+                            <ChevronRight size={48} />
+                        </button>
+
+                        {/* Image */}
+                        <motion.img
+                            key={index} // Changing key triggers the animation
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.3 }}
+                            src={galleryImages[index].src}
+                            className="max-h-[85vh] max-w-full rounded shadow-2xl object-contain"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+
+                        {/* Caption */}
+                        <div className="absolute bottom-8 left-0 w-full text-center pointer-events-none">
+                            <p className="text-white/80 font-serif text-lg">{galleryImages[index].category}</p>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
