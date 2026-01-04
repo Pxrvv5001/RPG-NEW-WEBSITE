@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // <--- IMPORT ADDED
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trees, Layers, Settings, X, CheckCircle2, ArrowRight } from "lucide-react";
 
@@ -21,7 +21,7 @@ const businesses = [
                 "Custom Sizing for Bulk Orders"
             ],
             cta: "View Timber Catalog",
-            link: "/catalog" // <--- Points to Catalog Page
+            link: "/catalog"
         },
         color: "bg-[#1a2f23]",
         accent: "text-green-400"
@@ -42,7 +42,7 @@ const businesses = [
                 "Calibrated Plywood for Modular Kitchens"
             ],
             cta: "Check Plywood Specs",
-            link: "/plywood" // <--- Points to Plywood Page
+            link: "/plywood"
         },
         color: "bg-[#451a03]",
         accent: "text-amber-400"
@@ -63,7 +63,7 @@ const businesses = [
                 "Log Peeling for Veneers"
             ],
             cta: "Book Service",
-            link: "/services" // <--- Points to Services Page
+            link: "/services"
         },
         color: "bg-[#1e293b]",
         accent: "text-blue-400"
@@ -96,19 +96,20 @@ const BusinessGrid = () => {
                             key={biz.id}
                             onClick={() => setSelectedId(biz.id)}
                             whileHover={{ y: -8 }}
-                            className="bg-white dark:bg-[#1e293b] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-all relative overflow-hidden group active:scale-95"
+                            className="transform-gpu bg-white dark:bg-[#1e293b] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-all relative overflow-hidden group active:scale-95"
                         >
-                            <motion.div layoutId={`icon-${biz.id}`} className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors">
+                            {/* REMOVED layoutId from inner elements to fix mobile lag */}
+                            <div className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors">
                                 {biz.icon}
-                            </motion.div>
+                            </div>
 
-                            <motion.h3 layoutId={`title-${biz.id}`} className="text-xl md:text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2 transition-colors">
+                            <h3 className="text-xl md:text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2 transition-colors">
                                 {biz.title}
-                            </motion.h3>
+                            </h3>
 
-                            <motion.p layoutId={`desc-${biz.id}`} className="text-gray-600 dark:text-slate-400 text-sm mb-6 leading-relaxed transition-colors">
+                            <p className="text-gray-600 dark:text-slate-400 text-sm mb-6 leading-relaxed transition-colors">
                                 {biz.desc}
-                            </motion.p>
+                            </p>
 
                             <div className="flex items-center gap-2 text-[#d97706] font-bold text-xs tracking-widest uppercase mt-auto">
                                 <span>View Details</span>
@@ -138,7 +139,7 @@ const BusinessGrid = () => {
                                         <motion.div
                                             layoutId={`card-${biz.id}`}
                                             key={biz.id}
-                                            className={`w-full max-w-2xl ${biz.color} text-white rounded-2xl shadow-2xl pointer-events-auto relative flex flex-col md:flex-row max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-visible`}
+                                            className={`transform-gpu w-full max-w-2xl ${biz.color} text-white rounded-2xl shadow-2xl pointer-events-auto relative flex flex-col md:flex-row max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-visible`}
                                         >
                                             {/* Close Button */}
                                             <button
@@ -151,12 +152,13 @@ const BusinessGrid = () => {
                                             {/* Left Side */}
                                             <div className="p-8 md:p-10 flex flex-col justify-between md:w-2/5 border-b md:border-b-0 md:border-r border-white/10 shrink-0">
                                                 <div>
-                                                    <motion.div layoutId={`icon-${biz.id}`} className={`mb-6 ${biz.accent}`}>
+                                                    {/* Removed layoutId here too */}
+                                                    <div className={`mb-6 ${biz.accent}`}>
                                                         {biz.icon}
-                                                    </motion.div>
-                                                    <motion.h3 layoutId={`title-${biz.id}`} className="text-2xl md:text-3xl font-serif font-bold mb-2">
+                                                    </div>
+                                                    <h3 className="text-2xl md:text-3xl font-serif font-bold mb-2">
                                                         {biz.title}
-                                                    </motion.h3>
+                                                    </h3>
                                                     <p className="text-white/60 text-sm">{biz.subtitle}</p>
                                                 </div>
                                                 <div className="hidden md:block mt-12">
@@ -184,9 +186,6 @@ const BusinessGrid = () => {
                                                         ))}
                                                     </ul>
 
-                                                    {/* ▼▼▼ THE FIXED BUTTON ▼▼▼
-                              Using <Link> to navigate and onClick to close modal
-                          */}
                                                     <Link
                                                         to={biz.details.link}
                                                         onClick={() => setSelectedId(null)}

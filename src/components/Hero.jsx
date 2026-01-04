@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 
+// ▼▼▼ KEEP YOUR IMPORTED IMAGE HERE ▼▼▼
+import heroBg from "../assets/my-new-hero.jpg";
+
 const Hero = () => {
     // Scroll handler for the button
     const scrollToDivisions = () => {
@@ -15,10 +18,11 @@ const Hero = () => {
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{
-                    backgroundImage: "url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1200&auto=format&fit=crop')",
+                    backgroundImage: `url(${heroBg})`,
                 }}
             >
-                <div className="absolute inset-0 bg-[#0f172a]/60"></div>
+                {/* ▼▼▼ OPACITY CHANGED HERE (from /60 to /40) ▼▼▼ */}
+                <div className="absolute inset-0 bg-[#0f172a]/40"></div>
             </div>
 
             {/* Content Container */}
@@ -55,7 +59,6 @@ const Hero = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
                 >
-                    {/* FIXED BUTTON: Uses onClick instead of href */}
                     <button
                         onClick={scrollToDivisions}
                         className="inline-block px-8 py-4 md:py-3 bg-[#d97706] text-white font-medium text-xs md:text-sm tracking-widest uppercase hover:bg-[#b45309] transition-all duration-300 rounded md:rounded-none cursor-pointer border-none"
