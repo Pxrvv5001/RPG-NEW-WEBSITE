@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 
-// ▼▼▼ YOUR IMPORTED IMAGE ▼▼▼
+// ▼▼▼ IMPORT YOUR IMAGE HERE ▼▼▼
+// Make sure this path matches your actual file in src/assets/
 import heroBg from "../assets/my-new-hero.jpg";
 
 const Hero = () => {
@@ -14,15 +15,17 @@ const Hero = () => {
     return (
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
 
-            {/* 1. REAL IMAGE TAG (Loads Faster) */}
+            {/* 1. REAL IMAGE TAG (Loads Faster on Mobile) */}
             <img
                 src={heroBg}
                 alt="Timber Yard"
                 className="absolute inset-0 w-full h-full object-cover"
-                fetchPriority="high" // <--- CRITICAL FOR MOBILE SPEED
+                // This attribute tells the browser: "Download this NOW"
+                fetchPriority="high"
             />
 
             {/* 2. DARK OVERLAY (Sits on top of the image) */}
+            {/* Adjust opacity (/40) here if needed */}
             <div className="absolute inset-0 bg-[#0f172a]/40"></div>
 
             {/* Content Container */}
