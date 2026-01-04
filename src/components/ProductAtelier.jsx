@@ -2,9 +2,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, AlertCircle } from "lucide-react";
 
-// ▼▼▼ CHANGE THE FILE NAMES BELOW TO MATCH YOUR IMAGES ▼▼▼
-import pineImg from "../assets/newpine.jpg";      // <--- REPLACE "pine.jpg" WITH YOUR PINE IMAGE NAME
-import veneerImg from "../assets/newgurjan.jpg";  // <--- REPLACE "gurjan.jpg" WITH YOUR VENEER IMAGE NAME
+// ▼▼▼ UNIFIED IMPORTS ▼▼▼
+import pineImg from "../assets/newpine.jpg";
+import veneerImg from "../assets/newgurjan.jpg";
+import teakImg from "../assets/Burma teak.jpg"; // <--- Ensure you have teak.jpg in assets
 
 const products = [
     {
@@ -12,8 +13,7 @@ const products = [
         name: "Burma Teak",
         origin: "Tanzania / Myanmar",
         desc: "The gold standard. Known for rich oil content and weather resistance.",
-        // This keeps loading the Teak image from your public folder
-        image: "/Burma%20teak.jpg",
+        image: teakImg, // <--- Using the imported variable now
         accent: "from-amber-700 to-amber-900",
         fallbackColor: "bg-[#5D4037]"
     },
@@ -22,7 +22,6 @@ const products = [
         name: "Yellow Pine",
         origin: "USA / Canada",
         desc: "Robust softwood with bold grain patterns. Ideal for heavy construction.",
-        // Uses the pine image you imported above
         image: pineImg,
         accent: "from-yellow-600 to-orange-800",
         fallbackColor: "bg-[#E2C290]"
@@ -32,7 +31,6 @@ const products = [
         name: "Exotic Veneer",
         origin: "Global Select",
         desc: "Precision-sliced hardwood for luxury cabinetry and paneling.",
-        // Uses the veneer image you imported above
         image: veneerImg,
         accent: "from-stone-600 to-stone-800",
         fallbackColor: "bg-[#4E342E]"
@@ -64,7 +62,6 @@ const ProductAtelier = () => {
     );
 };
 
-// Extracted Card Component
 const Card = ({ product }) => {
     const [imgError, setImgError] = useState(false);
 
@@ -75,7 +72,6 @@ const Card = ({ product }) => {
             viewport={{ once: true }}
             className="group bg-[#261f18] border-b-2 border-[#d97706]/20 hover:border-[#d97706] transition-all duration-500 overflow-hidden"
         >
-            {/* Image Container */}
             <div className={`relative h-80 overflow-hidden ${imgError ? product.fallbackColor : 'bg-black'}`}>
                 {!imgError ? (
                     <motion.img
@@ -87,19 +83,16 @@ const Card = ({ product }) => {
                         onError={() => setImgError(true)}
                     />
                 ) : (
-                    // Fallback if image name is wrong or missing
                     <div className="w-full h-full flex flex-col items-center justify-center opacity-30">
                         <AlertCircle className="text-white w-12 h-12 mb-2" />
                         <span className="text-white text-xs uppercase tracking-widest">Image Not Found</span>
                     </div>
                 )}
 
-                {/* Dark Overlay */}
                 {!imgError && (
                     <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-all duration-500"></div>
                 )}
 
-                {/* Hover Icon */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                     <div className="bg-black/60 p-3 rounded-full backdrop-blur-sm border border-white/20">
                         <Search className="text-white w-6 h-6" />
@@ -107,7 +100,6 @@ const Card = ({ product }) => {
                 </div>
             </div>
 
-            {/* Details */}
             <div className="p-8">
                 <div className={`h-1 w-12 mb-4 bg-gradient-to-r ${product.accent}`}></div>
                 <h4 className="text-[#d97706] text-xs font-bold uppercase tracking-widest mb-2">

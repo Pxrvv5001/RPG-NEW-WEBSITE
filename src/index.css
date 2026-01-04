@@ -19,3 +19,37 @@ body {
   background-color: #0f172a; /* Deep Blue/Black */
   color: #ffffff;            /* White Text */
 }
+
+/* ▼▼▼ NEW: CUSTOM SCROLLBAR ▼▼▼ */
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track (Background) */
+::-webkit-scrollbar-track {
+  background: #e5e5e5;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+/* Handle (The moving part) */
+::-webkit-scrollbar-thumb {
+  background: #d97706; /* Your Brand Gold */
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* Handle on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b45309;
+}
+
+/* ▼▼▼ NEW: SELECTION COLOR ▼▼▼ */
+/* When you highlight text, it turns gold instead of blue */
+::selection {
+  background-color: #d97706;
+  color: #ffffff;
+}
