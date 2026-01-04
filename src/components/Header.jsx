@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion"; // <--- 1. Import Framer Motion
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -62,7 +63,7 @@ const Header = () => {
                     : "bg-transparent py-6"
             }`}
         >
-            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-50">
                 {/* Logo */}
                 <Link to="/" className="text-2xl font-serif font-bold text-white tracking-widest">
                     R.P. GOYAL <span className="text-[#d97706]">&</span> SONS
@@ -105,22 +106,29 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu Dropdown */}
-            {isMobileMenuOpen && (
-                <div className="md:hidden absolute top-full left-0 w-full bg-[#1c1c1c] border-t border-gray-800">
-                    <div className="flex flex-col p-6 gap-4 text-white">
-                        <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            {/* Mobile Menu Dropdown with Animation */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="md:hidden absolute top-full left-0 w-full bg-[#1c1c1c] border-t border-gray-800 shadow-xl"
+                    >
+                        <div className="flex flex-col p-6 gap-4 text-white">
+                            <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
 
-                        <button onClick={() => handleScroll('divisions')} className="text-left hover:text-[#d97706]">Divisions</button>
-                        <button onClick={() => handleScroll('atelier')} className="text-left hover:text-[#d97706]">Materials</button>
+                            <button onClick={() => handleScroll('divisions')} className="text-left hover:text-[#d97706]">Divisions</button>
+                            <button onClick={() => handleScroll('atelier')} className="text-left hover:text-[#d97706]">Materials</button>
 
-                        {/* NEW GALLERY LINK (MOBILE) */}
-                        <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">Gallery</Link>
+                            <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">Gallery</Link>
 
-                        <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-                    </div>
-                </div>
-            )}
+                            <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </header>
     );
 };
