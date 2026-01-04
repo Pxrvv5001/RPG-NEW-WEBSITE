@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
 
-// ▼▼▼ KEEP YOUR IMPORTED IMAGE HERE ▼▼▼
+// ▼▼▼ YOUR IMPORTED IMAGE ▼▼▼
 import heroBg from "../assets/my-new-hero.jpg";
 
 const Hero = () => {
-    // Scroll handler for the button
     const scrollToDivisions = () => {
         const element = document.getElementById("divisions");
         if (element) {
@@ -14,16 +13,17 @@ const Hero = () => {
 
     return (
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-            {/* Background Image */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{
-                    backgroundImage: `url(${heroBg})`,
-                }}
-            >
-                {/* ▼▼▼ OPACITY CHANGED HERE (from /60 to /40) ▼▼▼ */}
-                <div className="absolute inset-0 bg-[#0f172a]/40"></div>
-            </div>
+
+            {/* 1. REAL IMAGE TAG (Loads Faster) */}
+            <img
+                src={heroBg}
+                alt="Timber Yard"
+                className="absolute inset-0 w-full h-full object-cover"
+                fetchPriority="high" // <--- CRITICAL FOR MOBILE SPEED
+            />
+
+            {/* 2. DARK OVERLAY (Sits on top of the image) */}
+            <div className="absolute inset-0 bg-[#0f172a]/40"></div>
 
             {/* Content Container */}
             <div className="relative z-10 text-center px-4 md:px-6 max-w-5xl mx-auto">
