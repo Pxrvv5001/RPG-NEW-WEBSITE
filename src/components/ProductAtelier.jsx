@@ -2,10 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Search, AlertCircle } from "lucide-react";
 
-// ▼▼▼ UNIFIED IMPORTS ▼▼▼
 import pineImg from "../assets/newpine.jpg";
 import veneerImg from "../assets/newgurjan.jpg";
-import teakImg from "../assets/Burma teak.jpg"; // <--- Ensure you have teak.jpg in assets
+import teakImg from "../assets/teak.jpg";
 
 const products = [
     {
@@ -13,7 +12,7 @@ const products = [
         name: "Burma Teak",
         origin: "Tanzania / Myanmar",
         desc: "The gold standard. Known for rich oil content and weather resistance.",
-        image: teakImg, // <--- Using the imported variable now
+        image: teakImg,
         accent: "from-amber-700 to-amber-900",
         fallbackColor: "bg-[#5D4037]"
     },
@@ -39,7 +38,8 @@ const products = [
 
 const ProductAtelier = () => {
     return (
-        <section id="atelier" className="py-24 bg-[#1a120b] overflow-hidden">
+        // ▼▼▼ ADDED scroll-mt-32 HERE ▼▼▼
+        <section id="atelier" className="scroll-mt-32 py-24 bg-[#1a120b] overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Header */}
                 <div className="text-center mb-16 text-white">

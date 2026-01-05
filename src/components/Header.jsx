@@ -39,18 +39,25 @@ const Header = () => {
         setTheme(theme === "light" ? "dark" : "light");
     };
 
-    // --- SCROLL LOGIC ---
+    // --- SIMPLIFIED SCROLL LOGIC ---
     const handleScroll = (id) => {
         setIsMobileMenuOpen(false);
+
+        const executeScroll = () => {
+            const element = document.getElementById(id);
+            if (element) {
+                // We rely on 'scroll-mt-32' in the CSS to handle the header offset
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        };
+
         if (location.pathname !== '/') {
             navigate('/');
-            setTimeout(() => {
-                const element = document.getElementById(id);
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }, 300);
+            // Small delay to allow the Home page to mount
+            setTimeout(executeScroll, 500);
         } else {
-            const element = document.getElementById(id);
-            if (element) element.scrollIntoView({ behavior: 'smooth' });
+            // If already on Home, scroll immediately
+            executeScroll();
         }
     };
 

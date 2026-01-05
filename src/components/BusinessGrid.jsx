@@ -74,7 +74,8 @@ const BusinessGrid = () => {
     const [selectedId, setSelectedId] = useState(null);
 
     return (
-        <section id="divisions" className="py-16 md:py-24 bg-[#f9f8f4] dark:bg-[#0f172a] relative transition-colors duration-500">
+        // ▼▼▼ ADDED scroll-mt-32 HERE ▼▼▼
+        <section id="divisions" className="scroll-mt-32 py-16 md:py-24 bg-[#f9f8f4] dark:bg-[#0f172a] relative transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* SECTION HEADER */}
@@ -98,7 +99,6 @@ const BusinessGrid = () => {
                             whileHover={{ y: -8 }}
                             className="transform-gpu bg-white dark:bg-[#1e293b] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-all relative overflow-hidden group active:scale-95"
                         >
-                            {/* REMOVED layoutId from inner elements to fix mobile lag */}
                             <div className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors">
                                 {biz.icon}
                             </div>
@@ -152,7 +152,6 @@ const BusinessGrid = () => {
                                             {/* Left Side */}
                                             <div className="p-8 md:p-10 flex flex-col justify-between md:w-2/5 border-b md:border-b-0 md:border-r border-white/10 shrink-0">
                                                 <div>
-                                                    {/* Removed layoutId here too */}
                                                     <div className={`mb-6 ${biz.accent}`}>
                                                         {biz.icon}
                                                     </div>
