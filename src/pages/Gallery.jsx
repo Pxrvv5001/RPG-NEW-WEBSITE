@@ -4,14 +4,43 @@ import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-// REPLACE THESE URLs WITH YOUR OWN IMAGES LATER
+// Local Images
+import loadingImg from "../assets/Loading.jpeg";
+import finishedTeakImg from "../assets/FinishedTeak.jpeg";
+import machineryImg from "../assets/Machinery.jpeg";
+import yardStockImg from "../assets/YardStock.jpeg";
+
 const galleryImages = [
-    { id: 1, src: "https://images.unsplash.com/photo-1610505466013-399ea40fa782?q=80&w=800", category: "Yard Stock" },
-    { id: 2, src: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800", category: "Machinery" },
-    { id: 3, src: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800", category: "Pine Logs" },
-    { id: 4, src: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800", category: "Finished Teak" },
-    { id: 5, src: "https://images.unsplash.com/photo-1505409627996-76e8a2910c79?q=80&w=800", category: "Warehouse" },
-    { id: 6, src: "https://images.unsplash.com/photo-1621260650965-021966589334?q=80&w=800", category: "Loading" },
+    {
+        id: 1,
+        src: loadingImg,
+        category: "Loading Operations"
+    },
+    {
+        id: 2,
+        src: finishedTeakImg,
+        category: "Finished Teak"
+    },
+    {
+        id: 3,
+        src: machineryImg,
+        category: "Machinery"
+    },
+    {
+        id: 4,
+        src: yardStockImg,
+        category: "Yard Stock"
+    },
+    {
+        id: 5,
+        src: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800",
+        category: "Pine Logs"
+    },
+    {
+        id: 6,
+        src: "https://images.unsplash.com/photo-1505409627996-76e8a2910c79?q=80&w=800",
+        category: "Warehouse"
+    }
 ];
 
 const Gallery = () => {
@@ -39,7 +68,6 @@ const Gallery = () => {
         <div className="bg-white dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
             <Header />
 
-            {/* Page Header */}
             <div className="bg-[#1c1c1c] pt-32 pb-16 px-6 text-center">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
@@ -53,7 +81,6 @@ const Gallery = () => {
                 </p>
             </div>
 
-            {/* Gallery Grid */}
             <div className="max-w-7xl mx-auto px-6 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {galleryImages.map((image, i) => (
@@ -70,7 +97,6 @@ const Gallery = () => {
                                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
 
-                            {/* Overlay */}
                             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                 <div className="text-center">
                                     <ZoomIn className="text-[#d97706] mx-auto mb-2" />
@@ -82,7 +108,6 @@ const Gallery = () => {
                 </div>
             </div>
 
-            {/* Lightbox Modal */}
             <AnimatePresence>
                 {selectedId && (
                     <motion.div
@@ -92,12 +117,11 @@ const Gallery = () => {
                         className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4"
                         onClick={() => setSelectedId(null)}
                     >
-                        {/* Close Button */}
                         <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50">
                             <X size={40} />
                         </button>
 
-                        {/* Prev Button */}
+                        {/* Fixed Buttons Below */}
                         <button
                             onClick={prevImage}
                             className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50"
@@ -105,7 +129,6 @@ const Gallery = () => {
                             <ChevronLeft size={48} />
                         </button>
 
-                        {/* Next Button */}
                         <button
                             onClick={nextImage}
                             className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50"
@@ -113,9 +136,8 @@ const Gallery = () => {
                             <ChevronRight size={48} />
                         </button>
 
-                        {/* Image */}
                         <motion.img
-                            key={index} // Changing key triggers the animation
+                            key={index}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
@@ -125,7 +147,6 @@ const Gallery = () => {
                             onClick={(e) => e.stopPropagation()}
                         />
 
-                        {/* Caption */}
                         <div className="absolute bottom-8 left-0 w-full text-center pointer-events-none">
                             <p className="text-white/80 font-serif text-lg">{galleryImages[index].category}</p>
                         </div>
