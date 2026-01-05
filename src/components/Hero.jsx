@@ -72,7 +72,7 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 z-20 cursor-pointer"
+                className="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/70 z-20 cursor-pointer"
                 onClick={scrollToDivisions}
             >
                 <ChevronDown size={32} />

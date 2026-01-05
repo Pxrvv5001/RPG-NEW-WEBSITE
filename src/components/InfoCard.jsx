@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import FadeImage from "./FadeImage"; // <--- Import the new component
 
 const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
     return (
@@ -11,13 +12,15 @@ const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
             className="group bg-[#f9f8f4] dark:bg-[#1e293b] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
         >
             {/* Image Section */}
-            <div className="h-64 overflow-hidden relative">
-                <img
+            <div className="h-64 relative">
+                {/* Use FadeImage instead of img */}
+                <FadeImage
                     src={image}
                     alt={title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="h-full w-full"
                 />
-                <div className="absolute top-4 left-4 bg-[#d97706] text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded">
+
+                <div className="absolute top-4 left-4 bg-[#d97706] text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded z-20">
                     {tag}
                 </div>
             </div>

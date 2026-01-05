@@ -1,13 +1,24 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import Home from './pages/Home';
-import Contact from './pages/Contact';
-import Catalog from './pages/Catalog';
-import Plywood from './pages/Plywood';
-import Services from './pages/Services';
-import Gallery from './pages/Gallery';
-import NotFound from './pages/NotFound';
-import FloatingWA from './components/FloatingWA'; // <--- 1. Import New Component
+import FloatingWA from './components/FloatingWA';
+
+// 1. LAZY LOAD YOUR PAGES
+// This splits the code into smaller chunks to make the initial load much faster.
+const Home = lazy(() => import('./pages/Home'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Catalog = lazy(() => import('./pages/Catalog'));
+const Plywood = lazy(() => import('./pages/Plywood'));
+const Services = lazy(() => import('./pages/Services'));
+const Gallery = lazy(() => import('./pages/Gallery'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// 2. Loading Component (Shows while a new page is fetching)
+const PageLoader = () => (
+    <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f172a]">
+        <div className="w-12 h-12 border-4 border-[#d97706] border-t-transparent rounded-full animate-spin"></div>
+    </div>
+);
 
 const PageWrapper = ({ children }) => (
     <motion.div
@@ -25,21 +36,24 @@ function App() {
 
     return (
         <>
-            {/* 2. Add Floating Button Here (Outside Routes so it stays persistent) */}
+            {/* Persistent Elements */}
             <FloatingWA />
 
-            <AnimatePresence mode="wait">
-                <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-                    <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-                    <Route path="/catalog" element={<PageWrapper><Catalog /></PageWrapper>} />
-                    <Route path="/plywood" element={<PageWrapper><Plywood /></PageWrapper>} />
-                    <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
-                    <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
+            {/* Wrap Routes in Suspense for Lazy Loading */}
+            <Suspense fallback={<PageLoader />}>
+                <AnimatePresence mode="wait">
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+                        <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+                        <Route path="/catalog" element={<PageWrapper><Catalog /></PageWrapper>} />
+                        <Route path="/plywood" element={<PageWrapper><Plywood /></PageWrapper>} />
+                        <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
+                        <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
 
-                    <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
-                </Routes>
-            </AnimatePresence>
+                        <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+                    </Routes>
+                </AnimatePresence>
+            </Suspense>
         </>
     );
 }
