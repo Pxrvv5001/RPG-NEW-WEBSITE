@@ -9,7 +9,6 @@ const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: delay * 0.1 }}
             viewport={{ once: true }}
-            // ▼▼▼ ADDED: h-full flex flex-col ▼▼▼
             className="h-full flex flex-col group bg-[#f9f8f4] dark:bg-[#1e293b] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
         >
             {/* Image Section */}
@@ -26,18 +25,18 @@ const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
             </div>
 
             {/* Content Section */}
-            {/* ▼▼▼ ADDED: flex flex-col flex-grow ▼▼▼ */}
             <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
                 <p className="text-[#d97706] text-xs font-bold uppercase tracking-widest mb-4">{subtitle}</p>
 
-                {/* ▼▼▼ ADDED: flex-grow (Pushes button to bottom) ▼▼▼ */}
                 <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
                     {description}
                 </p>
 
                 <Link
                     to="/contact"
+                    // ▼▼▼ SMART INQUIRY: Passes the product name to the form ▼▼▼
+                    state={{ interest: `Inquiry: ${title}` }}
                     className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1c1c1c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors mt-auto"
                 >
                     Inquire Now

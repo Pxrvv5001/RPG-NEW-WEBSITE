@@ -40,6 +40,12 @@ const Footer = () => {
                                 Sawmill Services
                             </Link>
                         </li>
+                        {/* ▼▼▼ NEW LINK ▼▼▼ */}
+                        <li>
+                            <Link to="/calculator" className="hover:text-[#d97706] transition text-gray-600 dark:text-slate-300">
+                                CFT Calculator
+                            </Link>
+                        </li>
                         <li>
                             <Link to="/gallery" className="hover:text-[#d97706] transition text-gray-600 dark:text-slate-300">
                                 Gallery

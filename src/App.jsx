@@ -2,6 +2,8 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import FloatingWA from './components/FloatingWA';
+// ▼▼▼ IMPORT SCROLL PROGRESS ▼▼▼
+import ScrollProgress from './components/ScrollProgress';
 
 const Home = lazy(() => import('./pages/Home'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -9,7 +11,7 @@ const Catalog = lazy(() => import('./pages/Catalog'));
 const Plywood = lazy(() => import('./pages/Plywood'));
 const Services = lazy(() => import('./pages/Services'));
 const Gallery = lazy(() => import('./pages/Gallery'));
-const Calculator = lazy(() => import('./pages/Calculator')); // <--- 1. Import Calculator
+const Calculator = lazy(() => import('./pages/Calculator'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PageLoader = () => (
@@ -38,6 +40,8 @@ function App() {
 
     return (
         <>
+            {/* ▼▼▼ ADD COMPONENT HERE ▼▼▼ */}
+            <ScrollProgress />
             <FloatingWA />
 
             <Suspense fallback={<PageLoader />}>
@@ -49,8 +53,6 @@ function App() {
                         <Route path="/plywood" element={<PageWrapper><Plywood /></PageWrapper>} />
                         <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
                         <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
-
-                        {/* ▼▼▼ 2. Add Route Here ▼▼▼ */}
                         <Route path="/calculator" element={<PageWrapper><Calculator /></PageWrapper>} />
 
                         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
