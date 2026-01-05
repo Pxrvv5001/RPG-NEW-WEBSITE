@@ -4,7 +4,6 @@ import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-// Local Images
 import loadingImg from "../assets/Loading.jpeg";
 import finishedTeakImg from "../assets/FinishedTeak.jpeg";
 import machineryImg from "../assets/Machinery.jpeg";
@@ -121,7 +120,6 @@ const Gallery = () => {
                             <X size={40} />
                         </button>
 
-                        {/* Fixed Buttons Below */}
                         <button
                             onClick={prevImage}
                             className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50"
