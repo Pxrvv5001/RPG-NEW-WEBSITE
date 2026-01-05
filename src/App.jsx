@@ -3,16 +3,15 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import FloatingWA from './components/FloatingWA';
 
-// 1. LAZY LOAD YOUR PAGES
 const Home = lazy(() => import('./pages/Home'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Catalog = lazy(() => import('./pages/Catalog'));
 const Plywood = lazy(() => import('./pages/Plywood'));
 const Services = lazy(() => import('./pages/Services'));
 const Gallery = lazy(() => import('./pages/Gallery'));
+const Calculator = lazy(() => import('./pages/Calculator')); // <--- 1. Import Calculator
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-// 2. Loading Component
 const PageLoader = () => (
     <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f172a]">
         <div className="w-12 h-12 border-4 border-[#d97706] border-t-transparent rounded-full animate-spin"></div>
@@ -33,19 +32,15 @@ const PageWrapper = ({ children }) => (
 function App() {
     const location = useLocation();
 
-    // Scroll Logic: Scrolls to top instantly when the exit animation completes
     const scrollToTop = () => {
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     };
 
     return (
         <>
-            {/* Persistent Elements */}
             <FloatingWA />
 
-            {/* Wrap Routes in Suspense for Lazy Loading */}
             <Suspense fallback={<PageLoader />}>
-                {/* ▼▼▼ ADDED onExitComplete HERE ▼▼▼ */}
                 <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
                     <Routes location={location} key={location.pathname}>
                         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
@@ -54,6 +49,9 @@ function App() {
                         <Route path="/plywood" element={<PageWrapper><Plywood /></PageWrapper>} />
                         <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
                         <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
+
+                        {/* ▼▼▼ 2. Add Route Here ▼▼▼ */}
+                        <Route path="/calculator" element={<PageWrapper><Calculator /></PageWrapper>} />
 
                         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
                     </Routes>

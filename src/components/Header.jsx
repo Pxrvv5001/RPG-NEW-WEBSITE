@@ -10,7 +10,6 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // --- THEME LOGIC ---
     const [theme, setTheme] = useState(() => {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme) return savedTheme;
@@ -39,11 +38,8 @@ const Header = () => {
         setTheme(theme === "light" ? "dark" : "light");
     };
 
-    // --- FIXED SCROLL LOGIC FOR MOBILE ---
     const handleScroll = (id) => {
-        // 1. Close the menu first
         setIsMobileMenuOpen(false);
-
         const executeScroll = () => {
             const element = document.getElementById(id);
             if (element) {
@@ -53,19 +49,14 @@ const Header = () => {
 
         if (location.pathname !== '/') {
             navigate('/');
-            // Wait for Home page to load
             setTimeout(executeScroll, 500);
         } else {
-            // ▼▼▼ FIXED: Increased to 400ms for mobile stability ▼▼▼
-            // Ensures menu close animation completes fully before scrolling
             setTimeout(executeScroll, 400);
         }
     };
 
-    // Helper to check active state
     const isActive = (path) => location.pathname === path ? "text-[#d97706]" : "text-white/90 hover:text-[#d97706]";
 
-    // Animation Variants
     const menuVariants = {
         hidden: { opacity: 0, height: 0 },
         show: {
@@ -90,7 +81,6 @@ const Header = () => {
             }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-50">
-                {/* Logo */}
                 <Link to="/" className="text-2xl font-serif font-bold text-white tracking-widest">
                     R.P. GOYAL <span className="text-[#d97706]">&</span> SONS
                 </Link>
@@ -106,10 +96,12 @@ const Header = () => {
                         Materials
                     </button>
 
+                    {/* ▼▼▼ ADDED TOOLS LINK HERE ▼▼▼ */}
+                    <Link to="/calculator" className={`transition-colors ${isActive('/calculator')}`}>Tools</Link>
+
                     <Link to="/gallery" className={`transition-colors ${isActive('/gallery')}`}>Gallery</Link>
                     <Link to="/contact" className={`transition-colors ${isActive('/contact')}`}>Contact</Link>
 
-                    {/* THEME TOGGLE */}
                     <button
                         onClick={toggleTheme}
                         className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors border border-white/10"
@@ -131,7 +123,7 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu Dropdown with Animation */}
+            {/* Mobile Menu Dropdown */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
@@ -152,6 +144,11 @@ const Header = () => {
 
                             <motion.div variants={itemVariants}>
                                 <button onClick={() => handleScroll('atelier')} className="text-left hover:text-[#d97706]">Materials</button>
+                            </motion.div>
+
+                            {/* ▼▼▼ ADDED MOBILE LINK HERE ▼▼▼ */}
+                            <motion.div variants={itemVariants}>
+                                <Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">Tools (Calc)</Link>
                             </motion.div>
 
                             <motion.div variants={itemVariants}>
