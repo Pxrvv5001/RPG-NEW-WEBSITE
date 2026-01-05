@@ -12,8 +12,8 @@ import teakImg from "../assets/teak.jpg";
 import merantiImg from "../assets/meranti.jpg";
 import pineImg from "../assets/pine.jpg";
 import spruceImg from "../assets/spruce.jpg";
-import walnutImg from "../assets/walnut.jpg";
-import ashImg from "../assets/ash.jpg";
+import resakImg from "../assets/resak.jpeg";
+import ecuadorImg from "../assets/ecuador.jpg";
 
 // Map keys from data to actual imported images
 const imageMap = {
@@ -21,8 +21,8 @@ const imageMap = {
     meranti: merantiImg,
     pine: pineImg,
     spruce: spruceImg,
-    walnut: walnutImg,
-    ash: ashImg
+    resak: resakImg,
+    ecuador: ecuadorImg
 };
 
 const Catalog = () => {
@@ -95,9 +95,11 @@ const Catalog = () => {
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.3 }}
                                     key={item.id}
+                                    // ▼▼▼ ADDED: h-full to the wrapper ▼▼▼
+                                    className="h-full"
                                 >
                                     <InfoCard
-                                        delay={0} // Layout animation handles the entry now
+                                        delay={0}
                                         image={imageMap[item.imageKey]}
                                         title={item.name}
                                         subtitle={item.origin}

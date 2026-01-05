@@ -9,8 +9,8 @@ import teakImg from "../assets/teak.jpg";
 const products = [
     {
         id: "teak",
-        name: "Burma Teak",
-        origin: "Tanzania / Myanmar",
+        name: "Sagwan Teak", // <--- UPDATED NAME
+        origin: "Tanzania / Ecuador",
         desc: "The gold standard. Known for rich oil content and weather resistance.",
         image: teakImg,
         accent: "from-amber-700 to-amber-900",
@@ -38,7 +38,6 @@ const products = [
 
 const ProductAtelier = () => {
     return (
-        // ▼▼▼ ADDED scroll-mt-32 HERE ▼▼▼
         <section id="atelier" className="scroll-mt-32 py-24 bg-[#1a120b] overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Header */}

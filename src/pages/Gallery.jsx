@@ -35,11 +35,6 @@ const galleryImages = [
         id: 5,
         src: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800",
         category: "Pine Logs"
-    },
-    {
-        id: 6,
-        src: "https://images.unsplash.com/photo-1505409627996-76e8a2910c79?q=80&w=800",
-        category: "Warehouse"
     }
 ];
 
@@ -56,14 +51,14 @@ const Gallery = () => {
         e.stopPropagation();
         const newIndex = (index + 1) % galleryImages.length;
         setIndex(newIndex);
-        setSelectedId(galleryImages[newIndex].id); // <--- FIXED: Update selectedId
+        setSelectedId(galleryImages[newIndex].id);
     };
 
     const prevImage = (e) => {
         e.stopPropagation();
         const newIndex = (index - 1 + galleryImages.length) % galleryImages.length;
         setIndex(newIndex);
-        setSelectedId(galleryImages[newIndex].id); // <--- FIXED: Update selectedId
+        setSelectedId(galleryImages[newIndex].id);
     };
 
     return (
@@ -90,7 +85,8 @@ const Gallery = () => {
                             key={image.id}
                             layoutId={`card-${image.id}`}
                             onClick={() => openLightbox(i)}
-                            className="group relative h-72 cursor-pointer overflow-hidden rounded-lg shadow-lg"
+                            // ▼▼▼ FEATURED LOGIC: First image spans 2 columns ▼▼▼
+                            className={`group relative h-72 cursor-pointer overflow-hidden rounded-lg shadow-lg ${i === 0 ? "md:col-span-2" : ""}`}
                             whileHover={{ y: -5 }}
                         >
                             <img

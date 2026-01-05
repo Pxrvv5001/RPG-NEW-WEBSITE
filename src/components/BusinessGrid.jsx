@@ -52,15 +52,15 @@ const businesses = [
         title: "Sawmill Services",
         subtitle: "Processing Unit",
         icon: <Settings size={40} />,
-        desc: "Precision cutting, seasoning, and chemical treatment facility.",
+        desc: "Precision cutting with Horizontal & Vertical Band Saws.",
         details: {
             heading: "Advanced Wood Processing",
+            // ▼▼▼ UPDATED POINTS: Added Vertical Saw ▼▼▼
             points: [
-                "Horizontal Band Saw Cutting (Precision Sizing)",
-                "Chemical Impregnation (Termite Proofing)",
-                "Kiln Seasoning (Moisture Control)",
-                "Planing & Surface Finishing",
-                "Log Peeling for Veneers"
+                "Horizontal Band Saw (Heavy Log Cutting)",
+                "Vertical Band Saw (Resizing & Splitting)",
+                "Log Peeling for Veneers",
+                "Custom Sawing for Bulk Orders"
             ],
             cta: "Book Service",
             link: "/services"
@@ -74,7 +74,6 @@ const BusinessGrid = () => {
     const [selectedId, setSelectedId] = useState(null);
 
     return (
-        // ▼▼▼ ADDED scroll-mt-32 HERE ▼▼▼
         <section id="divisions" className="scroll-mt-32 py-16 md:py-24 bg-[#f9f8f4] dark:bg-[#0f172a] relative transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6">
 

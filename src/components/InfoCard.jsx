@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import FadeImage from "./FadeImage"; // <--- Import the new component
+import FadeImage from "./FadeImage";
 
 const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
     return (
@@ -9,11 +9,11 @@ const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: delay * 0.1 }}
             viewport={{ once: true }}
-            className="group bg-[#f9f8f4] dark:bg-[#1e293b] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
+            // ▼▼▼ ADDED: h-full flex flex-col ▼▼▼
+            className="h-full flex flex-col group bg-[#f9f8f4] dark:bg-[#1e293b] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
         >
             {/* Image Section */}
-            <div className="h-64 relative">
-                {/* Use FadeImage instead of img */}
+            <div className="h-64 relative flex-shrink-0">
                 <FadeImage
                     src={image}
                     alt={title}
@@ -26,16 +26,19 @@ const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
             </div>
 
             {/* Content Section */}
-            <div className="p-6">
+            {/* ▼▼▼ ADDED: flex flex-col flex-grow ▼▼▼ */}
+            <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
                 <p className="text-[#d97706] text-xs font-bold uppercase tracking-widest mb-4">{subtitle}</p>
-                <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6 min-h-[60px]">
+
+                {/* ▼▼▼ ADDED: flex-grow (Pushes button to bottom) ▼▼▼ */}
+                <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
                     {description}
                 </p>
 
                 <Link
                     to="/contact"
-                    className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1c1c1c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+                    className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1c1c1c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors mt-auto"
                 >
                     Inquire Now
                 </Link>

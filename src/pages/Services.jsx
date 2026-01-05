@@ -4,56 +4,44 @@ import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-// ▼▼▼ IMPORT YOUR IMAGES HERE ▼▼▼
+// ▼▼▼ IMPORT IMAGES ▼▼▼
 import bandsawImg from "../assets/bandsaw.jpg";
-import chemicalImg from "../assets/chemical.jpg";
-import seasoningImg from "../assets/seasoning.jpg";
-import planingImg from "../assets/planing.jpg";
 import peelingImg from "../assets/peeling.jpg";
 import sizingImg from "../assets/sizing.jpg";
+import verticalImg from "../assets/vertical.jpg";
 
 const services = [
     {
         id: 1,
         name: "Horizontal Band Saw",
-        capacity: "Precision Cutting",
-        desc: "Advanced horizontal cutting for massive logs. Ensures minimum wastage and precise thickness.",
-        image: bandsawImg
+        capacity: "Heavy Log Cutting",
+        desc: "Advanced horizontal cutting for massive logs. Ensures minimum wastage and precise thickness for base production.",
+        image: bandsawImg,
+        fit: "object-cover" // Standard landscape fit
     },
     {
         id: 2,
-        name: "Chemical Treatment",
-        capacity: "Termite Proofing",
-        desc: "Vacuum pressure impregnation plant to treat wood against termites, fungus, and borers.",
-        image: chemicalImg
-    },
-    {
-        id: 3,
-        name: "Kiln Seasoning",
-        capacity: "Moisture Control",
-        desc: "Computerized steam seasoning chambers to reduce wood moisture content to standard levels.",
-        image: seasoningImg
-    },
-    {
-        id: 4,
-        name: "Surface Planing",
-        capacity: "Finishing",
-        desc: "High-speed planing machines to smooth rough timber surfaces for immediate joinery use.",
-        image: planingImg
+        name: "Vertical Band Saw",
+        capacity: "Resawing & Sizing",
+        desc: "High-speed vertical splitting. Ideal for resizing heavy flitches and cutting beams to custom structural sizes.",
+        image: verticalImg,
+        fit: "object-contain p-2 bg-white" // <--- FIXED: Shows full vertical image with padding
     },
     {
         id: 5,
         name: "Log Peeling",
         capacity: "Veneer Making",
         desc: "Rotary peeling setup for converting logs into thin veneer sheets for plywood manufacturing.",
-        image: peelingImg
+        image: peelingImg,
+        fit: "object-cover"
     },
     {
         id: 6,
         name: "Custom Sizing",
         capacity: "Order to Size",
         desc: "We cut timber to your exact architectural specifications for bulk construction orders.",
-        image: sizingImg
+        image: sizingImg,
+        fit: "object-cover"
     }
 ];
 
@@ -62,7 +50,7 @@ const Services = () => {
         <div className="bg-white dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Sawmill Services | R.P. Goyal & Sons</title>
-                <meta name="description" content="Professional wood processing services: Horizontal Band Saw, Chemical Treatment, and Kiln Seasoning." />
+                <meta name="description" content="Professional wood processing services: Horizontal & Vertical Band Saws, Log Peeling, and Custom Sizing." />
             </Helmet>
 
             <Header />
@@ -75,7 +63,7 @@ const Services = () => {
 
             {/* Grid */}
             <div className="max-w-7xl mx-auto px-6 py-20">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     {services.map((item, index) => (
                         <motion.div
                             key={item.id}
@@ -85,9 +73,15 @@ const Services = () => {
                             viewport={{ once: true }}
                             className="group bg-[#f9f8f4] dark:bg-[#1e293b] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
                         >
-                            <div className="h-64 overflow-hidden relative">
-                                <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-                                <div className="absolute top-4 left-4 bg-[#1e293b] text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded">
+                            {/* Image Container */}
+                            <div className="h-64 overflow-hidden relative bg-white dark:bg-gray-800">
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    // ▼▼▼ FIXED: Uses dynamic 'fit' class per item ▼▼▼
+                                    className={`w-full h-full transition-transform duration-700 group-hover:scale-105 ${item.fit}`}
+                                />
+                                <div className="absolute top-4 left-4 bg-[#1e293b] text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded shadow-md">
                                     Service
                                 </div>
                             </div>
@@ -100,7 +94,7 @@ const Services = () => {
                                 {/* Button -> Contact Page */}
                                 <Link
                                     to="/contact"
-                                    state={{ interest: "Sawmill Services" }} // <--- PASSING STATE HERE
+                                    state={{ interest: "Sawmill Services" }}
                                     className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1e293b] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
                                 >
                                     Book Service
