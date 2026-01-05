@@ -39,25 +39,26 @@ const Header = () => {
         setTheme(theme === "light" ? "dark" : "light");
     };
 
-    // --- SIMPLIFIED SCROLL LOGIC ---
+    // --- FIXED SCROLL LOGIC FOR MOBILE ---
     const handleScroll = (id) => {
+        // 1. Close the menu first
         setIsMobileMenuOpen(false);
 
         const executeScroll = () => {
             const element = document.getElementById(id);
             if (element) {
-                // We rely on 'scroll-mt-32' in the CSS to handle the header offset
                 element.scrollIntoView({ behavior: "smooth" });
             }
         };
 
         if (location.pathname !== '/') {
             navigate('/');
-            // Small delay to allow the Home page to mount
+            // Wait for Home page to load
             setTimeout(executeScroll, 500);
         } else {
-            // If already on Home, scroll immediately
-            executeScroll();
+            // ▼▼▼ ADDED 300ms DELAY HERE ▼▼▼
+            // This ensures the mobile menu closes fully BEFORE we try to scroll.
+            setTimeout(executeScroll, 300);
         }
     };
 

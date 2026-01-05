@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import FloatingWA from './components/FloatingWA';
 
 // 1. LAZY LOAD YOUR PAGES
-// This splits the code into smaller chunks to make the initial load much faster.
 const Home = lazy(() => import('./pages/Home'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Catalog = lazy(() => import('./pages/Catalog'));
@@ -13,7 +12,7 @@ const Services = lazy(() => import('./pages/Services'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-// 2. Loading Component (Shows while a new page is fetching)
+// 2. Loading Component
 const PageLoader = () => (
     <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f172a]">
         <div className="w-12 h-12 border-4 border-[#d97706] border-t-transparent rounded-full animate-spin"></div>
@@ -34,6 +33,11 @@ const PageWrapper = ({ children }) => (
 function App() {
     const location = useLocation();
 
+    // Scroll Logic: Scrolls to top instantly when the exit animation completes
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    };
+
     return (
         <>
             {/* Persistent Elements */}
@@ -41,7 +45,8 @@ function App() {
 
             {/* Wrap Routes in Suspense for Lazy Loading */}
             <Suspense fallback={<PageLoader />}>
-                <AnimatePresence mode="wait">
+                {/* ▼▼▼ ADDED onExitComplete HERE ▼▼▼ */}
+                <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
                     <Routes location={location} key={location.pathname}>
                         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
                         <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
