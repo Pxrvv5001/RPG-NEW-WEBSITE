@@ -83,9 +83,9 @@ const Gallery = () => {
                     {galleryImages.map((image, i) => (
                         <motion.div
                             key={image.id}
-                            layoutId={`card-${image.id}`}
+                            // ▼▼▼ FIX: Changed ID to be unique (gallery-card-1) ▼▼▼
+                            layoutId={`gallery-card-${image.id}`}
                             onClick={() => openLightbox(i)}
-                            // ▼▼▼ FEATURED LOGIC: First image spans 2 columns ▼▼▼
                             className={`group relative h-72 cursor-pointer overflow-hidden rounded-lg shadow-lg ${i === 0 ? "md:col-span-2" : ""}`}
                             whileHover={{ y: -5 }}
                         >
@@ -141,6 +141,8 @@ const Gallery = () => {
 
                         <motion.img
                             key={index}
+                            // ▼▼▼ FIX: Matches the new unique ID logic ▼▼▼
+                            layoutId={`gallery-card-${galleryImages[index].id}`}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
