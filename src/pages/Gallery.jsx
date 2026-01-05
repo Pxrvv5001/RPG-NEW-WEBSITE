@@ -4,6 +4,7 @@ import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+// Local Images
 import loadingImg from "../assets/Loading.jpeg";
 import finishedTeakImg from "../assets/FinishedTeak.jpeg";
 import machineryImg from "../assets/Machinery.jpeg";
@@ -55,12 +56,14 @@ const Gallery = () => {
         e.stopPropagation();
         const newIndex = (index + 1) % galleryImages.length;
         setIndex(newIndex);
+        setSelectedId(galleryImages[newIndex].id); // <--- FIXED: Update selectedId
     };
 
     const prevImage = (e) => {
         e.stopPropagation();
         const newIndex = (index - 1 + galleryImages.length) % galleryImages.length;
         setIndex(newIndex);
+        setSelectedId(galleryImages[newIndex].id); // <--- FIXED: Update selectedId
     };
 
     return (
@@ -116,13 +119,18 @@ const Gallery = () => {
                         className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4"
                         onClick={() => setSelectedId(null)}
                     >
-                        <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50">
+                        <button
+                            className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50"
+                            onClick={() => setSelectedId(null)}
+                            aria-label="Close gallery"
+                        >
                             <X size={40} />
                         </button>
 
                         <button
                             onClick={prevImage}
                             className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50"
+                            aria-label="Previous image"
                         >
                             <ChevronLeft size={48} />
                         </button>
@@ -130,6 +138,7 @@ const Gallery = () => {
                         <button
                             onClick={nextImage}
                             className="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50"
+                            aria-label="Next image"
                         >
                             <ChevronRight size={48} />
                         </button>

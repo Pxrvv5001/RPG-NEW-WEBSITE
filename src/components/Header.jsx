@@ -56,9 +56,9 @@ const Header = () => {
             // Wait for Home page to load
             setTimeout(executeScroll, 500);
         } else {
-            // ▼▼▼ ADDED 300ms DELAY HERE ▼▼▼
-            // This ensures the mobile menu closes fully BEFORE we try to scroll.
-            setTimeout(executeScroll, 300);
+            // ▼▼▼ FIXED: Increased to 400ms for mobile stability ▼▼▼
+            // Ensures menu close animation completes fully before scrolling
+            setTimeout(executeScroll, 400);
         }
     };
 
@@ -113,6 +113,7 @@ const Header = () => {
                     <button
                         onClick={toggleTheme}
                         className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors border border-white/10"
+                        aria-label="Toggle theme"
                     >
                         {theme === "light" ? <Moon size={18} className="text-white" /> : <Sun size={18} className="text-[#d97706]" />}
                     </button>
@@ -120,11 +121,11 @@ const Header = () => {
 
                 {/* Mobile Actions */}
                 <div className="md:hidden flex items-center gap-4">
-                    <button onClick={toggleTheme} className="text-white">
+                    <button onClick={toggleTheme} className="text-white" aria-label="Toggle theme">
                         {theme === "light" ? <Moon size={20} /> : <Sun size={20} className="text-[#d97706]" />}
                     </button>
 
-                    <button className="text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                    <button className="text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
                         {isMobileMenuOpen ? <X /> : <Menu /> }
                     </button>
                 </div>

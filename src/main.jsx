@@ -9,7 +9,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <HelmetProvider>
             <HashRouter>
-                {/* ScrollToTop removed from here - moved logic to App.jsx */}
                 <App />
             </HashRouter>
         </HelmetProvider>
