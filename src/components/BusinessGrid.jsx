@@ -13,12 +13,13 @@ const businesses = [
         desc: "Direct import of premium logs from Tanzania, Malaysia, and USA.",
         details: {
             heading: "Premium Hardwoods & Softwoods",
+            // ▼▼▼ UPDATED POINTS: Added Resak & Ecuador Sagwan ▼▼▼
             points: [
-                "Burma Teak (CP Teak) - Tanzania & Benin Origin",
+                "Tanzania Teak (Sagwan) - Premium Grade",
                 "Meranti Wood - Malaysian Red & Yellow",
-                "Southern Yellow Pine (SYP) - USA Grade A",
-                "German Pine & Spruce for Packaging",
-                "Custom Sizing for Bulk Orders"
+                "Resak Sawn Timber (Structural Heavy)",
+                "Ecuador Sagwan (Plantation Teak)",
+                "Southern Yellow Pine (SYP) & German Spruce"
             ],
             cta: "View Timber Catalog",
             link: "/catalog"
@@ -55,7 +56,6 @@ const businesses = [
         desc: "Precision cutting with Horizontal & Vertical Band Saws.",
         details: {
             heading: "Advanced Wood Processing",
-            // ▼▼▼ UPDATED POINTS: Added Vertical Saw ▼▼▼
             points: [
                 "Horizontal Band Saw (Heavy Log Cutting)",
                 "Vertical Band Saw (Resizing & Splitting)",
