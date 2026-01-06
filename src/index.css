@@ -2,22 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling for the whole site */
+/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Default Light Mode Background */
+/* Default Light Mode */
 body {
-  background-color: #f9f8f4; /* Cream */
-  color: #1c1c1c;            /* Dark Text */
-  transition: background-color 0.5s ease; /* Smooth fade effect */
+  background-color: #f9f8f4; /* Cream / Off-White */
+  color: #1c1c1c;            /* Dark Charcoal Text */
+  transition: background-color 0.5s ease;
 }
 
-/* Dark Mode Background (When class="dark" is active) */
+/* ▼▼▼ UPDATED: DARK MODE (No more Blue) ▼▼▼ */
 .dark body {
-  background-color: #0f172a; /* Deep Blue/Black */
-  color: #ffffff;            /* White Text */
+  background-color: #1c1c1c; /* Warm Charcoal (Industrial Black) */
+  color: #e7e5e4;            /* Stone-200 (Warm White) */
 }
 
 /* Custom Scrollbar */
@@ -28,12 +28,14 @@ body {
 ::-webkit-scrollbar-track {
   background: #e5e5e5;
 }
+
+/* ▼▼▼ UPDATED: SCROLLBAR TRACK ▼▼▼ */
 .dark ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: #292524; /* Dark Stone */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d97706; /* Your Brand Gold */
+  background: #d97706; /* Brand Orange */
   border-radius: 5px;
   border: 2px solid transparent;
   background-clip: content-box;
@@ -43,19 +45,17 @@ body {
   background: #b45309;
 }
 
-/* Custom Selection Color */
 ::selection {
   background-color: #d97706;
   color: #ffffff;
 }
 
-/* ▼▼▼ NEW: IMAGE PROTECTION ▼▼▼ */
-/* Prevents dragging images to desktop or new tabs */
+/* Image Protection */
 img {
   -webkit-user-drag: none;
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
-  user-select: none; /* Prevents highlighting */
+  user-select: none;
 }

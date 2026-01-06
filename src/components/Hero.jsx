@@ -1,10 +1,20 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroBg from "../assets/my-new-hero.jpg"; // Check if this path is correct for you
+import heroBg from "../assets/my-new-hero.jpg";
 
 const Hero = () => {
+
+    // Function for the Main Button (jumps to products)
     const scrollToDivisions = () => {
         const element = document.getElementById("divisions");
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
+    // ▼▼▼ NEW FUNCTION for the Chevron (scrolls to Stats) ▼▼▼
+    const scrollToNextSection = () => {
+        const element = document.getElementById("stats");
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
         }
@@ -73,7 +83,8 @@ const Hero = () => {
                 animate={{ opacity: 1, y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                 className="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/70 z-20 cursor-pointer"
-                onClick={scrollToDivisions}
+                // ▼▼▼ UPDATED CLICK HANDLER ▼▼▼
+                onClick={scrollToNextSection}
             >
                 <ChevronDown size={32} />
             </motion.div>

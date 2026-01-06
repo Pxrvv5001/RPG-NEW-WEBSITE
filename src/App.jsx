@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import FloatingWA from './components/FloatingWA';
-// ▼▼▼ IMPORT SCROLL PROGRESS ▼▼▼
 import ScrollProgress from './components/ScrollProgress';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -13,6 +12,10 @@ const Services = lazy(() => import('./pages/Services'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Calculator = lazy(() => import('./pages/Calculator'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+
+// ▼▼▼ NEW IMPORTS ▼▼▼
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
 
 const PageLoader = () => (
     <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f172a]">
@@ -40,7 +43,6 @@ function App() {
 
     return (
         <>
-            {/* ▼▼▼ ADD COMPONENT HERE ▼▼▼ */}
             <ScrollProgress />
             <FloatingWA />
 
@@ -54,6 +56,10 @@ function App() {
                         <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
                         <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
                         <Route path="/calculator" element={<PageWrapper><Calculator /></PageWrapper>} />
+
+                        {/* ▼▼▼ NEW ROUTES ▼▼▼ */}
+                        <Route path="/privacy" element={<PageWrapper><Privacy /></PageWrapper>} />
+                        <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
 
                         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
                     </Routes>

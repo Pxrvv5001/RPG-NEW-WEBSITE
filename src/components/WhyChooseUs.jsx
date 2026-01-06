@@ -26,13 +26,14 @@ const features = [
 
 const WhyChooseUs = () => {
     return (
-        <section className="py-24 bg-white dark:bg-[#0f172a] transition-colors duration-500">
+        // Changed bg-[#0f172a] -> bg-[#1c1c1c]
+        <section className="py-24 bg-white dark:bg-[#1c1c1c] transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-4">
                         Why Choose <span className="text-[#d97706]">RPG?</span>
                     </h2>
-                    <p className="text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-gray-500 dark:text-stone-400 max-w-2xl mx-auto">
                         We don't just sell wood; we provide timber solutions tailored to your architectural needs.
                     </p>
                 </div>
@@ -45,15 +46,17 @@ const WhyChooseUs = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
                             viewport={{ once: true }}
-                            className="p-6 rounded-2xl bg-gray-50 dark:bg-[#1e293b] hover:bg-white dark:hover:bg-[#263345] border border-transparent hover:border-gray-200 dark:hover:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group"
+                            // Changed Card BG: Dark Stone (#292524) | Hover: Charcoal (#1c1c1c)
+                            className="p-6 rounded-2xl bg-gray-50 dark:bg-[#292524] hover:bg-white dark:hover:bg-[#171717] border border-transparent hover:border-gray-200 dark:hover:border-stone-700 shadow-sm hover:shadow-xl transition-all duration-300 group"
                         >
-                            <div className="w-14 h-14 bg-white dark:bg-[#0f172a] rounded-full flex items-center justify-center text-[#d97706] mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                            {/* Icon BG: White -> Stone-800 */}
+                            <div className="w-14 h-14 bg-white dark:bg-[#1c1c1c] rounded-full flex items-center justify-center text-[#d97706] mb-6 shadow-sm group-hover:scale-110 transition-transform">
                                 {feature.icon}
                             </div>
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                                 {feature.title}
                             </h3>
-                            <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed">
+                            <p className="text-gray-500 dark:text-stone-400 text-sm leading-relaxed">
                                 {feature.desc}
                             </p>
                         </motion.div>

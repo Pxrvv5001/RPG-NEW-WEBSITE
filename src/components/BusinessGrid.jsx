@@ -13,7 +13,6 @@ const businesses = [
         desc: "Direct import of premium logs from Tanzania, Malaysia, and USA.",
         details: {
             heading: "Premium Hardwoods & Softwoods",
-            // ▼▼▼ UPDATED POINTS: Added Resak & Ecuador Sagwan ▼▼▼
             points: [
                 "Tanzania Teak (Sagwan) - Premium Grade",
                 "Meranti Wood - Malaysian Red & Yellow",
@@ -65,8 +64,8 @@ const businesses = [
             cta: "Book Service",
             link: "/services"
         },
-        color: "bg-[#1e293b]",
-        accent: "text-blue-400"
+        color: "bg-[#292524]",
+        accent: "text-stone-400"
     }
 ];
 
@@ -74,7 +73,7 @@ const BusinessGrid = () => {
     const [selectedId, setSelectedId] = useState(null);
 
     return (
-        <section id="divisions" className="scroll-mt-32 py-16 md:py-24 bg-[#f9f8f4] dark:bg-[#0f172a] relative transition-colors duration-500">
+        <section id="divisions" className="scroll-mt-32 py-16 md:py-24 bg-[#f9f8f4] dark:bg-[#1c1c1c] relative transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* SECTION HEADER */}
@@ -83,20 +82,23 @@ const BusinessGrid = () => {
                         Our Core Divisions
                     </h2>
                     <div className="h-1 w-20 bg-[#d97706] mx-auto mb-6"></div>
-                    <p className="text-gray-600 dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base transition-colors">
+                    <p className="text-gray-600 dark:text-stone-400 max-w-2xl mx-auto text-sm md:text-base transition-colors">
                         Click on any division below to explore our specific products and processing capabilities.
                     </p>
                 </div>
 
                 {/* THE GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-fr">
+                    {/* ^^^ ADDED auto-rows-fr to ensure grid rows are equal height */}
+
                     {businesses.map((biz) => (
                         <motion.div
                             layoutId={`card-${biz.id}`}
                             key={biz.id}
                             onClick={() => setSelectedId(biz.id)}
                             whileHover={{ y: -8 }}
-                            className="transform-gpu bg-white dark:bg-[#1e293b] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-all relative overflow-hidden group active:scale-95"
+                            // ▼▼▼ UPDATED CLASSES: Added 'flex flex-col h-full' ▼▼▼
+                            className="flex flex-col h-full transform-gpu bg-white dark:bg-[#292524] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-all relative overflow-hidden group active:scale-95"
                         >
                             <div className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors">
                                 {biz.icon}
@@ -106,11 +108,13 @@ const BusinessGrid = () => {
                                 {biz.title}
                             </h3>
 
-                            <p className="text-gray-600 dark:text-slate-400 text-sm mb-6 leading-relaxed transition-colors">
+                            <p className="text-gray-600 dark:text-stone-400 text-sm mb-6 leading-relaxed transition-colors flex-grow">
+                                {/* ^^^ ADDED flex-grow to push the button down */}
                                 {biz.desc}
                             </p>
 
                             <div className="flex items-center gap-2 text-[#d97706] font-bold text-xs tracking-widest uppercase mt-auto">
+                                {/* ^^^ mt-auto ensures it sticks to the bottom */}
                                 <span>View Details</span>
                                 <ArrowRight size={16} />
                             </div>
@@ -122,16 +126,14 @@ const BusinessGrid = () => {
                 <AnimatePresence>
                     {selectedId && (
                         <>
-                            {/* Backdrop */}
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                                 onClick={() => setSelectedId(null)}
-                                className="fixed inset-0 bg-black/80 md:bg-black/60 md:backdrop-blur-sm z-50"
+                                className="fixed inset-0 bg-black/80 md:bg-black/90 md:backdrop-blur-sm z-50"
                             />
 
-                            {/* Modal Container */}
                             <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none p-4 md:p-8">
                                 {businesses.map((biz) => (
                                     biz.id === selectedId && (
@@ -140,7 +142,6 @@ const BusinessGrid = () => {
                                             key={biz.id}
                                             className={`transform-gpu w-full max-w-2xl ${biz.color} text-white rounded-2xl shadow-2xl pointer-events-auto relative flex flex-col md:flex-row max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-visible`}
                                         >
-                                            {/* Close Button */}
                                             <button
                                                 onClick={(e) => { e.stopPropagation(); setSelectedId(null); }}
                                                 className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors z-20"
@@ -148,7 +149,6 @@ const BusinessGrid = () => {
                                                 <X size={20} className="text-white" />
                                             </button>
 
-                                            {/* Left Side */}
                                             <div className="p-8 md:p-10 flex flex-col justify-between md:w-2/5 border-b md:border-b-0 md:border-r border-white/10 shrink-0">
                                                 <div>
                                                     <div className={`mb-6 ${biz.accent}`}>
@@ -164,7 +164,6 @@ const BusinessGrid = () => {
                                                 </div>
                                             </div>
 
-                                            {/* Right Side */}
                                             <div className="p-8 md:p-10 md:w-3/5 bg-black/20">
                                                 <motion.div
                                                     initial={{ opacity: 0, x: 20 }}

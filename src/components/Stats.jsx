@@ -9,11 +9,11 @@ const stats = [
 
 const Stats = () => {
     return (
-        <section className="relative py-20 bg-[#1c1c1c] text-white border-y border-white/10 overflow-hidden">
+        // ▼▼▼ ADDED ID HERE ▼▼▼
+        <section id="stats" className="relative py-20 bg-[#1c1c1c] text-white border-y border-white/10 overflow-hidden">
 
-            {/* ▼▼▼ ANIMATED BACKGROUND ▼▼▼ */}
+            {/* Animated Background */}
             <div className="absolute inset-0 pointer-events-none">
-                {/* Orb 1: Brand Color (Orange/Gold) - Top Left */}
                 <motion.div
                     animate={{
                         x: [0, 100, 0],
@@ -27,8 +27,6 @@ const Stats = () => {
                     }}
                     className="absolute -top-20 -left-20 w-96 h-96 bg-[#d97706] rounded-full blur-[100px]"
                 />
-
-                {/* Orb 2: Cool Tone (Blue/Slate) - Bottom Right */}
                 <motion.div
                     animate={{
                         x: [0, -100, 0],
@@ -44,7 +42,6 @@ const Stats = () => {
                 />
             </div>
 
-            {/* Content Container (z-10 ensures text is above the background) */}
             <div className="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 {stats.map((stat, i) => (
                     <motion.div

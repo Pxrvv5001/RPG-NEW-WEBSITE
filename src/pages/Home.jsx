@@ -2,9 +2,9 @@ import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
-import OurStory from "../components/OurStory"; // <--- NEW
+import OurStory from "../components/OurStory";
 import BusinessGrid from "../components/BusinessGrid";
-import InfiniteMarquee from "../components/InfiniteMarquee"; // <--- NEW
+import InfiniteMarquee from "../components/InfiniteMarquee";
 import ProductAtelier from "../components/ProductAtelier";
 import WhyChooseUs from "../components/WhyChooseUs";
 import CallToAction from "../components/CallToAction";
@@ -25,7 +25,7 @@ const Home = () => {
             {/* 1. Dark Strip: Adds credibility immediately */}
             <Stats />
 
-            {/* 2. White Section: Split Layout (Image Left/Text Right) breaks the center alignment */}
+            {/* 2. White Section: Split Layout (Image Left/Text Right) */}
             <OurStory />
 
             {/* 3. Off-White Section: The Core Business Grid */}

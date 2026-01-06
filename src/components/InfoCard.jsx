@@ -9,7 +9,8 @@ const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: delay * 0.1 }}
             viewport={{ once: true }}
-            className="h-full flex flex-col group bg-[#f9f8f4] dark:bg-[#1e293b] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
+            // ▼▼▼ FIXED: Changed dark:bg-[#1e293b] to dark:bg-[#292524] (Warm Stone) ▼▼▼
+            className="h-full flex flex-col group bg-[#f9f8f4] dark:bg-[#292524] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706]"
         >
             {/* Image Section */}
             <div className="h-64 relative flex-shrink-0">
@@ -29,15 +30,16 @@ const InfoCard = ({ image, title, subtitle, tag, description, delay }) => {
                 <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-1">{title}</h3>
                 <p className="text-[#d97706] text-xs font-bold uppercase tracking-widest mb-4">{subtitle}</p>
 
-                <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                {/* ▼▼▼ FIXED: Changed text-slate-400 to text-stone-400 ▼▼▼ */}
+                <p className="text-gray-600 dark:text-stone-400 text-sm leading-relaxed mb-6 flex-grow">
                     {description}
                 </p>
 
                 <Link
                     to="/contact"
-                    // ▼▼▼ SMART INQUIRY: Passes the product name to the form ▼▼▼
                     state={{ interest: `Inquiry: ${title}` }}
-                    className="block text-center w-full py-3 border border-gray-300 dark:border-slate-600 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1c1c1c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors mt-auto"
+                    // ▼▼▼ FIXED: Changed border-slate-600 to border-white/10 ▼▼▼
+                    className="block text-center w-full py-3 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white font-bold text-xs uppercase tracking-widest hover:bg-[#1c1c1c] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors mt-auto"
                 >
                     Inquire Now
                 </Link>

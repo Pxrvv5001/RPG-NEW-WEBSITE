@@ -11,32 +11,26 @@ const Calculator = () => {
     const [thickness, setThickness] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [price, setPrice] = useState("");
-
     const [result, setResult] = useState(null);
 
     const calculateCFT = (e) => {
         e.preventDefault();
-        // Formula: (Length (ft) * Width (in) * Thickness (in)) / 144
         const cftPerPiece = (parseFloat(length) * parseFloat(width) * parseFloat(thickness)) / 144;
         const totalCft = cftPerPiece * parseInt(quantity);
         const totalPrice = price ? totalCft * parseFloat(price) : 0;
-
-        setResult({
-            cft: totalCft.toFixed(2),
-            totalPrice: totalPrice.toFixed(2)
-        });
+        setResult({ cft: totalCft.toFixed(2), totalPrice: totalPrice.toFixed(2) });
     };
 
     const clearForm = () => {
-        setLength(""); setWidth(""); setThickness(""); setQuantity(1); setPrice("");
-        setResult(null);
+        setLength(""); setWidth(""); setThickness(""); setQuantity(1); setPrice(""); setResult(null);
     };
 
     return (
-        <div className="bg-[#f9f8f4] dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
+        // Theme: Charcoal Background
+        <div className="bg-[#f9f8f4] dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Timber CFT Calculator | R.P. Goyal & Sons</title>
-                <meta name="description" content="Calculate wood volume in Cubic Feet (CFT) instantly. Free tool for carpenters and contractors." />
+                <meta name="description" content="Calculate wood volume in Cubic Feet (CFT) instantly." />
             </Helmet>
 
             <Header />
@@ -46,7 +40,7 @@ const Calculator = () => {
                     <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white mb-4">
                         Timber <span className="text-[#d97706]">Calculator</span>
                     </h1>
-                    <p className="text-gray-500 dark:text-slate-400">
+                    <p className="text-gray-500 dark:text-stone-400">
                         Calculate the exact volume (CFT) and estimated cost of your wood.
                     </p>
                 </div>
@@ -57,38 +51,39 @@ const Calculator = () => {
                     <motion.div
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        className="bg-white dark:bg-[#1e293b] p-8 rounded-2xl shadow-xl border-t-4 border-[#d97706]"
+                        // Card BG: Stone-800 (#292524)
+                        className="bg-white dark:bg-[#292524] p-8 rounded-2xl shadow-xl border-t-4 border-[#d97706]"
                     >
                         <form onSubmit={calculateCFT} className="space-y-5">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Length (Feet)</label>
-                                    <input type="number" step="0.1" required value={length} onChange={(e) => setLength(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-slate-800 rounded border border-gray-200 dark:border-slate-700 focus:border-[#d97706] outline-none dark:text-white" placeholder="e.g. 8" />
+                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Length (Ft)</label>
+                                    <input type="number" step="0.1" required value={length} onChange={(e) => setLength(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 8" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Quantity (Pcs)</label>
-                                    <input type="number" required value={quantity} onChange={(e) => setQuantity(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-slate-800 rounded border border-gray-200 dark:border-slate-700 focus:border-[#d97706] outline-none dark:text-white" placeholder="1" />
+                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Quantity</label>
+                                    <input type="number" required value={quantity} onChange={(e) => setQuantity(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="1" />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Width (Inch)</label>
-                                    <input type="number" step="0.1" required value={width} onChange={(e) => setWidth(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-slate-800 rounded border border-gray-200 dark:border-slate-700 focus:border-[#d97706] outline-none dark:text-white" placeholder="e.g. 4" />
+                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Width (In)</label>
+                                    <input type="number" step="0.1" required value={width} onChange={(e) => setWidth(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 4" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Thickness (Inch)</label>
-                                    <input type="number" step="0.1" required value={thickness} onChange={(e) => setThickness(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-slate-800 rounded border border-gray-200 dark:border-slate-700 focus:border-[#d97706] outline-none dark:text-white" placeholder="e.g. 3" />
+                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Thickness (In)</label>
+                                    <input type="number" step="0.1" required value={thickness} onChange={(e) => setThickness(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 3" />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold uppercase text-gray-500 mb-1">Price per CFT (Optional)</label>
-                                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-slate-800 rounded border border-gray-200 dark:border-slate-700 focus:border-[#d97706] outline-none dark:text-white" placeholder="e.g. 2500" />
+                                <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Price per CFT (Optional)</label>
+                                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 2500" />
                             </div>
 
                             <div className="flex gap-4 pt-4">
-                                <button type="button" onClick={clearForm} className="px-4 py-3 text-gray-500 hover:bg-gray-100 dark:hover:bg-slate-800 rounded transition-colors">
+                                <button type="button" onClick={clearForm} className="px-4 py-3 text-gray-500 hover:bg-gray-100 dark:hover:bg-[#1c1c1c] rounded transition-colors">
                                     <RefreshCw size={20} />
                                 </button>
                                 <button type="submit" className="flex-1 bg-[#d97706] text-white font-bold uppercase tracking-widest rounded shadow-lg hover:bg-[#b45309] transition-all flex items-center justify-center gap-2">
@@ -102,7 +97,8 @@ const Calculator = () => {
                     <motion.div
                         initial={{ x: 20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        className="bg-[#1c1c1c] text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden h-full flex flex-col justify-center"
+                        // Panel BG: Darkest Charcoal (#0f0f0f or #171717) to contrast with card
+                        className="bg-[#171717] text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden h-full flex flex-col justify-center border border-white/5"
                     >
                         <div className="absolute top-0 right-0 p-8 opacity-10">
                             <CalcIcon size={120} />
@@ -117,12 +113,12 @@ const Calculator = () => {
                             <div className="relative z-10">
                                 <div className="mb-8">
                                     <p className="text-sm text-[#d97706] font-bold uppercase tracking-widest mb-1">Total Volume</p>
-                                    <p className="text-6xl font-serif font-bold">{result.cft} <span className="text-2xl text-gray-500">cft</span></p>
+                                    <p className="text-6xl font-serif font-bold">{result.cft} <span className="text-2xl text-stone-500">cft</span></p>
                                 </div>
 
                                 {parseFloat(result.totalPrice) > 0 && (
                                     <div className="pt-8 border-t border-white/10">
-                                        <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-1">Estimated Cost</p>
+                                        <p className="text-sm text-stone-400 font-bold uppercase tracking-widest mb-1">Estimated Cost</p>
                                         <p className="text-4xl font-serif">₹ {result.totalPrice}</p>
                                     </div>
                                 )}

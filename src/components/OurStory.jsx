@@ -1,13 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-// Swapped to YardStock for a "fuller" look
 import storyImg from "../assets/YardStock.jpeg";
 
 const OurStory = () => {
     return (
-        // Added 'z-20' to make sure this section sits ON TOP of the Stats blur
-        <section className="relative z-20 py-24 bg-white dark:bg-[#0f172a] overflow-hidden">
+        <section className="relative z-20 py-24 bg-white dark:bg-[#1c1c1c] overflow-hidden transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
 
                 {/* LEFT: Image */}
@@ -25,7 +23,7 @@ const OurStory = () => {
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                         />
                     </div>
-                    {/* Decorative Box behind */}
+                    {/* Decorative Box - Brand Orange */}
                     <div className="absolute -bottom-6 -left-6 w-full h-full border-2 border-[#d97706] rounded-xl -z-0 hidden md:block"></div>
                 </motion.div>
 
@@ -43,13 +41,12 @@ const OurStory = () => {
                     <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                         Crafting Trust,<br/> One Log at a Time.
                     </h2>
-                    <p className="text-gray-600 dark:text-slate-400 text-lg mb-8 leading-relaxed">
+                    <p className="text-gray-600 dark:text-stone-400 text-lg mb-8 leading-relaxed">
                         Since 2020, R.P. Goyal & Sons has bridged the gap between global forests and Indian craftsmanship.
                         We don't just import timber; we curate it. From the dense forests of Tanzania to the sustainable
                         plantations of Ecuador, every log is handpicked for grain quality and durability.
                     </p>
 
-                    {/* FIXED BUTTON: Now a solid clickable block */}
                     <div>
                         <Link
                             to="/gallery"
