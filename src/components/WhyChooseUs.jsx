@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Globe2, Ruler, BadgeIndianRupee, Truck } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Globe2, Ruler, BadgeIndianRupee, Truck, Plus, Minus, HelpCircle } from "lucide-react";
 
 const features = [
     {
@@ -24,11 +25,34 @@ const features = [
     }
 ];
 
+// --- SHIPPING FAQ DATA ---
+const faqs = [
+    {
+        q: "What is your Minimum Order Quantity (MOQ)?",
+        a: "For Timber, our MOQ is typically 200 CFT (approx. 1 truckload partition). For Plywood, we accept orders starting from 50 sheets. Contact us for smaller sample requirements."
+    },
+    {
+        q: "Do you deliver to remote locations?",
+        a: "Yes, we have a network of trusted logistics partners that cover Tier 1, 2, and 3 cities across India, including remote industrial zones."
+    },
+    {
+        q: "Who pays for shipping?",
+        a: "Shipping is generally 'To Pay' basis (paid by the buyer upon receipt) unless negotiated otherwise for bulk contracts. We ensure you get competitive market rates from transporters."
+    },
+    {
+        q: "Can I arrange my own transport?",
+        a: "Absolutely. You are welcome to send your own truck to our Karnal depot for loading. We provide full loading assistance at the yard."
+    }
+];
+
 const WhyChooseUs = () => {
+    const [openIndex, setOpenIndex] = useState(null);
+
     return (
-        // Changed bg-[#0f172a] -> bg-[#1c1c1c]
         <section className="py-24 bg-white dark:bg-[#1c1c1c] transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6">
+
+                {/* --- FEATURES GRID --- */}
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-4">
                         Why Choose <span className="text-[#d97706]">RPG?</span>
@@ -38,7 +62,7 @@ const WhyChooseUs = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
                     {features.map((feature, i) => (
                         <motion.div
                             key={i}
@@ -46,10 +70,8 @@ const WhyChooseUs = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1 }}
                             viewport={{ once: true }}
-                            // Changed Card BG: Dark Stone (#292524) | Hover: Charcoal (#1c1c1c)
                             className="p-6 rounded-2xl bg-gray-50 dark:bg-[#292524] hover:bg-white dark:hover:bg-[#171717] border border-transparent hover:border-gray-200 dark:hover:border-stone-700 shadow-sm hover:shadow-xl transition-all duration-300 group"
                         >
-                            {/* Icon BG: White -> Stone-800 */}
                             <div className="w-14 h-14 bg-white dark:bg-[#1c1c1c] rounded-full flex items-center justify-center text-[#d97706] mb-6 shadow-sm group-hover:scale-110 transition-transform">
                                 {feature.icon}
                             </div>
@@ -62,6 +84,51 @@ const WhyChooseUs = () => {
                         </motion.div>
                     ))}
                 </div>
+
+                {/* --- SHIPPING FAQ SECTION --- */}
+                <div className="max-w-3xl mx-auto">
+                    <div className="text-center mb-10">
+                        <div className="inline-flex items-center gap-2 text-[#d97706] font-bold uppercase tracking-widest text-xs mb-3">
+                            <HelpCircle size={16} />
+                            <span>Logistics & Delivery</span>
+                        </div>
+                        <h3 className="text-2xl font-serif font-bold text-gray-900 dark:text-white">Shipping Questions</h3>
+                    </div>
+
+                    <div className="space-y-4">
+                        {faqs.map((faq, index) => (
+                            <div
+                                key={index}
+                                className="bg-gray-50 dark:bg-[#292524] rounded-lg overflow-hidden border border-transparent dark:border-white/5 transition-colors"
+                            >
+                                <button
+                                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                                    className="w-full flex justify-between items-center p-5 text-left text-gray-900 dark:text-white font-medium hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+                                >
+                                    <span>{faq.q}</span>
+                                    <span className="text-[#d97706] shrink-0 ml-4">
+                                        {openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
+                                    </span>
+                                </button>
+                                <AnimatePresence>
+                                    {openIndex === index && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div className="p-5 pt-0 text-gray-600 dark:text-stone-400 text-sm leading-relaxed border-t border-gray-200 dark:border-white/5">
+                                                {faq.a}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
             </div>
         </section>
     );

@@ -10,6 +10,7 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    // Theme Logic
     const [theme, setTheme] = useState(() => {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme) return savedTheme;
@@ -34,25 +35,38 @@ const Header = () => {
         localStorage.setItem("theme", theme);
     }, [theme]);
 
-    const toggleTheme = () => {
-        setTheme(theme === "light" ? "dark" : "light");
-    };
+    // --- ROBUST SCROLL HANDLER ---
+    // 1. Listen for Hash changes (e.g., coming from /contact to /#divisions)
+    useEffect(() => {
+        if (location.hash) {
+            const id = location.hash.replace('#', '');
+            const element = document.getElementById(id);
+            if (element) {
+                // Slight delay to ensure DOM is ready if page is heavy
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+            }
+        }
+    }, [location]);
 
+    // 2. Click Handler
     const handleScroll = (id) => {
         setIsMobileMenuOpen(false);
-        const executeScroll = () => {
+        if (location.pathname !== '/') {
+            // If not on home, navigate to home with hash -> triggers useEffect above
+            navigate(`/#${id}`);
+        } else {
+            // If on home, just scroll directly
             const element = document.getElementById(id);
             if (element) {
                 element.scrollIntoView({ behavior: "smooth" });
             }
-        };
-
-        if (location.pathname !== '/') {
-            navigate('/');
-            setTimeout(executeScroll, 500);
-        } else {
-            setTimeout(executeScroll, 400);
         }
+    };
+
+    const toggleTheme = () => {
+        setTheme(theme === "light" ? "dark" : "light");
     };
 
     const isActive = (path) => location.pathname === path ? "text-[#d97706]" : "text-white/90 hover:text-[#d97706]";
@@ -96,8 +110,8 @@ const Header = () => {
                         Materials
                     </button>
 
-                    {/* ▼▼▼ ADDED TOOLS LINK HERE ▼▼▼ */}
-                    <Link to="/calculator" className={`transition-colors ${isActive('/calculator')}`}>Tools</Link>
+                    {/* ▼▼▼ RENAMED TO CFT CALCULATOR ▼▼▼ */}
+                    <Link to="/calculator" className={`transition-colors ${isActive('/calculator')}`}>CFT Calculator</Link>
 
                     <Link to="/gallery" className={`transition-colors ${isActive('/gallery')}`}>Gallery</Link>
                     <Link to="/contact" className={`transition-colors ${isActive('/contact')}`}>Contact</Link>
@@ -146,9 +160,9 @@ const Header = () => {
                                 <button onClick={() => handleScroll('atelier')} className="text-left hover:text-[#d97706]">Materials</button>
                             </motion.div>
 
-                            {/* ▼▼▼ ADDED MOBILE LINK HERE ▼▼▼ */}
+                            {/* ▼▼▼ RENAMED TO CFT CALCULATOR ▼▼▼ */}
                             <motion.div variants={itemVariants}>
-                                <Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">Tools (Calc)</Link>
+                                <Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">CFT Calculator</Link>
                             </motion.div>
 
                             <motion.div variants={itemVariants}>

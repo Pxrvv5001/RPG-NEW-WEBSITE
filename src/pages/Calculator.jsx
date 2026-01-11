@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { Calculator as CalcIcon, RefreshCw, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Calculator as CalcIcon, RefreshCw, ChevronRight, Info } from "lucide-react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Calculator = () => {
+    const [unit, setUnit] = useState("imperial"); // Options: imperial, mm, cm, meter
     const [length, setLength] = useState("");
     const [width, setWidth] = useState("");
     const [thickness, setThickness] = useState("");
@@ -13,11 +14,37 @@ const Calculator = () => {
     const [price, setPrice] = useState("");
     const [result, setResult] = useState(null);
 
+    // Reset fields when unit changes
+    useEffect(() => {
+        setResult(null);
+    }, [unit]);
+
     const calculateCFT = (e) => {
         e.preventDefault();
-        const cftPerPiece = (parseFloat(length) * parseFloat(width) * parseFloat(thickness)) / 144;
+
+        let lenFt = parseFloat(length);
+        let widIn = parseFloat(width);
+        let thkIn = parseFloat(thickness);
+
+        // Conversion Logic to Standard (L=Ft, W=In, T=In)
+        if (unit === "mm") {
+            lenFt = parseFloat(length) / 304.8;  // mm to ft
+            widIn = parseFloat(width) / 25.4;    // mm to in
+            thkIn = parseFloat(thickness) / 25.4; // mm to in
+        } else if (unit === "cm") {
+            lenFt = parseFloat(length) / 30.48;  // cm to ft
+            widIn = parseFloat(width) / 2.54;    // cm to in
+            thkIn = parseFloat(thickness) / 2.54; // cm to in
+        } else if (unit === "meter") {
+            lenFt = parseFloat(length) * 3.28084; // m to ft
+            widIn = parseFloat(width) * 39.3701;  // m to in
+            thkIn = parseFloat(thickness) * 39.3701; // m to in
+        }
+
+        const cftPerPiece = (lenFt * widIn * thkIn) / 144;
         const totalCft = cftPerPiece * parseInt(quantity);
         const totalPrice = price ? totalCft * parseFloat(price) : 0;
+
         setResult({ cft: totalCft.toFixed(2), totalPrice: totalPrice.toFixed(2) });
     };
 
@@ -25,12 +52,22 @@ const Calculator = () => {
         setLength(""); setWidth(""); setThickness(""); setQuantity(1); setPrice(""); setResult(null);
     };
 
+    const getPlaceholders = () => {
+        switch(unit) {
+            case "mm": return { l: "e.g. 2400", w: "e.g. 100", t: "e.g. 75" };
+            case "cm": return { l: "e.g. 240", w: "e.g. 10", t: "e.g. 7.5" };
+            case "meter": return { l: "e.g. 2.4", w: "e.g. 0.1", t: "e.g. 0.075" };
+            default: return { l: "e.g. 8", w: "e.g. 4", t: "e.g. 3" };
+        }
+    };
+
+    const placeholders = getPlaceholders();
+
     return (
-        // Theme: Charcoal Background
         <div className="bg-[#f9f8f4] dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Timber CFT Calculator | R.P. Goyal & Sons</title>
-                <meta name="description" content="Calculate wood volume in Cubic Feet (CFT) instantly." />
+                <meta name="description" content="Calculate wood volume in Cubic Feet (CFT) instantly using MM, CM, or Inches." />
             </Helmet>
 
             <Header />
@@ -41,7 +78,7 @@ const Calculator = () => {
                         Timber <span className="text-[#d97706]">Calculator</span>
                     </h1>
                     <p className="text-gray-500 dark:text-stone-400">
-                        Calculate the exact volume (CFT) and estimated cost of your wood.
+                        Calculate exact volume (CFT) from any unit (MM, CM, Feet).
                     </p>
                 </div>
 
@@ -51,14 +88,37 @@ const Calculator = () => {
                     <motion.div
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        // Card BG: Stone-800 (#292524)
                         className="bg-white dark:bg-[#292524] p-8 rounded-2xl shadow-xl border-t-4 border-[#d97706]"
                     >
                         <form onSubmit={calculateCFT} className="space-y-5">
+
+                            {/* UNIT SELECTOR */}
+                            <div>
+                                <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-2">Input Unit</label>
+                                <div className="grid grid-cols-4 gap-2">
+                                    {['imperial', 'mm', 'cm', 'meter'].map((u) => (
+                                        <button
+                                            key={u}
+                                            type="button"
+                                            onClick={() => setUnit(u)}
+                                            className={`py-2 text-xs font-bold uppercase rounded border transition-all ${
+                                                unit === u
+                                                    ? "bg-[#d97706] text-white border-[#d97706]"
+                                                    : "bg-transparent text-gray-600 dark:text-gray-400 border-gray-300 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/5"
+                                            }`}
+                                        >
+                                            {u === 'imperial' ? 'Ft / In' : u}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Length (Ft)</label>
-                                    <input type="number" step="0.1" required value={length} onChange={(e) => setLength(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 8" />
+                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">
+                                        Length {unit === 'imperial' ? '(Ft)' : `(${unit})`}
+                                    </label>
+                                    <input type="number" step="any" required value={length} onChange={(e) => setLength(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder={placeholders.l} />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Quantity</label>
@@ -68,12 +128,16 @@ const Calculator = () => {
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Width (In)</label>
-                                    <input type="number" step="0.1" required value={width} onChange={(e) => setWidth(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 4" />
+                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">
+                                        Width {unit === 'imperial' ? '(In)' : `(${unit})`}
+                                    </label>
+                                    <input type="number" step="any" required value={width} onChange={(e) => setWidth(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder={placeholders.w} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Thickness (In)</label>
-                                    <input type="number" step="0.1" required value={thickness} onChange={(e) => setThickness(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 3" />
+                                    <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">
+                                        Thickness {unit === 'imperial' ? '(In)' : `(${unit})`}
+                                    </label>
+                                    <input type="number" step="any" required value={thickness} onChange={(e) => setThickness(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder={placeholders.t} />
                                 </div>
                             </div>
 
@@ -97,7 +161,6 @@ const Calculator = () => {
                     <motion.div
                         initial={{ x: 20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        // Panel BG: Darkest Charcoal (#0f0f0f or #171717) to contrast with card
                         className="bg-[#171717] text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden h-full flex flex-col justify-center border border-white/5"
                     >
                         <div className="absolute top-0 right-0 p-8 opacity-10">
@@ -107,13 +170,17 @@ const Calculator = () => {
                         {!result ? (
                             <div className="text-center opacity-50">
                                 <p className="text-sm uppercase tracking-widest mb-2">Ready to Calculate</p>
-                                <p className="text-xs">Enter dimensions to see the volume.</p>
+                                <p className="text-xs">Enter dimensions in {unit === 'imperial' ? 'Feet & Inches' : unit.toUpperCase()}.</p>
                             </div>
                         ) : (
                             <div className="relative z-10">
                                 <div className="mb-8">
                                     <p className="text-sm text-[#d97706] font-bold uppercase tracking-widest mb-1">Total Volume</p>
                                     <p className="text-6xl font-serif font-bold">{result.cft} <span className="text-2xl text-stone-500">cft</span></p>
+                                    <div className="flex items-center gap-2 mt-2 text-white/40 text-xs">
+                                        <Info size={14} />
+                                        <span>Formula: (L_ft × W_in × T_in) / 144</span>
+                                    </div>
                                 </div>
 
                                 {parseFloat(result.totalPrice) > 0 && (
