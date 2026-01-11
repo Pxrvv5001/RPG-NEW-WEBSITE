@@ -60,7 +60,7 @@ const Footer = () => {
             </div>
 
             <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone-500">
-                <p>© 2025 R.P. Goyal & Sons Pvt. Ltd.</p>
+                <p>© {new Date().getFullYear()} R.P. Goyal & Sons Pvt. Ltd.</p>
                 <div className="flex gap-4">
                     <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                     <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
