@@ -5,8 +5,16 @@ export const catalogData = [
         category: "Hardwood",
         origin: "Tanzania",
         grade: "Premium Grade",
-        desc: "Directly imported from Tanzania. Known for its rich golden-brown color, high natural oil content, and exceptional weather resistance. Ideal for premium furniture and outdoor decking.",
-        imageKey: "teak"
+        desc: "Directly imported from Tanzania. Known for its rich golden-brown color and high natural oil content.",
+        imageKey: "teak",
+        // ▼▼▼ ADDED TECHNICAL SPECS ▼▼▼
+        specs: {
+            density: "610-750 kg/m³",
+            moisture: "KD 10-12%",
+            durability: "Class 1 (Very Durable)",
+            grain: "Straight to slightly wavy",
+            uses: "Premium Furniture, Yacht Decking, Exterior Joinery"
+        }
     },
     {
         id: 2,
@@ -14,8 +22,15 @@ export const catalogData = [
         category: "Hardwood",
         origin: "Malaysia",
         grade: "A Grade (Premium)",
-        desc: "Imported Malaysian hardwood. Lightweight, durable, and termite-resistant. The preferred choice for door frames, window sections, and interior joinery.",
-        imageKey: "meranti"
+        desc: "Imported Malaysian hardwood. Lightweight, durable, and termite-resistant.",
+        imageKey: "meranti",
+        specs: {
+            density: "400-700 kg/m³",
+            moisture: "KD 12-14%",
+            durability: "Class 2-3 (Moderately Durable)",
+            grain: "Interlocked",
+            uses: "Door Frames, Window Sections, Interior Joinery"
+        }
     },
     {
         id: 3,
@@ -23,8 +38,15 @@ export const catalogData = [
         category: "Softwood",
         origin: "USA",
         grade: "Grade A Softwood",
-        desc: "Strong, dense pine with a distinctive grain pattern. Perfect for flooring and decking.",
-        imageKey: "pine"
+        desc: "Strong, dense pine with a distinctive grain pattern. Perfect for flooring.",
+        imageKey: "pine",
+        specs: {
+            density: "500-600 kg/m³",
+            moisture: "KD 15-18%",
+            durability: "Class 4 (Non-Durable - Requires Treatment)",
+            grain: "Straight, prominent growth rings",
+            uses: "Structural Framing, Decking, Flooring"
+        }
     },
     {
         id: 4,
@@ -32,8 +54,15 @@ export const catalogData = [
         category: "Softwood",
         origin: "Germany",
         grade: "Construction Grade",
-        desc: "Lightweight and light-colored. Widely used for packaging, pallets, and framing.",
-        imageKey: "spruce"
+        desc: "Lightweight and light-colored. Widely used for packaging and framing.",
+        imageKey: "spruce",
+        specs: {
+            density: "400-450 kg/m³",
+            moisture: "KD 12-18%",
+            durability: "Class 4 (Perishable)",
+            grain: "Fine, straight grain",
+            uses: "Packaging, Pallets, Interior Framing"
+        }
     },
     {
         id: 5,
@@ -41,8 +70,15 @@ export const catalogData = [
         category: "Hardwood",
         origin: "Malaysia / Indonesia",
         grade: "Structural Heavy Hardwood",
-        desc: "A high-density, very durable hardwood with a deep red-brown color. Naturally termite-resistant and excellent for heavy construction, beams, and door frames.",
-        imageKey: "resak"
+        desc: "A high-density, very durable hardwood with a deep red-brown color.",
+        imageKey: "resak",
+        specs: {
+            density: "850-1150 kg/m³",
+            moisture: "Air Dried",
+            durability: "Class 1 (Highly Durable)",
+            grain: "Deeply Interlocked",
+            uses: "Heavy Construction, Beams, Bridges, Door Frames"
+        }
     },
     {
         id: 6,
@@ -50,7 +86,14 @@ export const catalogData = [
         category: "Hardwood",
         origin: "Ecuador",
         grade: "Plantation Grade",
-        desc: "Sustainable South American plantation teak. Features a straight, consistent grain with excellent stability. Popular for cost-effective doors, frames, and commercial furniture.",
-        imageKey: "ecuador"
+        desc: "Sustainable South American plantation teak. Features a straight, consistent grain.",
+        imageKey: "ecuador",
+        specs: {
+            density: "600-650 kg/m³",
+            moisture: "KD 10-12%",
+            durability: "Class 2 (Durable)",
+            grain: "Straight, consistent",
+            uses: "Cost-effective Doors, Commercial Furniture"
+        }
     }
 ];
