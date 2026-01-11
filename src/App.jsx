@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ReactLenis } from 'lenis/react'; // <--- IMPORT THIS
 import FloatingWA from './components/FloatingWA';
 import ScrollProgress from './components/ScrollProgress';
-
+// Testing git connection
 const Home = lazy(() => import('./pages/Home'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Catalog = lazy(() => import('./pages/Catalog'));
