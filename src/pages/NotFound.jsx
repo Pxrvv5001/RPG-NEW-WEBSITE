@@ -6,7 +6,8 @@ import Footer from "../components/Footer";
 
 const NotFound = () => {
     return (
-        <div className="bg-[#f9f8f4] dark:bg-[#0f172a] min-h-screen font-sans flex flex-col justify-between transition-colors duration-500">
+        // Fixed: Changed dark:bg-[#0f172a] to dark:bg-[#1c1c1c]
+        <div className="bg-[#f9f8f4] dark:bg-[#1c1c1c] min-h-screen font-sans flex flex-col justify-between transition-colors duration-500">
             <Header />
 
             <div className="flex-grow flex items-center justify-center px-6 py-20">

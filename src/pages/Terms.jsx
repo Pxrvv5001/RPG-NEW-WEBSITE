@@ -4,7 +4,8 @@ import { Helmet } from "react-helmet-async";
 
 const Terms = () => {
     return (
-        <div className="bg-[#f9f8f4] dark:bg-[#0f172a] min-h-screen font-sans transition-colors duration-500">
+        // Fixed: Changed dark:bg-[#0f172a] to dark:bg-[#1c1c1c]
+        <div className="bg-[#f9f8f4] dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Terms of Service | R.P. Goyal & Sons</title>
             </Helmet>

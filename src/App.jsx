@@ -13,12 +13,12 @@ const Gallery = lazy(() => import('./pages/Gallery'));
 const Calculator = lazy(() => import('./pages/Calculator'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
-// ▼▼▼ NEW IMPORTS ▼▼▼
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 
+// Fixed: Changed dark:bg-[#0f172a] to dark:bg-[#1c1c1c] (Charcoal)
 const PageLoader = () => (
-    <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#0f172a]">
+    <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#1c1c1c]">
         <div className="w-12 h-12 border-4 border-[#d97706] border-t-transparent rounded-full animate-spin"></div>
     </div>
 );
@@ -57,7 +57,6 @@ function App() {
                         <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
                         <Route path="/calculator" element={<PageWrapper><Calculator /></PageWrapper>} />
 
-                        {/* ▼▼▼ NEW ROUTES ▼▼▼ */}
                         <Route path="/privacy" element={<PageWrapper><Privacy /></PageWrapper>} />
                         <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
 
