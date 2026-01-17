@@ -9,13 +9,16 @@ import loadingImg from "../assets/Loading.jpeg";
 import finishedTeakImg from "../assets/FinishedTeak.jpeg";
 import machineryImg from "../assets/Machinery.jpeg";
 import yardStockImg from "../assets/YardStock.jpeg";
+// 1. Import the new image here
+import pineLogsImg from "../assets/PineLogs.jpeg";
 
 const galleryImages = [
     { id: 1, src: loadingImg, category: "Loading Operations" },
     { id: 2, src: finishedTeakImg, category: "Finished Teak" },
     { id: 3, src: machineryImg, category: "Machinery" },
     { id: 4, src: yardStockImg, category: "Yard Stock" },
-    { id: 5, src: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=800", category: "Pine Logs" }
+    // 2. Use the imported variable here
+    { id: 5, src: pineLogsImg, category: "Pine Logs" }
 ];
 
 const Gallery = () => {
@@ -64,7 +67,7 @@ const Gallery = () => {
                     {galleryImages.map((image, i) => (
                         <motion.div
                             key={image.id}
-                            layoutId={`gallery-card-${image.id}`} // Ensure unique ID
+                            layoutId={`gallery-card-${image.id}`}
                             onClick={() => openLightbox(i)}
                             className={`group relative h-72 cursor-pointer overflow-hidden rounded-lg shadow-lg ${i === 0 ? "md:col-span-2" : ""}`}
                             whileHover={{ y: -5 }}
@@ -95,7 +98,6 @@ const Gallery = () => {
                         className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm"
                         onClick={() => setSelectedId(null)}
                     >
-                        {/* Controls remain the same */}
                         <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50" onClick={() => setSelectedId(null)}>
                             <X size={40} />
                         </button>
