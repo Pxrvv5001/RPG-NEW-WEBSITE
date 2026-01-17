@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroBg from "../assets/my-new-hero.jpg";
-import TimberParticles from "./TimberParticles"; // <--- Importing the particles
+import heroBg from "../assets/my-new-hero.jpg"; //
+import TimberParticles from "./TimberParticles"; //
 
 const Hero = () => {
 
-    // Function for the Main Button (jumps to divisions section)
     const scrollToDivisions = () => {
         const element = document.getElementById("divisions");
         if (element) {
@@ -13,8 +12,7 @@ const Hero = () => {
         }
     };
 
-    // Function for the Chevron (scrolls to stats section)
-    const scrollToNextSection = () => {
+    const scrollToStats = () => {
         const element = document.getElementById("stats");
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
@@ -35,13 +33,13 @@ const Hero = () => {
             {/* 2. Dark Overlay */}
             <div className="absolute inset-0 bg-[#0f172a]/60"></div>
 
-            {/* 3. Particle Layer (Sits between Overlay and Content) */}
+            {/* 3. Particle Layer */}
             <div className="absolute inset-0 z-10 opacity-70 pointer-events-none">
                 <TimberParticles />
             </div>
 
-            {/* 4. Content Container (Higher Z-Index ensures clickability) */}
-            <div className="relative z-20 text-center px-4 md:px-6 max-w-5xl mx-auto">
+            {/* 4. Main Content */}
+            <div className="relative z-20 text-center px-4 md:px-6 max-w-5xl mx-auto -mt-10">
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -83,19 +81,19 @@ const Hero = () => {
                 </motion.div>
             </div>
 
-            {/* Scroll Down Indicator */}
+            {/* 5. Restored Minimal Scroll Indicator (Replaces the Dock) */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, y: [0, 10, 0] }}
                 transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                className="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/70 z-30 cursor-pointer"
-                onClick={scrollToNextSection}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 cursor-pointer"
+                onClick={scrollToStats}
             >
-                <ChevronDown size={32} />
+                <ChevronDown size={32} className="text-white/70 hover:text-[#d97706] transition-colors" />
             </motion.div>
+
         </section>
     );
 };
 
 export default Hero;
-//hi

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe2, Ruler, BadgeIndianRupee, Truck, Plus, Minus, HelpCircle } from "lucide-react";
+import { Globe2, Ruler, BadgeIndianRupee, Truck, Plus, Minus, HelpCircle, Calculator } from "lucide-react";
 
 const features = [
     {
@@ -25,7 +26,6 @@ const features = [
     }
 ];
 
-// --- SHIPPING FAQ DATA ---
 const faqs = [
     {
         q: "What is your Minimum Order Quantity (MOQ)?",
@@ -62,7 +62,7 @@ const WhyChooseUs = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     {features.map((feature, i) => (
                         <motion.div
                             key={i}
@@ -84,6 +84,31 @@ const WhyChooseUs = () => {
                         </motion.div>
                     ))}
                 </div>
+
+                {/* ▼▼▼ CALCULATOR TEASER (New Addition) ▼▼▼ */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="bg-[#d97706]/10 border border-[#d97706]/20 rounded-xl p-6 mb-24 flex flex-col md:flex-row items-center justify-between gap-6"
+                >
+                    <div className="flex items-center gap-4">
+                        <div className="p-3 bg-[#d97706] text-white rounded-lg">
+                            <Calculator size={24} />
+                        </div>
+                        <div>
+                            <h4 className="text-lg font-bold text-gray-900 dark:text-white">Planning a Project?</h4>
+                            <p className="text-sm text-gray-600 dark:text-stone-300">Use our free CFT Calculator to estimate your timber requirements instantly.</p>
+                        </div>
+                    </div>
+                    <Link
+                        to="/calculator"
+                        className="px-6 py-3 bg-[#d97706] hover:bg-[#b45309] text-white font-medium text-sm rounded transition-colors whitespace-nowrap"
+                    >
+                        Open Calculator
+                    </Link>
+                </motion.div>
+
 
                 {/* --- SHIPPING FAQ SECTION --- */}
                 <div className="max-w-3xl mx-auto">

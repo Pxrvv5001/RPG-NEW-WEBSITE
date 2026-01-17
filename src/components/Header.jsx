@@ -10,7 +10,6 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Theme Logic
     const [theme, setTheme] = useState(() => {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme) return savedTheme;
@@ -35,14 +34,11 @@ const Header = () => {
         localStorage.setItem("theme", theme);
     }, [theme]);
 
-    // --- ROBUST SCROLL HANDLER ---
-    // 1. Listen for Hash changes (e.g., coming from /contact to /#divisions)
     useEffect(() => {
         if (location.hash) {
             const id = location.hash.replace('#', '');
             const element = document.getElementById(id);
             if (element) {
-                // Slight delay to ensure DOM is ready if page is heavy
                 setTimeout(() => {
                     element.scrollIntoView({ behavior: "smooth" });
                 }, 100);
@@ -50,14 +46,11 @@ const Header = () => {
         }
     }, [location]);
 
-    // 2. Click Handler
     const handleScroll = (id) => {
         setIsMobileMenuOpen(false);
         if (location.pathname !== '/') {
-            // If not on home, navigate to home with hash -> triggers useEffect above
             navigate(`/#${id}`);
         } else {
-            // If on home, just scroll directly
             const element = document.getElementById(id);
             if (element) {
                 element.scrollIntoView({ behavior: "smooth" });
@@ -75,7 +68,7 @@ const Header = () => {
         hidden: { opacity: 0, height: 0 },
         show: {
             opacity: 1,
-            height: "auto",
+            height: "100vh", // Full screen for better mobile experience
             transition: { staggerChildren: 0.1, duration: 0.3 }
         },
         exit: { opacity: 0, height: 0, transition: { duration: 0.2 } }
@@ -95,24 +88,19 @@ const Header = () => {
             }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-50">
-                <Link to="/" className="text-2xl font-serif font-bold text-white tracking-widest">
+                <Link to="/" className="text-2xl font-serif font-bold text-white tracking-widest z-50">
                     R.P. GOYAL <span className="text-[#d97706]">&</span> SONS
                 </Link>
 
-                {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
                     <Link to="/" className={`transition-colors ${isActive('/')}`}>Home</Link>
-
                     <button onClick={() => handleScroll('divisions')} className="text-white/90 hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
                         Divisions
                     </button>
                     <button onClick={() => handleScroll('atelier')} className="text-white/90 hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
                         Materials
                     </button>
-
-                    {/* ▼▼▼ RENAMED TO CFT CALCULATOR ▼▼▼ */}
                     <Link to="/calculator" className={`transition-colors ${isActive('/calculator')}`}>CFT Calculator</Link>
-
                     <Link to="/gallery" className={`transition-colors ${isActive('/gallery')}`}>Gallery</Link>
                     <Link to="/contact" className={`transition-colors ${isActive('/contact')}`}>Contact</Link>
 
@@ -125,19 +113,17 @@ const Header = () => {
                     </button>
                 </nav>
 
-                {/* Mobile Actions */}
-                <div className="md:hidden flex items-center gap-4">
+                <div className="md:hidden flex items-center gap-4 z-50">
                     <button onClick={toggleTheme} className="text-white" aria-label="Toggle theme">
                         {theme === "light" ? <Moon size={20} /> : <Sun size={20} className="text-[#d97706]" />}
                     </button>
 
                     <button className="text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
-                        {isMobileMenuOpen ? <X /> : <Menu /> }
+                        {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} /> }
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu Dropdown */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
@@ -145,28 +131,28 @@ const Header = () => {
                         initial="hidden"
                         animate="show"
                         exit="exit"
-                        className="md:hidden absolute top-full left-0 w-full bg-[#1c1c1c] border-t border-gray-800 shadow-xl overflow-hidden"
+                        className="md:hidden fixed top-0 left-0 w-full bg-[#1c1c1c] overflow-hidden z-40"
                     >
-                        <div className="flex flex-col p-6 gap-6 text-white text-lg font-serif">
+                        {/* ▼▼▼ ADDED PT-28 FOR SAFE ZONE ▼▼▼ */}
+                        <div className="flex flex-col p-6 pt-28 gap-8 text-white text-2xl font-serif text-center">
                             <motion.div variants={itemVariants}>
                                 <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
                             </motion.div>
 
                             <motion.div variants={itemVariants}>
-                                <button onClick={() => handleScroll('divisions')} className="text-left hover:text-[#d97706]">Divisions</button>
+                                <button onClick={() => handleScroll('divisions')} className="hover:text-[#d97706]">Divisions</button>
                             </motion.div>
 
                             <motion.div variants={itemVariants}>
-                                <button onClick={() => handleScroll('atelier')} className="text-left hover:text-[#d97706]">Materials</button>
-                            </motion.div>
-
-                            {/* ▼▼▼ RENAMED TO CFT CALCULATOR ▼▼▼ */}
-                            <motion.div variants={itemVariants}>
-                                <Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">CFT Calculator</Link>
+                                <button onClick={() => handleScroll('atelier')} className="hover:text-[#d97706]">Materials</button>
                             </motion.div>
 
                             <motion.div variants={itemVariants}>
-                                <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="text-left hover:text-[#d97706]">Gallery</Link>
+                                <Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d97706]">CFT Calculator</Link>
+                            </motion.div>
+
+                            <motion.div variants={itemVariants}>
+                                <Link to="/gallery" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d97706]">Gallery</Link>
                             </motion.div>
 
                             <motion.div variants={itemVariants}>
