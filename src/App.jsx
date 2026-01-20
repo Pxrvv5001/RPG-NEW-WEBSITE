@@ -2,9 +2,10 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ReactLenis } from 'lenis/react';
+import { Toaster } from 'react-hot-toast'; // <--- 1. IMPORT TOASTER
+
 import FloatingWA from './components/FloatingWA';
 import ScrollProgress from './components/ScrollProgress';
-// 1. IMPORT THE PROVIDER
 import { CartProvider } from './context/CartContext';
 
 // Pages
@@ -44,9 +45,28 @@ function App() {
     };
 
     return (
-        // 2. WRAP EVERYTHING IN CARTPROVIDER
         <CartProvider>
             <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
+
+                {/* 2. ADD TOASTER COMPONENT HERE */}
+                <Toaster
+                    position="bottom-center"
+                    toastOptions={{
+                        style: {
+                            background: '#1c1c1c',
+                            color: '#fff',
+                            border: '1px solid #d97706',
+                            padding: '16px',
+                            fontSize: '14px',
+                        },
+                        success: {
+                            iconTheme: {
+                                primary: '#d97706',
+                                secondary: '#fff',
+                            },
+                        },
+                    }}
+                />
 
                 <ScrollProgress />
                 <FloatingWA />

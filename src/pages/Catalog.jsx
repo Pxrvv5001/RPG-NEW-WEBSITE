@@ -2,14 +2,12 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
 import { FilterX, X, Hammer, Droplets, Scale, Layers, ShoppingBag } from "lucide-react";
-import { Link } from "react-router-dom"; // Keep this for other links
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import InfoCard from "../components/InfoCard";
 import MiniCTA from "../components/MiniCTA";
 import { catalogData } from "../data/catalogData";
-
-// ▼▼▼ IMPORT THE CART HOOK ▼▼▼
 import { useCart } from "../context/CartContext";
 
 // Local Images
@@ -30,7 +28,6 @@ const imageMap = {
 };
 
 const Catalog = () => {
-    // ▼▼▼ USE THE HOOK ▼▼▼
     const { addToCart } = useCart();
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -53,7 +50,6 @@ const Catalog = () => {
             <Header />
 
             <div className="bg-[#1c1c1c] pt-32 pb-16 px-6 text-center border-b border-white/5">
-                {/* RESTORE TITLE */}
                 <h1 className="text-4xl md:text-5xl font-serif text-white font-bold mb-4">Timber Catalog</h1>
                 <p className="text-stone-400 text-sm tracking-widest uppercase">Explore our collection of premium global woods</p>
             </div>
@@ -129,6 +125,7 @@ const Catalog = () => {
                 </motion.div>
             </div>
 
+            {/* --- UPDATED MODAL SECTION --- */}
             <AnimatePresence>
                 {selectedProduct && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -142,78 +139,87 @@ const Catalog = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-4xl bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+                            // HERE ARE THE NEW DIMENSIONS: max-w-6xl and h-[85vh]
+                            className="relative w-full max-w-6xl h-[85vh] bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
                         >
                             <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors">
                                 <X size={20} />
                             </button>
 
-                            {/* Left: Image */}
-                            <div className="w-full md:w-2/5 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
+                            {/* Left: Image (Split 50%) */}
+                            <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
                                 <img
                                     src={imageMap[selectedProduct.imageKey]}
                                     alt={selectedProduct.name}
                                     className="w-full h-full object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
                                     <div className="text-white">
-                                        <p className="text-[#d97706] text-xs font-bold uppercase tracking-widest mb-1">{selectedProduct.origin}</p>
-                                        <h2 className="text-3xl font-serif font-bold leading-tight">{selectedProduct.name}</h2>
+                                        <p className="text-[#d97706] text-sm font-bold uppercase tracking-widest mb-2">{selectedProduct.origin}</p>
+                                        <h2 className="text-4xl font-serif font-bold leading-tight">{selectedProduct.name}</h2>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Right: Specs */}
-                            <div className="w-full md:w-3/5 p-8 text-gray-900 dark:text-white overflow-y-auto">
-                                <h3 className="text-lg font-bold mb-6 uppercase tracking-wider text-[#d97706]">Technical Specifications</h3>
+                            {/* Right: Specs (Split 50%) */}
+                            <div className="w-full md:w-1/2 p-8 md:p-10 text-gray-900 dark:text-white overflow-y-auto bg-white dark:bg-[#1c1c1c]">
+                                <h3 className="text-xl font-bold mb-8 uppercase tracking-wider text-[#d97706] border-b border-[#d97706]/20 pb-4">Technical Specifications</h3>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-                                    <div className="flex gap-3">
-                                        <Scale className="text-stone-400 shrink-0" />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 mb-10">
+                                    <div className="flex gap-4">
+                                        <div className="bg-gray-50 dark:bg-white/5 p-3 rounded-lg h-fit text-[#d97706]">
+                                            <Scale size={24} />
+                                        </div>
                                         <div>
-                                            <p className="text-xs font-bold uppercase text-stone-500">Density</p>
-                                            <p className="font-medium">{selectedProduct.specs?.density || "N/A"}</p>
+                                            <p className="text-xs font-bold uppercase text-stone-500 mb-1">Density</p>
+                                            <p className="font-medium text-lg">{selectedProduct.specs?.density || "N/A"}</p>
                                         </div>
                                     </div>
-                                    <div className="flex gap-3">
-                                        <Droplets className="text-stone-400 shrink-0" />
+                                    <div className="flex gap-4">
+                                        <div className="bg-gray-50 dark:bg-white/5 p-3 rounded-lg h-fit text-[#d97706]">
+                                            <Droplets size={24} />
+                                        </div>
                                         <div>
-                                            <p className="text-xs font-bold uppercase text-stone-500">Moisture Content</p>
-                                            <p className="font-medium">{selectedProduct.specs?.moisture || "N/A"}</p>
+                                            <p className="text-xs font-bold uppercase text-stone-500 mb-1">Moisture</p>
+                                            <p className="font-medium text-lg">{selectedProduct.specs?.moisture || "N/A"}</p>
                                         </div>
                                     </div>
-                                    <div className="flex gap-3">
-                                        <Hammer className="text-stone-400 shrink-0" />
+                                    <div className="flex gap-4">
+                                        <div className="bg-gray-50 dark:bg-white/5 p-3 rounded-lg h-fit text-[#d97706]">
+                                            <Hammer size={24} />
+                                        </div>
                                         <div>
-                                            <p className="text-xs font-bold uppercase text-stone-500">Durability</p>
-                                            <p className="font-medium">{selectedProduct.specs?.durability || "N/A"}</p>
+                                            <p className="text-xs font-bold uppercase text-stone-500 mb-1">Durability</p>
+                                            <p className="font-medium text-lg">{selectedProduct.specs?.durability || "N/A"}</p>
                                         </div>
                                     </div>
-                                    <div className="flex gap-3">
-                                        <Layers className="text-stone-400 shrink-0" />
+                                    <div className="flex gap-4">
+                                        <div className="bg-gray-50 dark:bg-white/5 p-3 rounded-lg h-fit text-[#d97706]">
+                                            <Layers size={24} />
+                                        </div>
                                         <div>
-                                            <p className="text-xs font-bold uppercase text-stone-500">Grain</p>
-                                            <p className="font-medium">{selectedProduct.specs?.grain || "N/A"}</p>
+                                            <p className="text-xs font-bold uppercase text-stone-500 mb-1">Grain</p>
+                                            <p className="font-medium text-lg">{selectedProduct.specs?.grain || "N/A"}</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="mb-8">
-                                    <p className="text-xs font-bold uppercase text-stone-500 mb-2">Primary Uses</p>
-                                    <p className="text-sm leading-relaxed text-gray-600 dark:text-stone-300">
+                                <div className="mb-10 bg-gray-50 dark:bg-white/5 p-6 rounded-xl">
+                                    <p className="text-xs font-bold uppercase text-stone-500 mb-3">Primary Uses</p>
+                                    <p className="text-base leading-relaxed text-gray-700 dark:text-stone-300">
                                         {selectedProduct.specs?.uses || "General construction and joinery."}
                                     </p>
                                 </div>
 
-                                {/* ▼▼▼ THIS IS THE BUTTON WE WANT ▼▼▼ */}
+                                {/* ADD TO CART BUTTON */}
                                 <button
                                     onClick={() => {
                                         addToCart(selectedProduct);
-                                        setSelectedProduct(null); // Close modal
+                                        setSelectedProduct(null);
                                     }}
-                                    className="w-full py-4 bg-[#d97706] text-white text-center font-bold uppercase tracking-widest text-sm hover:bg-[#b45309] rounded transition-colors shadow-lg flex items-center justify-center gap-2"
+                                    className="w-full py-5 bg-[#d97706] text-white text-center font-bold uppercase tracking-widest text-sm hover:bg-[#b45309] rounded-xl transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3"
                                 >
-                                    <ShoppingBag size={18} /> Add to Quote Request
+                                    <ShoppingBag size={20} /> Add to Quote Request
                                 </button>
                             </div>
                         </motion.div>

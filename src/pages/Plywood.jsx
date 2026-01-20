@@ -2,11 +2,16 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Eye, ArrowRight, X, Layers, Droplets, Hammer, Ruler } from "lucide-react";
+import { Eye, ArrowRight, X, Layers, Droplets, Hammer, Ruler, ShoppingBag } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MiniCTA from "../components/MiniCTA";
 
+// 1. IMPORT CART HOOK
+import { useCart } from "../context/CartContext";
+
+// 2. YOUR ORIGINAL LOCAL IMAGES (Keep these unchanged)
+// Ensure these files exist in src/assets/
 import marineImg from "../assets/marine.jpg";
 import commercialImg from "../assets/commercial.jpg";
 import gurjanImg from "../assets/gurjan.jpg";
@@ -16,12 +21,12 @@ import laminateImg from "../assets/laminate.jpg";
 
 const plywoods = [
     {
-        id: 1,
+        id: "ply-1",
         name: "Marine Grade Plywood",
         spec: "IS:710 Certified",
         tag: "Waterproof",
         desc: "Boiling Waterproof (BWP) plywood designed for kitchens, bathrooms, and exterior use.",
-        image: marineImg,
+        image: marineImg, // Using local import
         specs: {
             core: "100% Hardwood (Eucalyptus)",
             glue: "Phenol Formaldehyde (BWP Grade)",
@@ -31,12 +36,12 @@ const plywoods = [
         }
     },
     {
-        id: 2,
+        id: "ply-2",
         name: "Commercial MR Grade",
         spec: "IS:303 Certified",
         tag: "Moisture Resistant",
         desc: "High-quality moisture-resistant plywood perfect for bedroom furniture and interior paneling.",
-        image: commercialImg,
+        image: commercialImg, // Using local import
         specs: {
             core: "Alternate Core (Poplar + Eucalyptus)",
             glue: "Melamine Urea Formaldehyde",
@@ -46,12 +51,12 @@ const plywoods = [
         }
     },
     {
-        id: 3,
+        id: "ply-3",
         name: "Gurjan Face Veneer",
         spec: "Premium Face",
         tag: "A++ Grade",
         desc: "Imported Gurjan face veneer for that reddish-brown premium finish on plywood sheets.",
-        image: gurjanImg,
+        image: gurjanImg, // Using local import
         specs: {
             thickness: "0.35mm to 0.55mm",
             moisture: "8-12% (Dried)",
@@ -61,12 +66,12 @@ const plywoods = [
         }
     },
     {
-        id: 4,
+        id: "ply-4",
         name: "Block Boards",
         spec: "Pine Wood Filler",
         tag: "High Strength",
         desc: "Sturdy block boards made with seasoned pine wood fillers. Ideal for wardrobes and doors.",
-        image: blockboardImg,
+        image: blockboardImg, // Using local import
         specs: {
             filler: "Seasoned Pine Wood Batons",
             frame: "Hardwood Frame",
@@ -76,12 +81,12 @@ const plywoods = [
         }
     },
     {
-        id: 5,
+        id: "ply-5",
         name: "Flush Doors",
         spec: "Solid Core",
         tag: "Ready to Install",
         desc: "Pine-framed flush doors available in custom sizes. chemically treated against termites.",
-        image: flushdoorImg,
+        image: flushdoorImg, // Using local import
         specs: {
             core: "Solid Tubular / Pine Filler",
             treatment: "Vacuum Pressure Impregnated (VPI)",
@@ -91,12 +96,12 @@ const plywoods = [
         }
     },
     {
-        id: 6,
+        id: "ply-6",
         name: "Decorative Laminates",
         spec: "0.8mm & 1mm",
         tag: "Interior Design",
         desc: "A vast collection of textures and colors for surfacing furniture and walls.",
-        image: laminateImg,
+        image: laminateImg, // Using local import
         specs: {
             thickness: "0.8mm / 1.0mm",
             finish: "Matte, Gloss, Texture, Suede",
@@ -109,6 +114,8 @@ const plywoods = [
 
 const Plywood = () => {
     const [selectedItem, setSelectedItem] = useState(null);
+    // 3. USE HOOK
+    const { addToCart } = useCart();
 
     return (
         <div className="bg-white dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
@@ -156,13 +163,18 @@ const Plywood = () => {
                                         <Eye size={16} /> Specs
                                     </button>
 
-                                    <Link
-                                        to="/contact"
-                                        state={{ interest: `Quote: ${item.name}` }}
+                                    {/* 4. CART BUTTON (GRID) */}
+                                    <button
+                                        onClick={() => addToCart({
+                                            id: item.id,
+                                            name: item.name,
+                                            category: "Plywood",
+                                            grade: item.tag
+                                        })}
                                         className="flex items-center justify-center gap-2 py-3 bg-[#1c1c1c] dark:bg-white text-white dark:text-black font-bold text-xs uppercase tracking-widest hover:bg-[#d97706] dark:hover:bg-[#d97706] dark:hover:text-white transition-colors"
                                     >
-                                        Get Quote
-                                    </Link>
+                                        <ShoppingBag size={16} /> Add to Quote
+                                    </button>
                                 </div>
                             </div>
                         </motion.div>
@@ -170,7 +182,6 @@ const Plywood = () => {
                 </div>
             </div>
 
-            {/* --- STANDARDIZED MODAL --- */}
             <AnimatePresence>
                 {selectedItem && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -184,32 +195,32 @@ const Plywood = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            // ▼▼▼ UNIFIED CONTAINER CLASSES ▼▼▼
-                            className="relative w-full max-w-4xl bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+                            // 5. FIXED DIMENSIONS (Matches Catalog)
+                            className="relative w-full max-w-6xl h-[85vh] bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
                         >
                             <button onClick={() => setSelectedItem(null)} className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors">
                                 <X size={20} />
                             </button>
 
-                            {/* Left: Image (Standardized Width/Height) */}
-                            <div className="w-full md:w-2/5 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
+                            {/* Left: Image */}
+                            <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
                                 <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-full object-cover"/>
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
-                                    <h2 className="text-3xl font-serif font-bold text-white leading-tight">{selectedItem.name}</h2>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
+                                    <h2 className="text-4xl font-serif font-bold text-white leading-tight">{selectedItem.name}</h2>
                                 </div>
                             </div>
 
-                            {/* Right: Specs (Standardized Padding/Scroll) */}
-                            <div className="w-full md:w-3/5 p-8 text-gray-900 dark:text-white overflow-y-auto">
-                                <h3 className="text-lg font-bold mb-6 uppercase tracking-wider text-[#d97706]">Technical Datasheet</h3>
+                            {/* Right: Specs */}
+                            <div className="w-full md:w-1/2 p-8 text-gray-900 dark:text-white overflow-y-auto bg-white dark:bg-[#1c1c1c]">
+                                <h3 className="text-xl font-bold mb-6 uppercase tracking-wider text-[#d97706] border-b border-[#d97706]/20 pb-4">Technical Datasheet</h3>
 
                                 <div className="grid grid-cols-1 gap-6 mb-8">
                                     {Object.entries(selectedItem.specs).map(([key, value]) => (
                                         <div key={key} className="flex gap-4 border-b border-gray-100 dark:border-white/5 pb-4 last:border-0">
-                                            <div className="bg-gray-100 dark:bg-white/5 p-2 rounded-full h-fit text-[#d97706]">
-                                                {key === 'core' || key === 'filler' ? <Layers size={18} /> :
-                                                    key === 'glue' || key === 'treatment' ? <Droplets size={18} /> :
-                                                        key === 'density' || key === 'strength' ? <Hammer size={18} /> : <Ruler size={18} />}
+                                            <div className="bg-gray-50 dark:bg-white/5 p-3 rounded-lg h-fit text-[#d97706]">
+                                                {key === 'core' || key === 'filler' ? <Layers size={20} /> :
+                                                    key === 'glue' || key === 'treatment' ? <Droplets size={20} /> :
+                                                        key === 'density' || key === 'strength' ? <Hammer size={20} /> : <Ruler size={20} />}
                                             </div>
                                             <div>
                                                 <p className="text-xs font-bold uppercase text-stone-500 mb-1">{key}</p>
@@ -219,13 +230,21 @@ const Plywood = () => {
                                     ))}
                                 </div>
 
-                                <Link
-                                    to="/contact"
-                                    state={{ interest: `Order: ${selectedItem.name}` }}
-                                    className="block w-full py-4 bg-[#d97706] text-white text-center font-bold uppercase tracking-widest text-sm hover:bg-[#b45309] rounded transition-colors shadow-lg"
+                                {/* 6. CART BUTTON (MODAL) */}
+                                <button
+                                    onClick={() => {
+                                        addToCart({
+                                            id: selectedItem.id,
+                                            name: selectedItem.name,
+                                            category: "Plywood",
+                                            grade: selectedItem.tag
+                                        });
+                                        setSelectedItem(null); // Close modal
+                                    }}
+                                    className="block w-full py-5 bg-[#d97706] text-white text-center font-bold uppercase tracking-widest text-sm hover:bg-[#b45309] rounded-xl transition-all shadow-xl hover:-translate-y-1 flex items-center justify-center gap-3"
                                 >
-                                    Request Bulk Pricing
-                                </Link>
+                                    <ShoppingBag size={20} /> Add to Quote Request
+                                </button>
                             </div>
                         </motion.div>
                     </div>
