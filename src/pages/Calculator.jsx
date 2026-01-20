@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
-import { Calculator as CalcIcon, RefreshCw, ChevronRight, Info } from "lucide-react";
+import { Calculator as CalcIcon, RefreshCw, ChevronRight, Info, Download, User, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+// PDF Imports
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const Calculator = () => {
-    const [unit, setUnit] = useState("imperial"); // Options: imperial, mm, cm, meter
+    // --- 1. NEW STATE FOR CLIENT DETAILS ---
+    const [clientName, setClientName] = useState("");
+    const [clientPhone, setClientPhone] = useState("");
+
+    const [unit, setUnit] = useState("imperial");
     const [length, setLength] = useState("");
     const [width, setWidth] = useState("");
     const [thickness, setThickness] = useState("");
@@ -14,31 +21,26 @@ const Calculator = () => {
     const [price, setPrice] = useState("");
     const [result, setResult] = useState(null);
 
-    // Reset fields when unit changes
-    useEffect(() => {
-        setResult(null);
-    }, [unit]);
+    useEffect(() => { setResult(null); }, [unit]);
 
     const calculateCFT = (e) => {
         e.preventDefault();
-
         let lenFt = parseFloat(length);
         let widIn = parseFloat(width);
         let thkIn = parseFloat(thickness);
 
-        // Conversion Logic to Standard (L=Ft, W=In, T=In)
         if (unit === "mm") {
-            lenFt = parseFloat(length) / 304.8;  // mm to ft
-            widIn = parseFloat(width) / 25.4;    // mm to in
-            thkIn = parseFloat(thickness) / 25.4; // mm to in
+            lenFt = parseFloat(length) / 304.8;
+            widIn = parseFloat(width) / 25.4;
+            thkIn = parseFloat(thickness) / 25.4;
         } else if (unit === "cm") {
-            lenFt = parseFloat(length) / 30.48;  // cm to ft
-            widIn = parseFloat(width) / 2.54;    // cm to in
-            thkIn = parseFloat(thickness) / 2.54; // cm to in
+            lenFt = parseFloat(length) / 30.48;
+            widIn = parseFloat(width) / 2.54;
+            thkIn = parseFloat(thickness) / 2.54;
         } else if (unit === "meter") {
-            lenFt = parseFloat(length) * 3.28084; // m to ft
-            widIn = parseFloat(width) * 39.3701;  // m to in
-            thkIn = parseFloat(thickness) * 39.3701; // m to in
+            lenFt = parseFloat(length) * 3.28084;
+            widIn = parseFloat(width) * 39.3701;
+            thkIn = parseFloat(thickness) * 39.3701;
         }
 
         const cftPerPiece = (lenFt * widIn * thkIn) / 144;
@@ -48,8 +50,107 @@ const Calculator = () => {
         setResult({ cft: totalCft.toFixed(2), totalPrice: totalPrice.toFixed(2) });
     };
 
+    // --- PDF GENERATION WITH CLIENT NAME ---
+    const downloadPDF = () => {
+        if (!result) return;
+        const doc = new jsPDF();
+
+        // 1. BRAND HEADER
+        doc.setFillColor(217, 119, 6);
+        doc.rect(0, 0, 210, 45, "F");
+
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(26);
+        doc.setFont("helvetica", "bold");
+        doc.text("R.P. GOYAL & SONS", 105, 20, null, null, "center");
+
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "normal");
+        doc.text("Imam Bara, Timber Market, Railway Road, Karnal - 132001 (Haryana)", 105, 28, null, null, "center");
+        doc.text("Phone: +91 70276 02201 | Email: rpgtimber@gmail.com", 105, 34, null, null, "center");
+
+        // 2. CLIENT & DOC DETAILS
+        doc.setTextColor(0, 0, 0);
+
+        // --- UPDATED LOGIC HERE ---
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.text("Quotation For:", 14, 60);
+        doc.line(14, 62, 80, 62);
+
+        doc.setFont("helvetica", "normal");
+
+        // If user typed a name, print it. If not, print a line.
+        const nameText = clientName ? clientName : "__________________________";
+        const phoneText = clientPhone ? clientPhone : "_________________________";
+
+        doc.text(`Name:  ${nameText}`, 14, 70);
+        doc.text(`Phone: ${phoneText}`, 14, 78);
+
+        // Right Side: Date
+        const date = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+        doc.setFont("helvetica", "bold");
+        doc.text("Estimate Details:", 140, 60);
+        doc.line(140, 62, 196, 62);
+        doc.setFont("helvetica", "normal");
+        doc.text(`Date: ${date}`, 140, 70);
+        doc.text("Valid Until: 7 Days", 140, 78);
+
+        // 3. TABLE
+        autoTable(doc, {
+            startY: 90,
+            head: [['Description / Dimensions', 'Unit', 'Qty', 'Vol (CFT)', 'Rate', 'Amount']],
+            body: [[
+                `${length} x ${width} x ${thickness}`,
+                unit.toUpperCase(),
+                quantity,
+                result.cft,
+                price ? `Rs. ${price}` : '-',
+                result.totalPrice > 0 ? `Rs. ${result.totalPrice}` : '-'
+            ]],
+            theme: 'grid',
+            headStyles: { fillColor: [28, 28, 28], textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center' },
+            bodyStyles: { halign: 'center', fontSize: 10, cellPadding: 6 },
+            alternateRowStyles: { fillColor: [245, 245, 245] },
+            columnStyles: { 0: { halign: 'left', fontStyle: 'bold' } }
+        });
+
+        // 4. TOTAL
+        if (parseFloat(result.totalPrice) > 0) {
+            const finalY = doc.lastAutoTable.finalY + 10;
+            doc.setFillColor(245, 245, 245);
+            doc.rect(130, finalY - 6, 66, 20, "F");
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(12);
+            doc.text("Grand Total:", 135, finalY + 5);
+            doc.setFontSize(14);
+            doc.setTextColor(217, 119, 6);
+            doc.text(`Rs. ${result.totalPrice}`, 190, finalY + 5, null, null, "right");
+        }
+
+        // 5. FOOTER
+        const pageHeight = doc.internal.pageSize.height;
+        doc.setTextColor(80, 80, 80);
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "bold");
+        doc.text("Terms & Conditions:", 14, pageHeight - 50);
+        doc.setFont("helvetica", "normal");
+        doc.text("1. Prices are subject to market fluctuation.", 14, pageHeight - 45);
+        doc.text("2. Goods once sold will not be taken back.", 14, pageHeight - 41);
+        doc.text("3. Loading and Transport charges extra as applicable.", 14, pageHeight - 37);
+
+        doc.setFont("helvetica", "bold");
+        doc.text("For R.P. GOYAL & SONS PVT. LTD.", 150, pageHeight - 30);
+        doc.line(150, pageHeight - 15, 196, pageHeight - 15);
+        doc.setFont("helvetica", "normal");
+        doc.text("Authorized Signatory", 173, pageHeight - 10, null, null, "center");
+
+        doc.save(`Estimate_${clientName || 'Client'}.pdf`);
+    };
+
     const clearForm = () => {
         setLength(""); setWidth(""); setThickness(""); setQuantity(1); setPrice(""); setResult(null);
+        setClientName(""); setClientPhone(""); // Clear client info too
     };
 
     const getPlaceholders = () => {
@@ -60,14 +161,13 @@ const Calculator = () => {
             default: return { l: "e.g. 8", w: "e.g. 4", t: "e.g. 3" };
         }
     };
-
     const placeholders = getPlaceholders();
 
     return (
         <div className="bg-[#f9f8f4] dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Timber CFT Calculator | R.P. Goyal & Sons</title>
-                <meta name="description" content="Calculate wood volume in Cubic Feet (CFT) instantly using MM, CM, or Inches." />
+                <meta name="description" content="Calculate wood volume in Cubic Feet (CFT) instantly." />
             </Helmet>
 
             <Header />
@@ -84,13 +184,39 @@ const Calculator = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
 
-                    {/* CALCULATOR FORM */}
                     <motion.div
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         className="bg-white dark:bg-[#292524] p-8 rounded-2xl shadow-xl border-t-4 border-[#d97706]"
                     >
                         <form onSubmit={calculateCFT} className="space-y-5">
+
+                            {/* --- 2. NEW CLIENT INPUTS SECTION --- */}
+                            <div className="bg-gray-50 dark:bg-black/20 p-4 rounded-lg border border-gray-200 dark:border-white/5 mb-4">
+                                <label className="block text-xs font-bold uppercase text-[#d97706] mb-3 tracking-widest">Client Details (Optional)</label>
+                                <div className="space-y-3">
+                                    <div className="relative">
+                                        <User size={16} className="absolute left-3 top-3 text-gray-400" />
+                                        <input
+                                            type="text"
+                                            value={clientName}
+                                            onChange={(e) => setClientName(e.target.value)}
+                                            className="w-full pl-10 p-2.5 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-white/10 rounded text-sm text-gray-900 dark:text-white focus:border-[#d97706] outline-none"
+                                            placeholder="Client Name"
+                                        />
+                                    </div>
+                                    <div className="relative">
+                                        <Phone size={16} className="absolute left-3 top-3 text-gray-400" />
+                                        <input
+                                            type="text"
+                                            value={clientPhone}
+                                            onChange={(e) => setClientPhone(e.target.value)}
+                                            className="w-full pl-10 p-2.5 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-white/10 rounded text-sm text-gray-900 dark:text-white focus:border-[#d97706] outline-none"
+                                            placeholder="Phone Number"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
                             {/* UNIT SELECTOR */}
                             <div>
@@ -189,6 +315,13 @@ const Calculator = () => {
                                         <p className="text-4xl font-serif">₹ {result.totalPrice}</p>
                                     </div>
                                 )}
+
+                                <button
+                                    onClick={downloadPDF}
+                                    className="mt-8 w-full py-3 bg-white text-black font-bold uppercase tracking-widest text-sm rounded shadow hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                                >
+                                    <Download size={18} /> Download Official Quote
+                                </button>
                             </div>
                         )}
                     </motion.div>

@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion, AnimatePresence } from "framer-motion";
-import { FilterX, X, Hammer, Droplets, Scale, Layers } from "lucide-react";
-import { Link } from "react-router-dom";
+import { FilterX, X, Hammer, Droplets, Scale, Layers, ShoppingBag } from "lucide-react";
+import { Link } from "react-router-dom"; // Keep this for other links
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import InfoCard from "../components/InfoCard";
 import MiniCTA from "../components/MiniCTA";
 import { catalogData } from "../data/catalogData";
+
+// ▼▼▼ IMPORT THE CART HOOK ▼▼▼
+import { useCart } from "../context/CartContext";
 
 // Local Images
 import teakImg from "../assets/teak.jpg";
@@ -27,6 +30,9 @@ const imageMap = {
 };
 
 const Catalog = () => {
+    // ▼▼▼ USE THE HOOK ▼▼▼
+    const { addToCart } = useCart();
+
     const [searchTerm, setSearchTerm] = useState("");
     const [filterCategory, setFilterCategory] = useState("All");
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -47,6 +53,7 @@ const Catalog = () => {
             <Header />
 
             <div className="bg-[#1c1c1c] pt-32 pb-16 px-6 text-center border-b border-white/5">
+                {/* RESTORE TITLE */}
                 <h1 className="text-4xl md:text-5xl font-serif text-white font-bold mb-4">Timber Catalog</h1>
                 <p className="text-stone-400 text-sm tracking-widest uppercase">Explore our collection of premium global woods</p>
             </div>
@@ -122,7 +129,6 @@ const Catalog = () => {
                 </motion.div>
             </div>
 
-            {/* --- STANDARDIZED MODAL --- */}
             <AnimatePresence>
                 {selectedProduct && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -136,14 +142,13 @@ const Catalog = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            // ▼▼▼ UNIFIED CONTAINER CLASSES ▼▼▼
                             className="relative w-full max-w-4xl bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
                         >
                             <button onClick={() => setSelectedProduct(null)} className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors">
                                 <X size={20} />
                             </button>
 
-                            {/* Left: Image (Standardized Width/Height) */}
+                            {/* Left: Image */}
                             <div className="w-full md:w-2/5 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
                                 <img
                                     src={imageMap[selectedProduct.imageKey]}
@@ -158,7 +163,7 @@ const Catalog = () => {
                                 </div>
                             </div>
 
-                            {/* Right: Specs (Standardized Padding/Scroll) */}
+                            {/* Right: Specs */}
                             <div className="w-full md:w-3/5 p-8 text-gray-900 dark:text-white overflow-y-auto">
                                 <h3 className="text-lg font-bold mb-6 uppercase tracking-wider text-[#d97706]">Technical Specifications</h3>
 
@@ -200,13 +205,16 @@ const Catalog = () => {
                                     </p>
                                 </div>
 
-                                <Link
-                                    to="/contact"
-                                    state={{ interest: `Quote for: ${selectedProduct.name}` }}
-                                    className="block w-full py-4 bg-[#d97706] text-white text-center font-bold uppercase tracking-widest text-sm hover:bg-[#b45309] rounded transition-colors shadow-lg"
+                                {/* ▼▼▼ THIS IS THE BUTTON WE WANT ▼▼▼ */}
+                                <button
+                                    onClick={() => {
+                                        addToCart(selectedProduct);
+                                        setSelectedProduct(null); // Close modal
+                                    }}
+                                    className="w-full py-4 bg-[#d97706] text-white text-center font-bold uppercase tracking-widest text-sm hover:bg-[#b45309] rounded transition-colors shadow-lg flex items-center justify-center gap-2"
                                 >
-                                    Request Wholesale Quote
-                                </Link>
+                                    <ShoppingBag size={18} /> Add to Quote Request
+                                </button>
                             </div>
                         </motion.div>
                     </div>

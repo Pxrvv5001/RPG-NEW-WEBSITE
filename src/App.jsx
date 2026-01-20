@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ReactLenis } from 'lenis/react';
 import FloatingWA from './components/FloatingWA';
 import ScrollProgress from './components/ScrollProgress';
+// 1. IMPORT THE PROVIDER
+import { CartProvider } from './context/CartContext';
 
 // Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -42,32 +44,34 @@ function App() {
     };
 
     return (
-        // ▼▼▼ CHANGED DURATION TO 1.2 (Tightened control) ▼▼▼
-        <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
+        // 2. WRAP EVERYTHING IN CARTPROVIDER
+        <CartProvider>
+            <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
 
-            <ScrollProgress />
-            <FloatingWA />
+                <ScrollProgress />
+                <FloatingWA />
 
-            <Suspense fallback={<PageLoader />}>
-                <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
-                    <Routes location={location} key={location.pathname}>
-                        <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-                        <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-                        <Route path="/catalog" element={<PageWrapper><Catalog /></PageWrapper>} />
-                        <Route path="/plywood" element={<PageWrapper><Plywood /></PageWrapper>} />
-                        <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
-                        <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
-                        <Route path="/calculator" element={<PageWrapper><Calculator /></PageWrapper>} />
+                <Suspense fallback={<PageLoader />}>
+                    <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
+                        <Routes location={location} key={location.pathname}>
+                            <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+                            <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+                            <Route path="/catalog" element={<PageWrapper><Catalog /></PageWrapper>} />
+                            <Route path="/plywood" element={<PageWrapper><Plywood /></PageWrapper>} />
+                            <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
+                            <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
+                            <Route path="/calculator" element={<PageWrapper><Calculator /></PageWrapper>} />
 
-                        <Route path="/privacy" element={<PageWrapper><Privacy /></PageWrapper>} />
-                        <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
+                            <Route path="/privacy" element={<PageWrapper><Privacy /></PageWrapper>} />
+                            <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
 
-                        <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
-                    </Routes>
-                </AnimatePresence>
-            </Suspense>
+                            <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+                        </Routes>
+                    </AnimatePresence>
+                </Suspense>
 
-        </ReactLenis>
+            </ReactLenis>
+        </CartProvider>
     );
 }
 
