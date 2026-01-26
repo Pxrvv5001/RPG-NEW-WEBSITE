@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import loadingImg from "../assets/Loading.jpeg";
 import finishedTeakImg from "../assets/FinishedTeak.jpeg";
 import machineryImg from "../assets/Machinery.jpeg";
-import yardStockImg from "../assets/YardStock.jpeg";
+import yardStockImg from "../assets/YardStock.jpg";
 // 1. Import the new image here
 import pineLogsImg from "../assets/PineLogs.jpeg";
 

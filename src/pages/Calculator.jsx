@@ -9,7 +9,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 const Calculator = () => {
-    // --- 1. NEW STATE FOR CLIENT DETAILS ---
+    // --- 1. STATE FOR CLIENT DETAILS ---
     const [clientName, setClientName] = useState("");
     const [clientPhone, setClientPhone] = useState("");
 
@@ -23,34 +23,47 @@ const Calculator = () => {
 
     useEffect(() => { setResult(null); }, [unit]);
 
-    const calculateCFT = (e) => {
+    const calculateCBM = (e) => {
         e.preventDefault();
-        let lenFt = parseFloat(length);
-        let widIn = parseFloat(width);
-        let thkIn = parseFloat(thickness);
 
-        if (unit === "mm") {
-            lenFt = parseFloat(length) / 304.8;
-            widIn = parseFloat(width) / 25.4;
-            thkIn = parseFloat(thickness) / 25.4;
+        let lenM = 0;
+        let widM = 0;
+        let thkM = 0;
+
+        const l = parseFloat(length);
+        const w = parseFloat(width);
+        const t = parseFloat(thickness);
+
+        // Convert everything to METERS first
+        if (unit === "imperial") {
+            // Length is Feet -> Meters
+            lenM = l * 0.3048;
+            // Width & Thickness are Inches -> Meters
+            widM = w * 0.0254;
+            thkM = t * 0.0254;
+        } else if (unit === "mm") {
+            lenM = l / 1000;
+            widM = w / 1000;
+            thkM = t / 1000;
         } else if (unit === "cm") {
-            lenFt = parseFloat(length) / 30.48;
-            widIn = parseFloat(width) / 2.54;
-            thkIn = parseFloat(thickness) / 2.54;
+            lenM = l / 100;
+            widM = w / 100;
+            thkM = t / 100;
         } else if (unit === "meter") {
-            lenFt = parseFloat(length) * 3.28084;
-            widIn = parseFloat(width) * 39.3701;
-            thkIn = parseFloat(thickness) * 39.3701;
+            lenM = l;
+            widM = w;
+            thkM = t;
         }
 
-        const cftPerPiece = (lenFt * widIn * thkIn) / 144;
-        const totalCft = cftPerPiece * parseInt(quantity);
-        const totalPrice = price ? totalCft * parseFloat(price) : 0;
+        const cbmPerPiece = lenM * widM * thkM;
+        const totalCbm = cbmPerPiece * parseInt(quantity);
+        const totalPrice = price ? totalCbm * parseFloat(price) : 0;
 
-        setResult({ cft: totalCft.toFixed(2), totalPrice: totalPrice.toFixed(2) });
+        // CBM needs more precision (4 decimal places)
+        setResult({ cbm: totalCbm.toFixed(4), totalPrice: totalPrice.toFixed(2) });
     };
 
-    // --- PDF GENERATION WITH CLIENT NAME ---
+    // --- PDF GENERATION ---
     const downloadPDF = () => {
         if (!result) return;
         const doc = new jsPDF();
@@ -72,7 +85,6 @@ const Calculator = () => {
         // 2. CLIENT & DOC DETAILS
         doc.setTextColor(0, 0, 0);
 
-        // --- UPDATED LOGIC HERE ---
         doc.setFontSize(10);
         doc.setFont("helvetica", "bold");
         doc.text("Quotation For:", 14, 60);
@@ -80,14 +92,12 @@ const Calculator = () => {
 
         doc.setFont("helvetica", "normal");
 
-        // If user typed a name, print it. If not, print a line.
         const nameText = clientName ? clientName : "__________________________";
         const phoneText = clientPhone ? clientPhone : "_________________________";
 
         doc.text(`Name:  ${nameText}`, 14, 70);
         doc.text(`Phone: ${phoneText}`, 14, 78);
 
-        // Right Side: Date
         const date = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
         doc.setFont("helvetica", "bold");
         doc.text("Estimate Details:", 140, 60);
@@ -99,12 +109,12 @@ const Calculator = () => {
         // 3. TABLE
         autoTable(doc, {
             startY: 90,
-            head: [['Description / Dimensions', 'Unit', 'Qty', 'Vol (CFT)', 'Rate', 'Amount']],
+            head: [['Description / Dimensions', 'Unit', 'Qty', 'Vol (CBM)', 'Rate', 'Amount']],
             body: [[
                 `${length} x ${width} x ${thickness}`,
                 unit.toUpperCase(),
                 quantity,
-                result.cft,
+                result.cbm,
                 price ? `Rs. ${price}` : '-',
                 result.totalPrice > 0 ? `Rs. ${result.totalPrice}` : '-'
             ]],
@@ -150,7 +160,7 @@ const Calculator = () => {
 
     const clearForm = () => {
         setLength(""); setWidth(""); setThickness(""); setQuantity(1); setPrice(""); setResult(null);
-        setClientName(""); setClientPhone(""); // Clear client info too
+        setClientName(""); setClientPhone("");
     };
 
     const getPlaceholders = () => {
@@ -166,8 +176,8 @@ const Calculator = () => {
     return (
         <div className="bg-[#f9f8f4] dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
-                <title>Timber CFT Calculator | R.P. Goyal & Sons</title>
-                <meta name="description" content="Calculate wood volume in Cubic Feet (CFT) instantly." />
+                <title>Timber CBM Calculator | R.P. Goyal & Sons</title>
+                <meta name="description" content="Calculate wood volume in Cubic Meters (CBM) instantly." />
             </Helmet>
 
             <Header />
@@ -178,7 +188,7 @@ const Calculator = () => {
                         Timber <span className="text-[#d97706]">Calculator</span>
                     </h1>
                     <p className="text-gray-500 dark:text-stone-400">
-                        Calculate exact volume (CFT) from any unit (MM, CM, Feet).
+                        Calculate exact volume (CBM) from any unit (MM, CM, Feet).
                     </p>
                 </div>
 
@@ -189,9 +199,9 @@ const Calculator = () => {
                         animate={{ x: 0, opacity: 1 }}
                         className="bg-white dark:bg-[#292524] p-8 rounded-2xl shadow-xl border-t-4 border-[#d97706]"
                     >
-                        <form onSubmit={calculateCFT} className="space-y-5">
+                        <form onSubmit={calculateCBM} className="space-y-5">
 
-                            {/* --- 2. NEW CLIENT INPUTS SECTION --- */}
+                            {/* --- CLIENT INPUTS SECTION --- */}
                             <div className="bg-gray-50 dark:bg-black/20 p-4 rounded-lg border border-gray-200 dark:border-white/5 mb-4">
                                 <label className="block text-xs font-bold uppercase text-[#d97706] mb-3 tracking-widest">Client Details (Optional)</label>
                                 <div className="space-y-3">
@@ -268,8 +278,8 @@ const Calculator = () => {
                             </div>
 
                             <div>
-                                <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Price per CFT (Optional)</label>
-                                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 2500" />
+                                <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Price per CBM (Optional)</label>
+                                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 50000" />
                             </div>
 
                             <div className="flex gap-4 pt-4">
@@ -302,10 +312,10 @@ const Calculator = () => {
                             <div className="relative z-10">
                                 <div className="mb-8">
                                     <p className="text-sm text-[#d97706] font-bold uppercase tracking-widest mb-1">Total Volume</p>
-                                    <p className="text-6xl font-serif font-bold">{result.cft} <span className="text-2xl text-stone-500">cft</span></p>
+                                    <p className="text-6xl font-serif font-bold">{result.cbm} <span className="text-2xl text-stone-500">cbm</span></p>
                                     <div className="flex items-center gap-2 mt-2 text-white/40 text-xs">
                                         <Info size={14} />
-                                        <span>Formula: (L_ft × W_in × T_in) / 144</span>
+                                        <span>Formula: L(m) × W(m) × T(m)</span>
                                     </div>
                                 </div>
 
