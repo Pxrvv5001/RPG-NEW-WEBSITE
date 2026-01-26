@@ -99,7 +99,7 @@ const WhyChooseUs = () => {
                         </div>
                         <div>
                             <h4 className="text-lg font-bold text-gray-900 dark:text-white">Planning a Project?</h4>
-                            <p className="text-sm text-gray-600 dark:text-stone-300">Use our free CFT Calculator to estimate your timber requirements instantly.</p>
+                            <p className="text-sm text-gray-600 dark:text-stone-300">Use our free CBM Calculator to estimate your timber requirements instantly.</p>
                         </div>
                     </div>
                     <Link
