@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { CheckCircle2, ShieldCheck, TreePine } from "lucide-react"; // Import Icons
 
 const stats = [
-    { id: 1, label: "Years of Experience", value: "5+" },
-    { id: 2, label: "Happy Clients", value: "500+" },
-    { id: 3, label: "CFT Timber Sold", value: "100k+" },
-    { id: 4, label: "Global Partners", value: "12+" },
+    { id: 1, label: "Years of Experience", value: "20+" },
+    { id: 2, label: "Happy Clients", value: "2,500+" },
+    { id: 3, label: "CBM Timber Sold", value: "50k+" },
+    { id: 4, label: "Global Partners", value: "15+" },
 ];
 
 const Stats = () => {
@@ -57,7 +57,7 @@ const Stats = () => {
                     ))}
                 </div>
 
-                {/* 2. Trust Signals / Badges (NEW ADDITION) */}
+                {/* 2. Trust Signals / Badges */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}

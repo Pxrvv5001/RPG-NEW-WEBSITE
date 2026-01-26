@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, Phone, Send, CheckCircle, Trash2, ShoppingBag } from "lucide-react";
+// UPDATED: Added 'Factory' icon
+import { MapPin, Mail, Phone, Send, CheckCircle, Trash2, ShoppingBag, Factory } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
@@ -78,6 +79,8 @@ const Contact = () => {
                     <div className="bg-[#f9f8f4] dark:bg-[#292524] dark:border-white/5 p-8 rounded-xl border border-gray-200 transition-colors duration-500">
                         <h3 className="text-2xl font-serif font-bold text-[#1c1c1c] dark:text-white mb-6">Get in Touch</h3>
                         <div className="space-y-6">
+
+                            {/* HEAD OFFICE (Existing) */}
                             <div className="flex items-start gap-4">
                                 <div className="bg-[#d97706]/10 p-3 rounded-full text-[#d97706]"><MapPin size={24} /></div>
                                 <div>
@@ -85,6 +88,19 @@ const Contact = () => {
                                     <p className="text-gray-600 dark:text-stone-400 text-sm mt-1">Imam Bara, Timber Market, Railway Road,<br />Karnal, Haryana - 132001</p>
                                 </div>
                             </div>
+
+                            {/* MANUFACTURING UNIT (New Addition) */}
+                            <div className="flex items-start gap-4">
+                                <div className="bg-[#d97706]/10 p-3 rounded-full text-[#d97706]"><Factory size={24} /></div>
+                                <div>
+                                    <h4 className="font-bold text-gray-900 dark:text-white">Manufacturing Unit</h4>
+                                    <p className="text-gray-600 dark:text-stone-400 text-sm mt-1">
+                                        Survey No. 361, Mithi Rohar, <br />Gandhidham, Gujarat - 370201<br />
+                                        <span className="text-xs text-[#d97706] font-bold uppercase tracking-wider">(Processing Hub)</span>
+                                    </p>
+                                </div>
+                            </div>
+
                             <div className="flex items-start gap-4">
                                 <div className="bg-[#d97706]/10 p-3 rounded-full text-[#d97706]"><Phone size={24} /></div>
                                 <div>

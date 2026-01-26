@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroBg from "../assets/my-new-hero.jpg"; //
-import TimberParticles from "./TimberParticles"; //
+import heroBg from "../assets/my-new-hero.jpg";
+import TimberParticles from "./TimberParticles";
 
 const Hero = () => {
 
@@ -46,7 +46,8 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="text-[#d97706] text-xs md:text-base font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase mb-3 md:mb-4"
                 >
-                    Est. 2020 · Haryana, India
+                    {/* UPDATED YEAR */}
+                    Est. 2004 · Haryana, India
                 </motion.p>
 
                 <motion.h1
@@ -81,7 +82,7 @@ const Hero = () => {
                 </motion.div>
             </div>
 
-            {/* 5. Restored Minimal Scroll Indicator (Replaces the Dock) */}
+            {/* 5. Minimal Scroll Indicator */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, y: [0, 10, 0] }}

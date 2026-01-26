@@ -8,7 +8,7 @@ const OurStory = () => {
         <section className="relative z-20 py-24 bg-white dark:bg-[#1c1c1c] overflow-hidden transition-colors duration-500">
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
 
-                {/* LEFT: Image */}
+                {/* LEFT: Single Static Image */}
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -19,7 +19,7 @@ const OurStory = () => {
                     <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl aspect-[4/3]">
                         <img
                             src={storyImg}
-                            alt="Our Yard Stock"
+                            alt="Gandhidham Yard Operations"
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                         />
                     </div>
@@ -36,18 +36,28 @@ const OurStory = () => {
                     className="w-full md:w-1/2"
                 >
                     <h4 className="text-[#d97706] font-bold uppercase tracking-widest text-xs mb-4">
-                        Our Legacy
+                        Our Operational Hubs
                     </h4>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                        Crafting Trust,<br/> One Log at a Time.
-                    </h2>
-                    <p className="text-gray-600 dark:text-stone-400 text-lg mb-8 leading-relaxed">
-                        Since 2020, R.P. Goyal & Sons has bridged the gap between global forests and Indian craftsmanship.
-                        We don't just import timber; we curate it. From the dense forests of Tanzania to the sustainable
-                        plantations of Ecuador, every log is handpicked for grain quality and durability.
-                    </p>
 
-                    <div>
+                    <h2 className="text-3xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                        Processed in Gujarat,<br/>
+                        Headquartered in Karnal.
+                    </h2>
+
+                    {/* Decorative Divider */}
+                    <div className="h-1 w-20 bg-[#d97706] mb-8"></div>
+
+                    <div className="space-y-6 text-lg text-gray-600 dark:text-stone-400 font-light leading-loose">
+                        <p>
+                            {/* UPDATED LEGACY TEXT */}
+                            Building on a legacy that began in 2004, R.P. Goyal & Sons operates with a strategic dual-hub advantage. While our <span className="font-semibold text-gray-900 dark:text-white">Head Office serves you from Karnal</span>, all heavy machinery and physical processing are conducted at our extensive facility in <span className="font-bold text-[#d97706]">Gandhidham, Gujarat</span>.
+                        </p>
+                        <p>
+                            From this port hub, we directly import and process <span className="font-semibold text-gray-900 dark:text-white">Teak from Tanzania & Ecuador</span>, structural <span className="font-semibold text-gray-900 dark:text-white">Meranti & Resak from Malaysia</span>, and softwoods like <span className="font-semibold text-gray-900 dark:text-white">American Pine & German Spruce</span>. This logistics powerhouse ensures that every log is graded and sawn to perfection before it reaches the market.
+                        </p>
+                    </div>
+
+                    <div className="mt-8">
                         <Link
                             to="/gallery"
                             className="inline-flex items-center gap-2 bg-[#d97706] text-white px-8 py-3 rounded shadow-lg hover:bg-[#b45309] hover:gap-4 transition-all font-bold uppercase tracking-widest text-sm"

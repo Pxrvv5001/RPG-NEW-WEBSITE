@@ -10,7 +10,7 @@ const products = [
     {
         id: "teak",
         name: "Sagwan Teak", // <--- UPDATED NAME
-        origin: "Tanzania / Ecuador",
+        origin: "Tanzania / Ecuador / Brazil",
         desc: "The gold standard. Known for rich oil content and weather resistance.",
         image: teakImg,
         accent: "from-amber-700 to-amber-900",
@@ -19,7 +19,7 @@ const products = [
     {
         id: "pine",
         name: "Yellow Pine",
-        origin: "USA / Canada",
+        origin: "USA / Canada / Europe",
         desc: "Robust softwood with bold grain patterns. Ideal for heavy construction.",
         image: pineImg,
         accent: "from-yellow-600 to-orange-800",

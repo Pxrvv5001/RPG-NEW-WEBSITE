@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import { Facebook, Instagram, Linkedin, MapPin, Phone, Mail, ArrowUpRight, Factory } from "lucide-react";
 
 const Footer = () => {
     return (
@@ -15,7 +15,10 @@ const Footer = () => {
                             R.P. Goyal <span className="text-[#d97706]">& Sons</span>
                         </Link>
                         <p className="text-stone-400 text-sm leading-relaxed mb-6">
-                            Premier timber importers and sawmill specialists serving Northern India since 2020. Quality you can trust, wood you can build on.
+                            {/* UPDATED YEAR */}
+                            Premier timber importers and sawmill specialists serving Northern India since 2004. <br/>
+                            <span className="text-white font-medium">Processed in Gujarat, Distributed from Karnal.</span><br/>
+                            Quality you can trust, wood you can build on.
                         </p>
 
                     </div>
@@ -46,11 +49,25 @@ const Footer = () => {
                     <div>
                         <h4 className="font-bold text-lg mb-6 text-white">Contact Us</h4>
                         <ul className="space-y-4 text-sm text-stone-400">
+                            {/* Head Office */}
                             <li className="flex items-start gap-3">
                                 <MapPin size={18} className="text-[#d97706] shrink-0 mt-1" />
-                                <span>Imam Bara, Timber Market,<br />Railway Road, Karnal - 132001</span>
+                                <div>
+                                    <span className="block text-white font-bold text-xs uppercase tracking-wider mb-1">Head Office</span>
+                                    <span>Imam Bara, Timber Market,<br />Railway Road, Karnal - 132001</span>
+                                </div>
                             </li>
-                            <li className="flex items-center gap-3">
+
+                            {/* Works / Factory */}
+                            <li className="flex items-start gap-3 mt-2">
+                                <Factory size={18} className="text-[#d97706] shrink-0 mt-1" />
+                                <div>
+                                    <span className="block text-white font-bold text-xs uppercase tracking-wider mb-1">Works</span>
+                                    <span>Gandhidham, Gujarat - 370201</span>
+                                </div>
+                            </li>
+
+                            <li className="flex items-center gap-3 pt-2 border-t border-white/10 mt-2">
                                 <Phone size={18} className="text-[#d97706] shrink-0" />
                                 <span>+91 70276 02201</span>
                             </li>
@@ -71,7 +88,7 @@ const Footer = () => {
                         <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
                     </div>
 
-                    {/* ▼▼▼ YOUR SIGNATURE ▼▼▼ */}
+                    {/* SIGNATURE */}
                     <div className="group flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-all duration-300 cursor-default">
                         <span>Engineered by</span>
                         <span className="text-white font-bold group-hover:text-[#d97706] transition-colors">Parv</span>

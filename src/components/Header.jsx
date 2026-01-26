@@ -100,7 +100,7 @@ const Header = () => {
                     <button onClick={() => handleScroll('atelier')} className="text-white/90 hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
                         Materials
                     </button>
-                    <Link to="/calculator" className={`transition-colors ${isActive('/calculator')}`}>CFT Calculator</Link>
+                    <Link to="/calculator" className={`transition-colors ${isActive('/calculator')}`}>CBM Calculator</Link>
                     <Link to="/gallery" className={`transition-colors ${isActive('/gallery')}`}>Gallery</Link>
                     <Link to="/contact" className={`transition-colors ${isActive('/contact')}`}>Contact</Link>
 

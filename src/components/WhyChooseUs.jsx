@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe2, Ruler, BadgeIndianRupee, Truck, Plus, Minus, HelpCircle, Calculator } from "lucide-react";
 
@@ -41,7 +41,8 @@ const faqs = [
     },
     {
         q: "Can I arrange my own transport?",
-        a: "Absolutely. You are welcome to send your own truck to our Karnal depot for loading. We provide full loading assistance at the yard."
+        // UPDATED ANSWER TO REFLECT GANDHIDHAM
+        a: "Absolutely. For bulk orders, you can lift directly from our Gandhidham Plant (Gujarat). For retail/local orders, vehicles can be loaded at our Karnal Depot. We provide full loading assistance at both yards."
     }
 ];
 
@@ -85,7 +86,7 @@ const WhyChooseUs = () => {
                     ))}
                 </div>
 
-                {/* ▼▼▼ CALCULATOR TEASER (New Addition) ▼▼▼ */}
+                {/* CALCULATOR TEASER */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}

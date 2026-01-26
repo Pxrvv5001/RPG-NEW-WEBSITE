@@ -78,14 +78,16 @@ const Services = () => {
         <div className="bg-white dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Sawmill Services | R.P. Goyal & Sons</title>
-                <meta name="description" content="Professional wood processing services: Horizontal & Vertical Band Saws, Log Peeling, and Custom Sizing." />
+                {/* UPDATED META DESCRIPTION */}
+                <meta name="description" content="Professional wood processing services including Band Saws & Log Peeling. Manufacturing & Processing Unit located in Gandhidham, Gujarat." />
             </Helmet>
 
             <Header />
 
             <div className="bg-[#1c1c1c] pt-32 pb-16 px-6 text-center border-b border-white/5">
                 <h1 className="text-4xl md:text-5xl font-serif text-white font-bold mb-4">Sawmill Services</h1>
-                <p className="text-stone-400 text-sm tracking-widest uppercase">Processing Facility & Treatment Plant</p>
+                {/* UPDATED SUBTITLE */}
+                <p className="text-stone-400 text-sm tracking-widest uppercase">State-of-the-art Processing Unit: Gandhidham, Gujarat</p>
             </div>
 
             <div className="max-w-7xl mx-auto px-6 py-20">
@@ -152,7 +154,6 @@ const Services = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            // ▼▼▼ UNIFIED CONTAINER CLASSES ▼▼▼
                             className="relative w-full max-w-4xl bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
                         >
                             <button onClick={() => setSelectedService(null)} className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors">
