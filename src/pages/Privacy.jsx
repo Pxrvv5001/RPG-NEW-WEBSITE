@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet-async";
 
 const Privacy = () => {
     return (
-        // Fixed: Changed dark:bg-[#0f172a] to dark:bg-[#1c1c1c]
         <div className="bg-[#f9f8f4] dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Privacy Policy | R.P. Goyal & Sons</title>
@@ -16,7 +15,8 @@ const Privacy = () => {
                 <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
 
                 <div className="space-y-6 text-sm leading-relaxed">
-                    <p>Last updated: January 2025</p>
+                    {/* UPDATED DATE */}
+                    <p>Last updated: January 2026</p>
 
                     <p>
                         At R.P. Goyal & Sons, accessible from our website, one of our main priorities is the privacy of our visitors.
