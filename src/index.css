@@ -14,35 +14,34 @@ body {
   transition: background-color 0.5s ease;
 }
 
-/* ▼▼▼ UPDATED: DARK MODE (No more Blue) ▼▼▼ */
+/* Dark Mode */
 .dark body {
-  background-color: #1c1c1c; /* Warm Charcoal (Industrial Black) */
-  color: #e7e5e4;            /* Stone-200 (Warm White) */
+  background-color: #1c1c1c; /* Warm Charcoal */
+  color: #e7e5e4;            /* Stone-200 */
 }
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-::-webkit-scrollbar-track {
-  background: #e5e5e5;
-}
+  .dark ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-/* ▼▼▼ UPDATED: SCROLLBAR TRACK ▼▼▼ */
-.dark ::-webkit-scrollbar-track {
-  background: #292524; /* Dark Stone */
-}
+  ::-webkit-scrollbar-thumb {
+    background: #d97706; /* Brand Orange */
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: #d97706; /* Brand Orange */
-  border-radius: 5px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #b45309;
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b45309;
+  }
 }
 
 ::selection {
