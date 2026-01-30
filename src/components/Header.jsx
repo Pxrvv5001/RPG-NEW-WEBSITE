@@ -10,6 +10,9 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    // Helper to check if we are on the Home page
+    const isHome = location.pathname === '/';
+
     const [theme, setTheme] = useState(() => {
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme) return savedTheme;
@@ -68,7 +71,7 @@ const Header = () => {
         hidden: { opacity: 0, height: 0 },
         show: {
             opacity: 1,
-            height: "100vh", // Full screen for better mobile experience
+            height: "100vh",
             transition: { staggerChildren: 0.1, duration: 0.3 }
         },
         exit: { opacity: 0, height: 0, transition: { duration: 0.2 } }
@@ -82,7 +85,7 @@ const Header = () => {
     return (
         <header
             className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-                isScrolled
+                isScrolled || !isHome
                     ? "bg-[#1c1c1c] md:bg-[#1c1c1c]/90 md:backdrop-blur-md py-4 shadow-lg"
                     : "bg-transparent py-6"
             }`}
@@ -133,7 +136,6 @@ const Header = () => {
                         exit="exit"
                         className="md:hidden fixed top-0 left-0 w-full bg-[#1c1c1c] overflow-hidden z-40"
                     >
-                        {/* ▼▼▼ ADDED PT-28 FOR SAFE ZONE ▼▼▼ */}
                         <div className="flex flex-col p-6 pt-28 gap-8 text-white text-2xl font-serif text-center">
                             <motion.div variants={itemVariants}>
                                 <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>

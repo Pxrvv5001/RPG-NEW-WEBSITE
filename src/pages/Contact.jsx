@@ -145,7 +145,7 @@ const Contact = () => {
                             className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${activeMap === 'gandhidham' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                             title="Gandhidham Map"
                             // This is the generic working link for Gandhidham.
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117763.5564736656!2d70.00312066866168!3d23.077287798863683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3950b8eb2e59f80f%3A0x33d026528d28120e!2sGandhidham%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1706600000000!5m2!1sen!2sin"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.512247553416!2d70.14704957531653!3d23.114944379109218!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3950bb00501fa16d%3A0xd164b322ed090fa1!2sR%20P%20Goyal%20%26%20Sons%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1769755218413!5m2!1sen!2sin"
                             allowFullScreen=""
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
@@ -187,7 +187,7 @@ const Contact = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-stone-400 mb-2">Your Name</label>
-                                <input id="name" type="text" name="name" required className="w-full bg-gray-50 dark:bg-[#1c1c1c] border border-gray-200 dark:border-white/10 rounded p-3 text-gray-900 dark:text-white focus:outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] transition-all" placeholder="Parv Goyal" />
+                                <input id="name" type="text" name="name" required className="w-full bg-gray-50 dark:bg-[#1c1c1c] border border-gray-200 dark:border-white/10 rounded p-3 text-gray-900 dark:text-white focus:outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] transition-all" placeholder="Enter Your Name" />
                                 <ValidationError prefix="Name" field="name" errors={state.errors} />
                             </div>
                             <div>
