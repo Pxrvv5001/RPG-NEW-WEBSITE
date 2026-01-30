@@ -10,8 +10,7 @@ import MiniCTA from "../components/MiniCTA";
 // 1. IMPORT CART HOOK
 import { useCart } from "../context/CartContext";
 
-// 2. YOUR ORIGINAL LOCAL IMAGES (Keep these unchanged)
-// Ensure these files exist in src/assets/
+// 2. YOUR ORIGINAL LOCAL IMAGES
 import marineImg from "../assets/marine.jpg";
 import commercialImg from "../assets/commercial.jpg";
 import gurjanImg from "../assets/gurjan.jpg";
@@ -22,11 +21,12 @@ import laminateImg from "../assets/laminate.jpg";
 const plywoods = [
     {
         id: "ply-1",
-        name: "Marine Grade Plywood",
+        // SEO CHANGE: More descriptive name for Alt Text & Google
+        name: "710 Certified Marine Grade Plywood",
         spec: "IS:710 Certified",
         tag: "Waterproof",
         desc: "Boiling Waterproof (BWP) plywood designed for kitchens, bathrooms, and exterior use.",
-        image: marineImg, // Using local import
+        image: marineImg,
         specs: {
             core: "100% Hardwood (Eucalyptus)",
             glue: "Phenol Formaldehyde (BWP Grade)",
@@ -37,11 +37,12 @@ const plywoods = [
     },
     {
         id: "ply-2",
-        name: "Commercial MR Grade",
+        // SEO CHANGE: Added 'Gurjan Face' to title
+        name: "Commercial MR Grade (Gurjan Face)",
         spec: "IS:303 Certified",
         tag: "Moisture Resistant",
         desc: "High-quality moisture-resistant plywood perfect for bedroom furniture and interior paneling.",
-        image: commercialImg, // Using local import
+        image: commercialImg,
         specs: {
             core: "Alternate Core (Poplar + Eucalyptus)",
             glue: "Melamine Urea Formaldehyde",
@@ -56,7 +57,7 @@ const plywoods = [
         spec: "Premium Face",
         tag: "A++ Grade",
         desc: "Imported Gurjan face veneer for that reddish-brown premium finish on plywood sheets.",
-        image: gurjanImg, // Using local import
+        image: gurjanImg,
         specs: {
             thickness: "0.35mm to 0.55mm",
             moisture: "8-12% (Dried)",
@@ -71,7 +72,7 @@ const plywoods = [
         spec: "Pine Wood Filler",
         tag: "High Strength",
         desc: "Sturdy block boards made with seasoned pine wood fillers. Ideal for wardrobes and doors.",
-        image: blockboardImg, // Using local import
+        image: blockboardImg,
         specs: {
             filler: "Seasoned Pine Wood Batons",
             frame: "Hardwood Frame",
@@ -86,7 +87,7 @@ const plywoods = [
         spec: "Solid Core",
         tag: "Ready to Install",
         desc: "Pine-framed flush doors available in custom sizes. chemically treated against termites.",
-        image: flushdoorImg, // Using local import
+        image: flushdoorImg,
         specs: {
             core: "Solid Tubular / Pine Filler",
             treatment: "Vacuum Pressure Impregnated (VPI)",
@@ -101,7 +102,7 @@ const plywoods = [
         spec: "0.8mm & 1mm",
         tag: "Interior Design",
         desc: "A vast collection of textures and colors for surfacing furniture and walls.",
-        image: laminateImg, // Using local import
+        image: laminateImg,
         specs: {
             thickness: "0.8mm / 1.0mm",
             finish: "Matte, Gloss, Texture, Suede",
@@ -114,13 +115,13 @@ const plywoods = [
 
 const Plywood = () => {
     const [selectedItem, setSelectedItem] = useState(null);
-    // 3. USE HOOK
     const { addToCart } = useCart();
 
     return (
         <div className="bg-white dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
-                <title>Plywood & Laminates | R.P. Goyal & Sons</title>
+                {/* SEO CHANGE: Stronger Title */}
+                <title>Marine Grade Plywood & Laminates Manufacturer | R.P. Goyal Karnal</title>
                 <meta name="description" content="Manufacturers of Marine Grade (IS:710), Commercial Plywood, and Decorative Laminates in Karnal." />
             </Helmet>
 
@@ -163,7 +164,6 @@ const Plywood = () => {
                                         <Eye size={16} /> Specs
                                     </button>
 
-                                    {/* 4. CART BUTTON (GRID) */}
                                     <button
                                         onClick={() => addToCart({
                                             id: item.id,
@@ -195,14 +195,12 @@ const Plywood = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            // 5. FIXED DIMENSIONS (Matches Catalog)
                             className="relative w-full max-w-6xl h-[85vh] bg-white dark:bg-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
                         >
                             <button onClick={() => setSelectedItem(null)} className="absolute top-4 right-4 z-10 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-colors">
                                 <X size={20} />
                             </button>
 
-                            {/* Left: Image */}
                             <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
                                 <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-full object-cover"/>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
@@ -210,7 +208,6 @@ const Plywood = () => {
                                 </div>
                             </div>
 
-                            {/* Right: Specs */}
                             <div className="w-full md:w-1/2 p-8 text-gray-900 dark:text-white overflow-y-auto bg-white dark:bg-[#1c1c1c]">
                                 <h3 className="text-xl font-bold mb-6 uppercase tracking-wider text-[#d97706] border-b border-[#d97706]/20 pb-4">Technical Datasheet</h3>
 
@@ -230,7 +227,6 @@ const Plywood = () => {
                                     ))}
                                 </div>
 
-                                {/* 6. CART BUTTON (MODAL) */}
                                 <button
                                     onClick={() => {
                                         addToCart({
@@ -239,7 +235,7 @@ const Plywood = () => {
                                             category: "Plywood",
                                             grade: selectedItem.tag
                                         });
-                                        setSelectedItem(null); // Close modal
+                                        setSelectedItem(null);
                                     }}
                                     className="block w-full py-5 bg-[#d97706] text-white text-center font-bold uppercase tracking-widest text-sm hover:bg-[#b45309] rounded-xl transition-all shadow-xl hover:-translate-y-1 flex items-center justify-center gap-3"
                                 >

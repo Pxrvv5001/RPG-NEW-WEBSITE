@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import heroBg from "../assets/my-new-hero.jpg";
+// IMPORTANT: Rename 'timber-yard-stock-karnal.jpg' to 'timber-yard-stock-karnal.jpg' in your assets folder
+import heroBg from "../assets/timber-yard-stock-karnal.jpg";
 import TimberParticles from "./TimberParticles";
 
 const Hero = () => {
@@ -25,7 +26,7 @@ const Hero = () => {
             {/* 1. Background Image */}
             <img
                 src={heroBg}
-                alt="Timber Yard"
+                alt="Timber Yard Stock in Karnal"
                 className="absolute inset-0 w-full h-full object-cover"
                 fetchPriority="high"
             />
@@ -46,17 +47,17 @@ const Hero = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="text-[#d97706] text-xs md:text-base font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase mb-3 md:mb-4"
                 >
-                    {/* UPDATED YEAR */}
                     Est. 2004 · Haryana, India
                 </motion.p>
 
+                {/* --- SEO CHANGE: OPTIMIZED H1 FOR LOCAL RANKING --- */}
                 <motion.h1
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                     className="text-4xl md:text-7xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight drop-shadow-lg"
                 >
-                    Sourcing the World's<br /> Finest Timber
+                    Timber Importers & Sawmill<br /> in Karnal & Gandhidham
                 </motion.h1>
 
                 <motion.p
