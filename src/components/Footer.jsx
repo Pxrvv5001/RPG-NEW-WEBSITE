@@ -15,12 +15,10 @@ const Footer = () => {
                             R.P. Goyal <span className="text-[#d97706]">& Sons</span>
                         </Link>
                         <p className="text-stone-400 text-sm leading-relaxed mb-6">
-                            {/* UPDATED YEAR */}
                             Premier timber importers and sawmill specialists serving Northern India since 2004. <br/>
                             <span className="text-white font-medium">Processed in Gujarat, Distributed from Karnal.</span><br/>
                             Quality you can trust, wood you can build on.
                         </p>
-
                     </div>
 
                     {/* Column 2: Quick Links */}
@@ -63,7 +61,8 @@ const Footer = () => {
                                 <Factory size={18} className="text-[#d97706] shrink-0 mt-1" />
                                 <div>
                                     <span className="block text-white font-bold text-xs uppercase tracking-wider mb-1">Works</span>
-                                    <span>Gandhidham, Gujarat - 370201</span>
+                                    {/* UPDATED PIN CODE HERE */}
+                                    <span>Survey No. 361, Mithi Rohar,<br />Gandhidham, Gujarat - 370240</span>
                                 </div>
                             </li>
 

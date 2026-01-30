@@ -1,26 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { motion } from "framer-motion";
-// UPDATED: Added 'Factory' icon
 import { MapPin, Mail, Phone, Send, CheckCircle, Trash2, ShoppingBag, Factory } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-// Import Cart
 import { useCart } from "../context/CartContext";
 
 const Contact = () => {
-    // PASTE YOUR FORMSPREE ID HERE
     const [state, handleSubmit] = useForm("mykgkgjq");
-
-    // Get Cart Data
     const { cart, removeFromCart } = useCart();
+
+    // Toggle between maps
+    const [activeMap, setActiveMap] = useState("karnal");
 
     const location = useLocation();
     const initialInterest = location.state?.interest || "Bulk Timber Supply";
 
-    // Auto-generate message from cart
     const cartMessage = cart.length > 0
         ? `I am interested in a quote for the following items:\n${cart.map(i => `- ${i.name} (${i.category})`).join('\n')}`
         : "";
@@ -62,7 +59,7 @@ const Contact = () => {
         <div className="bg-white dark:bg-[#1c1c1c] min-h-screen font-sans transition-colors duration-500">
             <Helmet>
                 <title>Contact Us | R.P. Goyal & Sons</title>
-                <meta name="description" content="Get in touch for timber inquiries, sawmill services, or plywood orders. Located in Karnal, Haryana." />
+                <meta name="description" content="Visit us at our Karnal Head Office or Gandhidham Manufacturing Unit. Get a quote for timber and plywood today." />
             </Helmet>
 
             <Header />
@@ -74,52 +71,85 @@ const Contact = () => {
 
             <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
 
-                {/* LEFT COLUMN: Contact Info */}
+                {/* LEFT COLUMN: Contact Info & Maps */}
                 <div className="space-y-8">
                     <div className="bg-[#f9f8f4] dark:bg-[#292524] dark:border-white/5 p-8 rounded-xl border border-gray-200 transition-colors duration-500">
-                        <h3 className="text-2xl font-serif font-bold text-[#1c1c1c] dark:text-white mb-6">Get in Touch</h3>
-                        <div className="space-y-6">
+                        <h3 className="text-2xl font-serif font-bold text-[#1c1c1c] dark:text-white mb-6">Our Locations</h3>
 
-                            {/* HEAD OFFICE (Existing) */}
-                            <div className="flex items-start gap-4">
-                                <div className="bg-[#d97706]/10 p-3 rounded-full text-[#d97706]"><MapPin size={24} /></div>
+                        <div className="space-y-6">
+                            {/* LOCATION 1: KARNAL */}
+                            <div
+                                onClick={() => setActiveMap("karnal")}
+                                className={`flex items-start gap-4 p-4 rounded-lg cursor-pointer transition-all border ${activeMap === 'karnal' ? 'bg-white dark:bg-black/20 border-[#d97706] shadow-sm' : 'border-transparent hover:bg-black/5 dark:hover:bg-white/5'}`}
+                            >
+                                <div className={`p-3 rounded-full ${activeMap === 'karnal' ? 'bg-[#d97706] text-white' : 'bg-[#d97706]/10 text-[#d97706]'}`}>
+                                    <MapPin size={24} />
+                                </div>
                                 <div>
-                                    <h4 className="font-bold text-gray-900 dark:text-white">Head Office</h4>
+                                    <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                        Head Office (Karnal)
+                                        {activeMap === 'karnal' && <span className="text-[10px] bg-[#d97706] text-white px-2 py-0.5 rounded-full uppercase tracking-wider">Active Map</span>}
+                                    </h4>
                                     <p className="text-gray-600 dark:text-stone-400 text-sm mt-1">Imam Bara, Timber Market, Railway Road,<br />Karnal, Haryana - 132001</p>
                                 </div>
                             </div>
 
-                            {/* MANUFACTURING UNIT (New Addition) */}
-                            <div className="flex items-start gap-4">
-                                <div className="bg-[#d97706]/10 p-3 rounded-full text-[#d97706]"><Factory size={24} /></div>
+                            {/* LOCATION 2: GANDHIDHAM */}
+                            <div
+                                onClick={() => setActiveMap("gandhidham")}
+                                className={`flex items-start gap-4 p-4 rounded-lg cursor-pointer transition-all border ${activeMap === 'gandhidham' ? 'bg-white dark:bg-black/20 border-[#d97706] shadow-sm' : 'border-transparent hover:bg-black/5 dark:hover:bg-white/5'}`}
+                            >
+                                <div className={`p-3 rounded-full ${activeMap === 'gandhidham' ? 'bg-[#d97706] text-white' : 'bg-[#d97706]/10 text-[#d97706]'}`}>
+                                    <Factory size={24} />
+                                </div>
                                 <div>
-                                    <h4 className="font-bold text-gray-900 dark:text-white">Manufacturing Unit</h4>
+                                    <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                        Manufacturing Unit
+                                        {activeMap === 'gandhidham' && <span className="text-[10px] bg-[#d97706] text-white px-2 py-0.5 rounded-full uppercase tracking-wider">Active Map</span>}
+                                    </h4>
+                                    {/* UPDATED PIN CODE HERE */}
                                     <p className="text-gray-600 dark:text-stone-400 text-sm mt-1">
-                                        Survey No. 361, Mithi Rohar, <br />Gandhidham, Gujarat - 370201<br />
-                                        <span className="text-xs text-[#d97706] font-bold uppercase tracking-wider">(Processing Hub)</span>
+                                        Survey No. 361, Mithi Rohar, <br />Gandhidham, Gujarat - 370240
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="bg-[#d97706]/10 p-3 rounded-full text-[#d97706]"><Phone size={24} /></div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 dark:text-white">Phone</h4>
-                                    <p className="text-gray-600 dark:text-stone-400 text-sm mt-1">+91 70276 02201</p>
+                            {/* CONTACT DETAILS */}
+                            <div className="pt-6 border-t border-gray-200 dark:border-white/10 flex flex-col gap-4">
+                                <div className="flex items-center gap-4">
+                                    <Phone size={20} className="text-[#d97706]" />
+                                    <span className="text-gray-700 dark:text-gray-300 font-medium">+91 70276 02201</span>
                                 </div>
-                            </div>
-                            <div className="flex items-start gap-4">
-                                <div className="bg-[#d97706]/10 p-3 rounded-full text-[#d97706]"><Mail size={24} /></div>
-                                <div>
-                                    <h4 className="font-bold text-gray-900 dark:text-white">Email</h4>
-                                    <p className="text-gray-600 dark:text-stone-400 text-sm mt-1">rpgtimber@gmail.com</p>
+                                <div className="flex items-center gap-4">
+                                    <Mail size={20} className="text-[#d97706]" />
+                                    <span className="text-gray-700 dark:text-gray-300 font-medium">rpgtimber@gmail.com</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="h-64 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-white/10 transition-all duration-500">
-                        <iframe title="Karnal Map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d216.63054829712888!2d76.9847227033182!3d29.688205837308004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390e7022e3089c75%3A0x278c784abefd48a3!2sR%20P%20Goyal%20%26%20Sons%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1766596304282!5m2!1sen!2sin" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                    {/* DYNAMIC MAP CONTAINER */}
+                    <div className="h-80 rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-white/10 transition-all duration-500 relative bg-gray-100">
+                        {/* MAP FOR KARNAL */}
+                        <iframe
+                            className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${activeMap === 'karnal' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                            title="Karnal Map"
+                            src="https://maps.google.com/maps?q=R.P.+Goyal+and+Sons+Timber+Market+Karnal&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            allowFullScreen=""
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+
+                        {/* MAP FOR GANDHIDHAM - Includes the WORKING EMBED LINK */}
+                        <iframe
+                            className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${activeMap === 'gandhidham' ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                            title="Gandhidham Map"
+                            // This is the generic working link for Gandhidham.
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117763.5564736656!2d70.00312066866168!3d23.077287798863683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3950b8eb2e59f80f%3A0x33d026528d28120e!2sGandhidham%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1706600000000!5m2!1sen!2sin"
+                            allowFullScreen=""
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
                     </div>
                 </div>
 
@@ -190,7 +220,6 @@ const Contact = () => {
                                 name="message"
                                 required
                                 rows="4"
-                                // PRE-FILL LOGIC HERE
                                 defaultValue={cartMessage}
                                 className="w-full bg-gray-50 dark:bg-[#1c1c1c] border border-gray-200 dark:border-white/10 rounded p-3 text-gray-900 dark:text-white focus:outline-none focus:border-[#d97706] focus:ring-1 focus:ring-[#d97706] transition-all"
                                 placeholder="Tell us about your requirements..."
