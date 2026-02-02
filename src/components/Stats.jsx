@@ -1,12 +1,49 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, ShieldCheck, TreePine } from "lucide-react"; // Import Icons
+import { CheckCircle2, ShieldCheck, TreePine } from "lucide-react";
+import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
 
 const stats = [
-    { id: 1, label: "Years of Experience", value: "20+" },
-    { id: 2, label: "Happy Clients", value: "2,500+" },
-    { id: 3, label: "CBM Timber Sold", value: "50k+" },
-    { id: 4, label: "Global Partners", value: "15+" },
+    { id: 1, label: "Years of Experience", value: 20, suffix: "+" },
+    { id: 2, label: "Happy Clients", value: 2500, suffix: "+" },
+    { id: 3, label: "CBM Timber Sold", value: 50, suffix: "k+" },
+    { id: 4, label: "Global Partners", value: 15, suffix: "+" },
 ];
+
+// Sub-component to handle individual animation triggers
+const StatItem = ({ stat, index }) => {
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.5,
+    });
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            className="relative"
+        >
+            <h4 className="text-4xl md:text-5xl font-serif font-bold text-[#d97706] mb-2 min-h-[3rem]">
+                {inView ? (
+                    <CountUp
+                        start={0}
+                        end={stat.value}
+                        duration={2.5}
+                        separator=","
+                        suffix={stat.suffix}
+                    />
+                ) : (
+                    "0"
+                )}
+            </h4>
+            <p className="text-gray-400 text-xs md:text-sm uppercase tracking-widest font-medium">
+                {stat.label}
+            </p>
+        </motion.div>
+    );
+};
 
 const Stats = () => {
     return (
@@ -39,21 +76,7 @@ const Stats = () => {
                 {/* 1. Main Stats Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-12">
                     {stats.map((stat, i) => (
-                        <motion.div
-                            key={stat.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1, duration: 0.5 }}
-                            viewport={{ once: true }}
-                            className="relative"
-                        >
-                            <h4 className="text-4xl md:text-5xl font-serif font-bold text-[#d97706] mb-2">
-                                {stat.value}
-                            </h4>
-                            <p className="text-gray-400 text-xs md:text-sm uppercase tracking-widest font-medium">
-                                {stat.label}
-                            </p>
-                        </motion.div>
+                        <StatItem key={stat.id} stat={stat} index={i} />
                     ))}
                 </div>
 
