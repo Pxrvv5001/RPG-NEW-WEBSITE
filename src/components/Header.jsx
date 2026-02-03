@@ -91,10 +91,16 @@ const Header = () => {
             }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-50">
-                <Link to="/" className="text-2xl font-serif font-bold text-white tracking-widest z-50">
-                    R.P. GOYAL <span className="text-[#d97706]">&</span> SONS
+                <Link to="/" className="flex items-center gap-3 group z-50">
+                    <div className="flex flex-col border-l-2 border-[#d97706] pl-3 py-1">
+                        <h1 className="text-xl md:text-2xl font-serif font-bold text-white leading-tight tracking-wider">
+                            R.P. GOYAL <span className="text-[#d97706]">&</span> SON'S
+                        </h1>
+                        <span className="text-[10px] md:text-xs font-sans font-medium tracking-[0.4em] text-white/50 uppercase">
+      Pvt. Ltd.
+    </span>
+                    </div>
                 </Link>
-
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
                     <Link to="/" className={`transition-colors ${isActive('/')}`}>Home</Link>
                     <button onClick={() => handleScroll('divisions')} className="text-white/90 hover:text-[#d97706] transition-colors bg-transparent border-none cursor-pointer">
