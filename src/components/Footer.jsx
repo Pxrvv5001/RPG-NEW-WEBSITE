@@ -28,7 +28,7 @@ const Footer = () => {
                             <li><Link to="/" className="hover:text-[#d97706] transition-colors flex items-center gap-2">Home</Link></li>
                             <li><Link to="/catalog" className="hover:text-[#d97706] transition-colors flex items-center gap-2">Timber Catalog</Link></li>
                             <li><Link to="/plywood" className="hover:text-[#d97706] transition-colors flex items-center gap-2">Plywood Collection</Link></li>
-                            <li><Link to="/calculator" className="hover:text-[#d97706] transition-colors flex items-center gap-2">CFT Calculator</Link></li>
+                            <li><Link to="/calculator" className="hover:text-[#d97706] transition-colors flex items-center gap-2">CBM Calculator</Link></li>
                             <li><Link to="/contact" className="hover:text-[#d97706] transition-colors flex items-center gap-2">Get a Quote</Link></li>
                         </ul>
                     </div>
