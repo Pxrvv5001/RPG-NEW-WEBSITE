@@ -14,11 +14,18 @@ import Footer from "../components/Footer";
 
 const INTRO_DURATION = 2800; // Must match Hero's branding duration
 
+// Module-level flag — survives navigations, resets on full page reload
+let hasShownHeader = false;
+
 const Home = () => {
-    const [showHeader, setShowHeader] = useState(false);
+    const [showHeader, setShowHeader] = useState(() => hasShownHeader);
 
     useEffect(() => {
-        const timer = setTimeout(() => setShowHeader(true), INTRO_DURATION);
+        if (hasShownHeader) return;
+        const timer = setTimeout(() => {
+            setShowHeader(true);
+            hasShownHeader = true;
+        }, INTRO_DURATION);
         return () => clearTimeout(timer);
     }, []);
 

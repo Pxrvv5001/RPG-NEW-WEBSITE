@@ -7,11 +7,18 @@ import TimberParticles from "./TimberParticles";
 const INTRO_DURATION = 2800; // Branding phase (ms)
 const REVEAL_DELAY = 0.6;   // Seconds after branding fades for hero content to start
 
+// Module-level flag — survives navigations, resets on full page reload
+let hasPlayedBranding = false;
+
 const Hero = () => {
-    const [phase, setPhase] = useState("branding"); // "branding" → "hero"
+    const [phase, setPhase] = useState(() => hasPlayedBranding ? "hero" : "branding");
 
     useEffect(() => {
-        const timer = setTimeout(() => setPhase("hero"), INTRO_DURATION);
+        if (hasPlayedBranding) return;
+        const timer = setTimeout(() => {
+            setPhase("hero");
+            hasPlayedBranding = true;
+        }, INTRO_DURATION);
         return () => clearTimeout(timer);
     }, []);
 
@@ -66,28 +73,34 @@ const Hero = () => {
             <AnimatePresence>
                 {phase === "branding" && (
                     <motion.div
-                        className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-5"
+                        className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-4"
                         exit={{ opacity: 0, y: -40 }}
                         transition={{ duration: 0.8, ease: "easeInOut" }}
                     >
-                        {/* RPG Text */}
+                        {/* Company Name */}
                         <motion.h2
-                            initial={{ opacity: 0, letterSpacing: "0.8em", filter: "blur(8px)" }}
-                            animate={{ opacity: 1, letterSpacing: "0.3em", filter: "blur(0px)" }}
+                            initial={{ opacity: 0, letterSpacing: "0.6em", filter: "blur(8px)" }}
+                            animate={{ opacity: 1, letterSpacing: "0.15em", filter: "blur(0px)" }}
                             transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="text-5xl md:text-7xl font-serif font-bold text-white"
+                            className="text-3xl md:text-6xl font-serif font-bold text-white text-center leading-tight"
                         >
-                            RPG
+                            R.P. Goyal <span className="text-[#d97706]">&</span> Son's
                         </motion.h2>
 
-
+                        {/* Orange Line */}
+                        <motion.div
+                            initial={{ width: 0, opacity: 0 }}
+                            animate={{ width: 120, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                            className="h-[2px] bg-gradient-to-r from-transparent via-[#d97706] to-transparent"
+                        />
 
                         {/* Subtitle */}
                         <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 0.4 }}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 0.5, y: 0 }}
                             transition={{ duration: 0.6, delay: 1.0 }}
-                            className="text-[10px] md:text-xs text-white uppercase tracking-[0.4em] font-sans"
+                            className="text-[10px] md:text-sm text-white uppercase tracking-[0.4em] font-sans font-light"
                         >
                             Pvt. Ltd.
                         </motion.p>

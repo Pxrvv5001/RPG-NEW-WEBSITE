@@ -10,6 +10,9 @@ import { CartProvider } from './context/CartContext';
 
 const INTRO_DURATION = 2800; // Must match Hero's branding duration
 
+// Module-level flag — survives navigations, resets on full page reload
+let hasCompletedBranding = false;
+
 // Pages
 const Home = lazy(() => import('./pages/Home'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -41,14 +44,15 @@ const PageWrapper = ({ children }) => (
 function App() {
     const location = useLocation();
     const isHome = location.pathname === '/';
-    const [brandingDone, setBrandingDone] = useState(!isHome);
+    const [brandingDone, setBrandingDone] = useState(hasCompletedBranding || !isHome);
 
     useEffect(() => {
-        if (!isHome) return;
+        if (hasCompletedBranding || !isHome) return;
         // Lock scrolling during branding
         document.body.style.overflow = 'hidden';
         const timer = setTimeout(() => {
             setBrandingDone(true);
+            hasCompletedBranding = true;
             document.body.style.overflow = '';
         }, INTRO_DURATION);
         return () => {
