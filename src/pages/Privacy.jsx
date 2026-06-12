@@ -12,7 +12,7 @@ const Privacy = () => {
             <Header />
 
             <div className="pt-32 pb-20 px-6 max-w-4xl mx-auto text-gray-800 dark:text-gray-300">
-                <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
+                <h1 className="text-4xl font-serif font-bold text-gray-a900 dark:text-white mb-8">Privacy Policy</h1>
 
                 <div className="space-y-6 text-sm leading-relaxed">
                     {/* UPDATED DATE */}

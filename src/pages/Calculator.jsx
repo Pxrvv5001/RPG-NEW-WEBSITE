@@ -164,7 +164,7 @@ const Calculator = () => {
     };
 
     const getPlaceholders = () => {
-        switch(unit) {
+        switch (unit) {
             case "mm": return { l: "e.g. 2400", w: "e.g. 100", t: "e.g. 75" };
             case "cm": return { l: "e.g. 240", w: "e.g. 10", t: "e.g. 7.5" };
             case "meter": return { l: "e.g. 2.4", w: "e.g. 0.1", t: "e.g. 0.075" };
@@ -237,11 +237,10 @@ const Calculator = () => {
                                             key={u}
                                             type="button"
                                             onClick={() => setUnit(u)}
-                                            className={`py-2 text-xs font-bold uppercase rounded border transition-all ${
-                                                unit === u
+                                            className={`py-2 text-xs font-bold uppercase rounded border transition-all ${unit === u
                                                     ? "bg-[#d97706] text-white border-[#d97706]"
                                                     : "bg-transparent text-gray-600 dark:text-gray-400 border-gray-300 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/5"
-                                            }`}
+                                                }`}
                                         >
                                             {u === 'imperial' ? 'Ft / In' : u}
                                         </button>

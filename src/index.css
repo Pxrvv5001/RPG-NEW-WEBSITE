@@ -19,6 +19,115 @@ body {
   background-color: #1c1c1c; /* Warm Charcoal */
   color: #e7e5e4;            /* Stone-200 */
 }
+
+/* ==============================
+   KEN BURNS HERO ANIMATION
+   ============================== */
+@keyframes kenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate(-1.5%, -1%);
+  }
+  100% {
+    transform: scale(1.05) translate(0.5%, 0.5%);
+  }
+}
+
+.hero-ken-burns {
+  animation: kenBurns 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* ==============================
+   BRANDED PAGE LOADER
+   ============================== */
+@keyframes loaderReveal {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.8em;
+    filter: blur(8px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+  60% {
+    letter-spacing: 0.3em;
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: 0.3em;
+    filter: blur(0px);
+  }
+}
+
+@keyframes loaderLine {
+  0% { width: 0; }
+  100% { width: 80px; }
+}
+
+@keyframes loaderPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.loader-text-reveal {
+  animation: loaderReveal 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.loader-line {
+  animation: loaderLine 1s 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.loader-subtitle {
+  animation: loaderPulse 2s ease-in-out infinite;
+}
+
+/* ==============================
+   INFINITE MARQUEE (CSS-based)
+   ============================== */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marqueeScroll 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ==============================
+   GRAIN / NOISE TEXTURE OVERLAY
+   ============================== */
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+.dark .grain-overlay::before {
+  opacity: 0.05;
+}
+
+/* ==============================
+   SCROLLBAR STYLES
+   ============================== */
 @media (min-width: 768px) {
   ::-webkit-scrollbar {
     width: 10px;

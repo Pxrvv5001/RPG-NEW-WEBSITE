@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ReactLenis } from 'lenis/react';
-import { Toaster } from 'react-hot-toast'; // <--- 1. IMPORT TOASTER
+import { Toaster } from 'react-hot-toast';
 
 import FloatingWA from './components/FloatingWA';
 import ScrollProgress from './components/ScrollProgress';
@@ -20,10 +20,9 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 
+// Minimal fallback for lazy-load only (branded intro is inside Hero)
 const PageLoader = () => (
-    <div className="h-screen w-full flex items-center justify-center bg-white dark:bg-[#1c1c1c]">
-        <div className="w-12 h-12 border-4 border-[#d97706] border-t-transparent rounded-full animate-spin"></div>
-    </div>
+    <div className="h-screen w-full bg-[#0a0a0a]"></div>
 );
 
 const PageWrapper = ({ children }) => (

@@ -5,7 +5,7 @@ import storyImg from "../assets/YardStock.jpg";
 
 const OurStory = () => {
     return (
-        <section className="relative z-20 py-24 bg-white dark:bg-[#1c1c1c] overflow-hidden transition-colors duration-500">
+        <section className="relative z-20 py-24 bg-gradient-to-b from-white to-[#f9f8f4] dark:from-[#1c1c1c] dark:to-[#171717] overflow-hidden transition-colors duration-500 grain-overlay">
             <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
 
                 {/* LEFT: Single Static Image */}

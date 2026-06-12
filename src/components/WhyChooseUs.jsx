@@ -50,7 +50,7 @@ const WhyChooseUs = () => {
     const [openIndex, setOpenIndex] = useState(null);
 
     return (
-        <section className="py-24 bg-white dark:bg-[#1c1c1c] transition-colors duration-500">
+        <section className="py-24 bg-gradient-to-b from-white to-[#f5f3ef] dark:from-[#1c1c1c] dark:to-[#161616] transition-colors duration-500 grain-overlay">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* --- FEATURES GRID --- */}
@@ -67,13 +67,13 @@ const WhyChooseUs = () => {
                     {features.map((feature, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1 }}
+                            initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: i * 0.12, duration: 0.6, ease: "easeOut" }}
                             viewport={{ once: true }}
-                            className="p-6 rounded-2xl bg-gray-50 dark:bg-[#292524] hover:bg-white dark:hover:bg-[#171717] border border-transparent hover:border-gray-200 dark:hover:border-stone-700 shadow-sm hover:shadow-xl transition-all duration-300 group"
+                            className="p-6 rounded-2xl bg-white/70 dark:bg-[#292524] hover:bg-white dark:hover:bg-[#171717] border border-gray-100 dark:border-transparent hover:border-gray-200 dark:hover:border-stone-700 shadow-sm hover:shadow-xl transition-all duration-300 group backdrop-blur-sm"
                         >
-                            <div className="w-14 h-14 bg-white dark:bg-[#1c1c1c] rounded-full flex items-center justify-center text-[#d97706] mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                            <div className="w-14 h-14 bg-gradient-to-br from-[#d97706] to-[#b45309] rounded-full flex items-center justify-center text-white mb-6 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
                                 {feature.icon}
                             </div>
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">

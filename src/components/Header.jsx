@@ -84,11 +84,10 @@ const Header = () => {
 
     return (
         <header
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-                isScrolled || !isHome
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled || !isHome
                     ? "bg-[#1c1c1c] md:bg-[#1c1c1c]/90 md:backdrop-blur-md py-4 shadow-lg"
                     : "bg-transparent py-6"
-            }`}
+                }`}
         >
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-50">
                 <Link to="/" className="flex items-center gap-3 group z-50">
@@ -97,8 +96,8 @@ const Header = () => {
                             R.P. GOYAL <span className="text-[#d97706]">&</span> SON'S
                         </h1>
                         <span className="text-[10px] md:text-xs font-sans font-medium tracking-[0.4em] text-white/50 uppercase">
-      Pvt. Ltd.
-    </span>
+                            Pvt. Ltd.
+                        </span>
                     </div>
                 </Link>
                 <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
@@ -128,7 +127,7 @@ const Header = () => {
                     </button>
 
                     <button className="text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Toggle menu">
-                        {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} /> }
+                        {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                     </button>
                 </div>
             </div>
@@ -156,7 +155,7 @@ const Header = () => {
                             </motion.div>
 
                             <motion.div variants={itemVariants}>
-                                <Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d97706]">CFT Calculator</Link>
+                                <Link to="/calculator" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#d97706]">CBM Calculator</Link>
                             </motion.div>
 
                             <motion.div variants={itemVariants}>

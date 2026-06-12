@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, MapPin, Phone, Mail, ArrowUpRight, Factory } from "lucide-react";
+import { MapPin, Phone, Mail, ArrowUpRight, Factory } from "lucide-react";
 
 const Footer = () => {
     return (
@@ -15,8 +15,8 @@ const Footer = () => {
                             R.P. Goyal <span className="text-[#d97706]">& Sons</span>
                         </Link>
                         <p className="text-stone-400 text-sm leading-relaxed mb-6">
-                            Premier timber importers and sawmill specialists serving Northern India since 2004. <br/>
-                            <span className="text-white font-medium">Processed in Gujarat, Distributed from Karnal.</span><br/>
+                            Premier timber importers and sawmill specialists serving Northern India since 2004. <br />
+                            <span className="text-white font-medium">Processed in Gujarat, Distributed from Karnal.</span><br />
                             Quality you can trust, wood you can build on.
                         </p>
                     </div>
@@ -37,9 +37,9 @@ const Footer = () => {
                     <div>
                         <h4 className="font-bold text-lg mb-6 text-white">Services</h4>
                         <ul className="space-y-4 text-sm text-stone-400">
-                            <li className="hover:text-[#d97706] transition-colors cursor-pointer">Custom Sawing</li>
-                            <li className="hover:text-[#d97706] transition-colors cursor-pointer">Logistics & Delivery</li>
-                            <li className="hover:text-[#d97706] transition-colors cursor-pointer">Wholesale Supply</li>
+                            <li><Link to="/services" className="hover:text-[#d97706] transition-colors">Custom Sawing</Link></li>
+                            <li><Link to="/services" className="hover:text-[#d97706] transition-colors">Logistics & Delivery</Link></li>
+                            <li><Link to="/services" className="hover:text-[#d97706] transition-colors">Wholesale Supply</Link></li>
                         </ul>
                     </div>
 

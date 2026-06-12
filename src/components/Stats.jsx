@@ -20,9 +20,9 @@ const StatItem = ({ stat, index }) => {
     return (
         <motion.div
             ref={ref}
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
+            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.9 }}
+            animate={inView ? { opacity: 1, filter: "blur(0px)", scale: 1 } : {}}
+            transition={{ delay: index * 0.15, duration: 0.7, ease: "easeOut" }}
             className="relative"
         >
             <h4 className="text-4xl md:text-5xl font-serif font-bold text-[#d97706] mb-2 min-h-[3rem]">
@@ -47,7 +47,7 @@ const StatItem = ({ stat, index }) => {
 
 const Stats = () => {
     return (
-        <section id="stats" className="relative py-16 md:py-20 bg-[#1c1c1c] text-white border-y border-white/10 overflow-hidden">
+        <section id="stats" className="relative py-16 md:py-20 bg-gradient-to-b from-[#1c1c1c] to-[#0f0f0f] text-white border-y border-white/10 overflow-hidden grain-overlay">
 
             {/* Animated Background */}
             <div className="absolute inset-0 pointer-events-none">
@@ -82,9 +82,9 @@ const Stats = () => {
 
                 {/* 2. Trust Signals / Badges */}
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 1 }}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
                     viewport={{ once: true }}
                     className="flex flex-wrap justify-center gap-6 md:gap-12 pt-8 border-t border-white/10"
                 >

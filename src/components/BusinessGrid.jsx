@@ -73,7 +73,7 @@ const BusinessGrid = () => {
     const [selectedId, setSelectedId] = useState(null);
 
     return (
-        <section id="divisions" className="scroll-mt-32 py-16 md:py-24 bg-[#f9f8f4] dark:bg-[#1c1c1c] relative transition-colors duration-500">
+        <section id="divisions" className="scroll-mt-32 py-16 md:py-24 bg-gradient-to-b from-[#f9f8f4] to-[#f0ede6] dark:from-[#1c1c1c] dark:to-[#151515] relative transition-colors duration-500 grain-overlay">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* SECTION HEADER */}
@@ -89,18 +89,19 @@ const BusinessGrid = () => {
 
                 {/* THE GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-fr">
-                    {/* ^^^ ADDED auto-rows-fr to ensure grid rows are equal height */}
-
-                    {businesses.map((biz) => (
+                    {businesses.map((biz, index) => (
                         <motion.div
                             layoutId={`card-${biz.id}`}
                             key={biz.id}
                             onClick={() => setSelectedId(biz.id)}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
+                            viewport={{ once: true }}
                             whileHover={{ y: -8 }}
-                            // ▼▼▼ UPDATED CLASSES: Added 'flex flex-col h-full' ▼▼▼
                             className="flex flex-col h-full transform-gpu bg-white dark:bg-[#292524] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-all relative overflow-hidden group active:scale-95"
                         >
-                            <div className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors">
+                            <div className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors duration-300">
                                 {biz.icon}
                             </div>
 
@@ -109,12 +110,10 @@ const BusinessGrid = () => {
                             </h3>
 
                             <p className="text-gray-600 dark:text-stone-400 text-sm mb-6 leading-relaxed transition-colors flex-grow">
-                                {/* ^^^ ADDED flex-grow to push the button down */}
                                 {biz.desc}
                             </p>
 
-                            <div className="flex items-center gap-2 text-[#d97706] font-bold text-xs tracking-widest uppercase mt-auto">
-                                {/* ^^^ mt-auto ensures it sticks to the bottom */}
+                            <div className="flex items-center gap-2 text-[#d97706] font-bold text-xs tracking-widest uppercase mt-auto group-hover:gap-3 transition-all">
                                 <span>View Details</span>
                                 <ArrowRight size={16} />
                             </div>

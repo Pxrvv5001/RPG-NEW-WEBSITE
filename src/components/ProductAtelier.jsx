@@ -38,7 +38,7 @@ const products = [
 
 const ProductAtelier = () => {
     return (
-        <section id="atelier" className="scroll-mt-32 py-24 bg-[#1a120b] overflow-hidden">
+        <section id="atelier" className="scroll-mt-32 py-24 bg-gradient-to-b from-[#1a120b] to-[#0d0906] overflow-hidden grain-overlay">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Header */}
                 <div className="text-center mb-16 text-white">
@@ -66,10 +66,11 @@ const Card = ({ product }) => {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="group bg-[#261f18] border-b-2 border-[#d97706]/20 hover:border-[#d97706] transition-all duration-500 overflow-hidden"
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="group bg-[#261f18] border-b-2 border-[#d97706]/20 hover:border-[#d97706] transition-all duration-500 overflow-hidden rounded-lg"
         >
             <div className={`relative h-80 overflow-hidden ${imgError ? product.fallbackColor : 'bg-black'}`}>
                 {!imgError ? (
