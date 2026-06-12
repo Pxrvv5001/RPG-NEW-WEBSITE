@@ -80,13 +80,7 @@ const Hero = () => {
                             RPG
                         </motion.h2>
 
-                        {/* Orange Line */}
-                        <motion.div
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={{ width: 80, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                            className="h-[2px] bg-gradient-to-r from-transparent via-[#d97706] to-transparent"
-                        />
+
 
                         {/* Subtitle */}
                         <motion.p
