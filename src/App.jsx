@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ReactLenis } from 'lenis/react';
@@ -7,6 +7,8 @@ import { Toaster } from 'react-hot-toast';
 import FloatingWA from './components/FloatingWA';
 import ScrollProgress from './components/ScrollProgress';
 import { CartProvider } from './context/CartContext';
+
+const INTRO_DURATION = 2800; // Must match Hero's branding duration
 
 // Pages
 const Home = lazy(() => import('./pages/Home'));
@@ -38,6 +40,22 @@ const PageWrapper = ({ children }) => (
 
 function App() {
     const location = useLocation();
+    const isHome = location.pathname === '/';
+    const [brandingDone, setBrandingDone] = useState(!isHome);
+
+    useEffect(() => {
+        if (!isHome) return;
+        // Lock scrolling during branding
+        document.body.style.overflow = 'hidden';
+        const timer = setTimeout(() => {
+            setBrandingDone(true);
+            document.body.style.overflow = '';
+        }, INTRO_DURATION);
+        return () => {
+            clearTimeout(timer);
+            document.body.style.overflow = '';
+        };
+    }, [isHome]);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -67,8 +85,8 @@ function App() {
                     }}
                 />
 
-                <ScrollProgress />
-                <FloatingWA />
+                {brandingDone && <ScrollProgress />}
+                {brandingDone && <FloatingWA />}
 
                 <Suspense fallback={<PageLoader />}>
                     <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
