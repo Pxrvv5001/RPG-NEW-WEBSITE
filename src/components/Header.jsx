@@ -146,6 +146,8 @@ const Header = () => {
                                 <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
                             </motion.div>
 
+
+
                             <motion.div variants={itemVariants}>
                                 <button onClick={() => handleScroll('divisions')} className="hover:text-[#d97706]">Divisions</button>
                             </motion.div>

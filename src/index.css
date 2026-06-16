@@ -158,6 +158,87 @@ body {
   color: #ffffff;
 }
 
+/* ==============================
+   ABOUT PAGE — WORLD MAP ANIMATIONS
+   ============================== */
+@keyframes drawRoute {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes mapPulse {
+  0%, 100% {
+    r: 4;
+    opacity: 0.7;
+  }
+  50% {
+    r: 8;
+    opacity: 0.3;
+  }
+}
+
+@keyframes destinationGlow {
+  0%, 100% {
+    r: 6;
+    opacity: 1;
+    filter: drop-shadow(0 0 4px #d97706);
+  }
+  50% {
+    r: 10;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 12px #d97706);
+  }
+}
+
+.map-route {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.map-route.animate {
+  animation: drawRoute 2.5s ease-out forwards;
+}
+
+.map-origin-dot {
+  animation: mapPulse 2s ease-in-out infinite;
+}
+
+.map-destination-dot {
+  animation: destinationGlow 2s ease-in-out infinite;
+}
+
+/* Timeline connector line */
+@keyframes timelineGrow {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+/* ==============================
+   WHATSAPP BUTTON — SUBTLE PULSE
+   ============================== */
+@keyframes waBreath {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
 /* Image Protection */
 img {
   -webkit-user-drag: none;
