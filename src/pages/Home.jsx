@@ -58,24 +58,24 @@ const Home = () => {
             <OurStory />
 
             {/* ━━━ WORLD IMPORT MAP (Moved from About) ━━━ */}
-            <section className="py-24 bg-gray-50 dark:bg-[#0f0f0f] transition-colors duration-500 overflow-hidden relative">
+            <section className="py-14 md:py-24 bg-gray-50 dark:bg-[#0f0f0f] transition-colors duration-500 overflow-hidden relative">
                 {/* Grain overlay */}
                 <div className="absolute inset-0 grain-overlay opacity-50 dark:opacity-100" />
 
-                <div className="relative z-10 max-w-7xl mx-auto px-6">
+                <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-16"
+                        className="text-center mb-10 md:mb-16"
                     >
-                        <h4 className="text-[#d97706] font-bold uppercase tracking-widest text-xs mb-4">
+                        <h4 className="text-[#d97706] font-bold uppercase tracking-widest text-xs mb-3 md:mb-4">
                             Global Sourcing Network
                         </h4>
-                        <h2 className="text-3xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+                        <h2 className="text-2xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
                             We Import From 6 Countries
                         </h2>
-                        <p className="text-gray-600 dark:text-stone-500 text-sm max-w-lg mx-auto">
+                        <p className="text-gray-600 dark:text-stone-500 text-xs md:text-sm max-w-lg mx-auto">
                             Our direct sourcing relationships span three continents — delivering the world's finest timber to Kandla Port, Gujarat.
                         </p>
                     </motion.div>
@@ -89,13 +89,13 @@ const Home = () => {
                         <WorldImportMap />
                     </motion.div>
 
-                    {/* Legend pills */}
+                    {/* Legend pills — desktop only (mobile cards already show this info) */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
                         viewport={{ once: true }}
-                        className="flex flex-wrap justify-center gap-3 mt-12"
+                        className="hidden md:flex flex-wrap justify-center gap-3 mt-12"
                     >
                         {importRoutes.map((route) => (
                             <div
@@ -114,6 +114,7 @@ const Home = () => {
                     </motion.div>
                 </div>
             </section>
+
 
             {/* 3. Off-White Section: The Core Business Grid */}
             <BusinessGrid />
