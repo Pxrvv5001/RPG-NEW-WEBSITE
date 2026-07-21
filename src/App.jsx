@@ -10,10 +10,8 @@ import { CartProvider } from './context/CartContext';
 
 const INTRO_DURATION = 2800; // Must match Hero's branding duration
 
-// Module-level flag — survives navigations, resets on full page reload
 let hasCompletedBranding = false;
 
-// Pages
 const Home = lazy(() => import('./pages/Home'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Catalog = lazy(() => import('./pages/Catalog'));
@@ -25,7 +23,6 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 
-// Minimal fallback for lazy-load only (branded intro is inside Hero)
 const PageLoader = () => (
     <div className="h-screen w-full bg-[#0a0a0a]"></div>
 );
@@ -48,7 +45,6 @@ function App() {
 
     useEffect(() => {
         if (hasCompletedBranding || !isHome) return;
-        // Lock scrolling during branding
         document.body.style.overflow = 'hidden';
         const timer = setTimeout(() => {
             setBrandingDone(true);

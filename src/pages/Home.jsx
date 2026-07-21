@@ -73,10 +73,10 @@ const Home = () => {
                             Global Sourcing Network
                         </h4>
                         <h2 className="text-2xl md:text-5xl font-serif font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
-                            We Import From 6 Countries
+                            We Import From 9 Countries
                         </h2>
                         <p className="text-gray-600 dark:text-stone-500 text-xs md:text-sm max-w-lg mx-auto">
-                            Our direct sourcing relationships span three continents — delivering the world's finest timber to Kandla Port, Gujarat.
+                            Our direct sourcing relationships span four continents — delivering premium hardwood and construction softwood to Kandla Port, Gujarat.
                         </p>
                     </motion.div>
 

@@ -17,6 +17,9 @@ import pineImg from "../assets/pine.jpg";
 import spruceImg from "../assets/spruce.jpg";
 import resakImg from "../assets/resak.jpeg";
 import ecuadorImg from "../assets/ecuador.jpg";
+import nzpineImg from "../assets/nzpine.webp";
+import uruguaypineImg from "../assets/uruguaypine.webp";
+import cypresspineImg from "../assets/cypresspine.jpg";
 
 const imageMap = {
     teak: teakImg,
@@ -24,7 +27,10 @@ const imageMap = {
     pine: pineImg,
     spruce: spruceImg,
     resak: resakImg,
-    ecuador: ecuadorImg
+    ecuador: ecuadorImg,
+    nzpine: nzpineImg,
+    uruguaypine: uruguaypineImg,
+    cypresspine: cypresspineImg,
 };
 
 const Catalog = () => {

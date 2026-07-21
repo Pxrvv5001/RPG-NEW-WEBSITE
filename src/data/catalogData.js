@@ -1,4 +1,5 @@
 export const catalogData = [
+    // ── HARDWOOD ──
     {
         id: 1,
         name: "Teak Wood (Tanzania)",
@@ -7,7 +8,6 @@ export const catalogData = [
         grade: "Premium Grade",
         desc: "Directly imported from Tanzania. Known for its rich golden-brown color and high natural oil content.",
         imageKey: "teak",
-        // ▼▼▼ ADDED TECHNICAL SPECS ▼▼▼
         specs: {
             density: "610-750 kg/m³",
             moisture: "KD 10-12%",
@@ -95,5 +95,54 @@ export const catalogData = [
             grain: "Straight, consistent",
             uses: "Cost-effective Doors, Commercial Furniture"
         }
-    }
+    },
+    // ── SOFTWOOD (NEW) ──
+    {
+        id: 7,
+        name: "Radiata Pine",
+        category: "Softwood",
+        origin: "New Zealand",
+        grade: "Construction Grade",
+        desc: "Fast-growing plantation pine from New Zealand. Uniform grain with excellent workability — ideal for construction and packaging.",
+        imageKey: "nzpine",
+        specs: {
+            density: "480-560 kg/m³",
+            moisture: "KD 12-18%",
+            durability: "Class 4 (Requires Treatment)",
+            grain: "Straight, uniform",
+            uses: "Structural Framing, Roof Trusses, Packaging, Pallets"
+        }
+    },
+    {
+        id: 8,
+        name: "Radiata Pine",
+        category: "Softwood",
+        origin: "Uruguay",
+        grade: "Construction Grade",
+        desc: "Cost-competitive plantation Radiata Pine from Uruguay. Consistent quality with excellent dimensional stability.",
+        imageKey: "uruguaypine",
+        specs: {
+            density: "460-540 kg/m³",
+            moisture: "KD 12-18%",
+            durability: "Class 4 (Requires Treatment)",
+            grain: "Straight, fine",
+            uses: "Formwork, Shuttering, Crates, Interior Framing"
+        }
+    },
+    {
+        id: 10,
+        name: "Cypress Pine",
+        category: "Softwood",
+        origin: "Australia",
+        grade: "Premium Softwood",
+        desc: "Naturally termite-resistant Australian Cypress Pine. A rare softwood with exceptional durability without chemical treatment.",
+        imageKey: "cypresspine",
+        specs: {
+            density: "620-750 kg/m³",
+            moisture: "Air Dried / KD",
+            durability: "Class 2 (Durable — naturally termite-resistant)",
+            grain: "Fine, straight to wavy",
+            uses: "Flooring, Outdoor Decking, Structural Timber, Fencing"
+        }
+    },
 ];

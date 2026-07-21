@@ -13,6 +13,7 @@ const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 
 /* ─── IMPORT ROUTES DATA (real geo coordinates [lng, lat]) ─── */
 export const importRoutes = [
+    // ── HARDWOOD ORIGINS ──
     {
         id: "tanzania",
         country: "Tanzania",
@@ -60,6 +61,31 @@ export const importRoutes = [
         flag: "🇷🇺",
         color: "#ef4444",
         coords: [90.0, 60.0],
+    },
+    // ── SOFTWOOD ORIGINS (NEW) ──
+    {
+        id: "new-zealand",
+        country: "New Zealand",
+        wood: "Radiata Pine",
+        flag: "🇳🇿",
+        color: "#0ea5e9",
+        coords: [172.5, -41.5],
+    },
+    {
+        id: "uruguay",
+        country: "Uruguay",
+        wood: "Radiata Pine",
+        flag: "🇺🇾",
+        color: "#a3e635",
+        coords: [-56.0, -32.5],
+    },
+    {
+        id: "australia",
+        country: "Australia",
+        wood: "Cypress Pine",
+        flag: "🇦🇺",
+        color: "#fb923c",
+        coords: [133.78, -25.27],
     },
 ];
 
