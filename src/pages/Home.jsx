@@ -76,7 +76,7 @@ const Home = () => {
                             We Import From 9 Countries
                         </h2>
                         <p className="text-gray-600 dark:text-stone-500 text-xs md:text-sm max-w-lg mx-auto">
-                            Our direct sourcing relationships span four continents — delivering premium hardwood and construction softwood to Kandla Port, Gujarat.
+                            Our direct sourcing relationships span four continents — delivering premium hardwood and construction softwood to Mundra Port, Gujarat.
                         </p>
                     </motion.div>
 
