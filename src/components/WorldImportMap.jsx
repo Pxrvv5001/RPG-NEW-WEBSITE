@@ -89,7 +89,7 @@ export const importRoutes = [
     },
 ];
 
-// Gandhidham / Kandla Port, India
+// Gandhidham / Mundra Port, India
 const INDIA_COORDS = [70.13, 23.08];
 
 // ─── PROJECTION CONFIGS ───
@@ -335,7 +335,7 @@ const WorldImportMap = () => {
                                     transition: "opacity 0.8s 2s",
                                 }}
                             >
-                                Kandla Port, Gujarat
+                                Mundra Port, Gujarat
                             </text>
                         </Marker>
                     </ComposableMap>
