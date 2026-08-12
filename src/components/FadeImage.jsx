@@ -15,6 +15,8 @@ const FadeImage = ({ src, alt, className }) => {
             <motion.img
                 src={src}
                 alt={alt}
+                loading="lazy"
+                decoding="async"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isLoaded ? 1 : 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}

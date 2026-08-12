@@ -75,6 +75,8 @@ const Gallery = () => {
                             <img
                                 src={image.src}
                                 alt={image.category}
+                                loading={i === 0 ? "eager" : "lazy"}
+                                decoding="async"
                                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
 
@@ -116,6 +118,7 @@ const Gallery = () => {
                             exit={{ opacity: 0, x: -20 }}
                             transition={{ duration: 0.3 }}
                             src={galleryImages[index].src}
+                            decoding="async"
                             className="max-h-[85vh] max-w-full rounded shadow-2xl object-contain"
                             onClick={(e) => e.stopPropagation()}
                         />

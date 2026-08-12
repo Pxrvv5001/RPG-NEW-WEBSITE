@@ -81,7 +81,7 @@ const Footer = () => {
 
                 {/* BOTTOM SECTION: Copyright & Signature */}
                 <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-stone-500">
-                    <p>© {new Date().getFullYear()} R.P. Goyal & Sons. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} R.P. Goyal &amp; Sons Private Limited. All rights reserved.</p>
 
                     <div className="flex gap-6">
                         <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>

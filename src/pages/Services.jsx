@@ -105,6 +105,8 @@ const Services = () => {
                                 <img
                                     src={item.image}
                                     alt={item.name}
+                                    loading="lazy"
+                                    decoding="async"
                                     className={`w-full h-full transition-transform duration-700 group-hover:scale-105 ${item.fit}`}
                                 />
                                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all" />
@@ -162,7 +164,7 @@ const Services = () => {
 
                             {/* Left: Image (Standardized Size) */}
                             <div className="w-full md:w-2/5 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
-                                <img src={selectedService.image} alt={selectedService.name} className={`w-full h-full ${selectedService.fit}`}/>
+                                <img src={selectedService.image} alt={selectedService.name} loading="lazy" decoding="async" className={`w-full h-full ${selectedService.fit}`}/>
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
                                     <h2 className="text-3xl font-serif font-bold text-white leading-tight">{selectedService.name}</h2>
                                 </div>
