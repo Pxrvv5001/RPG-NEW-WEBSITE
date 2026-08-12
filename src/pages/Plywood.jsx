@@ -144,7 +144,7 @@ const Plywood = () => {
                             className="group bg-[#f9f8f4] dark:bg-[#292524] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706] flex flex-col h-full"
                         >
                             <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => setSelectedItem(item)}>
-                                <img src={item.image} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+                                <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all" />
                                 <div className="absolute top-4 left-4 bg-[#d97706] text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded">
                                     {item.tag}

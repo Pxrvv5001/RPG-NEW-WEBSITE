@@ -1,22 +1,8 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import heroBg from "../assets/timber-yard-stock-karnal.jpg";
-
-// Lazy-load the heavy Three.js particle canvas — skipped entirely on mobile
-const TimberParticles = lazy(() => import("./TimberParticles"));
-
-// Returns true only on real desktop screens (>768px)
-const useIsDesktop = () => {
-    const [isDesktop, setIsDesktop] = useState(() => typeof window !== 'undefined' && window.innerWidth > 768);
-    useEffect(() => {
-        const mq = window.matchMedia('(min-width: 769px)');
-        const handler = (e) => setIsDesktop(e.matches);
-        mq.addEventListener('change', handler);
-        return () => mq.removeEventListener('change', handler);
-    }, []);
-    return isDesktop;
-};
+import TimberParticles from "./TimberParticles";
 
 const INTRO_DURATION = 2800; // Branding phase (ms)
 const REVEAL_DELAY = 0.6;   // Seconds after branding fades for hero content to start
@@ -26,7 +12,6 @@ let hasPlayedBranding = false;
 
 const Hero = () => {
     const [phase, setPhase] = useState(() => hasPlayedBranding ? "hero" : "branding");
-    const isDesktop = useIsDesktop();
 
     useEffect(() => {
         if (hasPlayedBranding) return;
@@ -72,19 +57,15 @@ const Hero = () => {
                 transition={{ duration: 1.5, ease: "easeInOut" }}
             />
 
-            {/* 3. Particle Layer — desktop only, lazy-loaded */}
-            {isDesktop && (
-                <motion.div
-                    className="absolute inset-0 z-10 pointer-events-none"
-                    initial={{ opacity: 0 }}
-                    animate={phase === "hero" ? { opacity: 0.7 } : { opacity: 0 }}
-                    transition={{ duration: 1.5, delay: 0.5 }}
-                >
-                    <Suspense fallback={null}>
-                        <TimberParticles />
-                    </Suspense>
-                </motion.div>
-            )}
+            {/* 3. Particle Layer — fades in during hero phase */}
+            <motion.div
+                className="absolute inset-0 z-10 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={phase === "hero" ? { opacity: 0.7 } : { opacity: 0 }}
+                transition={{ duration: 1.5, delay: 0.5 }}
+            >
+                <TimberParticles />
+            </motion.div>
 
             {/* ========================================
                 4. BRANDING OVERLAY (Splash Phase)
