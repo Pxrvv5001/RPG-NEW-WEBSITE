@@ -7,10 +7,10 @@ import { Toaster } from 'react-hot-toast';
 import FloatingWA from './components/FloatingWA';
 import ScrollProgress from './components/ScrollProgress';
 import { CartProvider } from './context/CartContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 const INTRO_DURATION = 2800; // Must match Hero's branding duration
 
-let hasCompletedBranding = false;
 
 const Home = lazy(() => import('./pages/Home'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -22,6 +22,7 @@ const Calculator = lazy(() => import('./pages/Calculator'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
+const About = lazy(() => import('./pages/About'));
 
 const PageLoader = () => (
     <div className="h-screen w-full bg-[#0a0a0a]"></div>
@@ -41,14 +42,17 @@ const PageWrapper = ({ children }) => (
 function App() {
     const location = useLocation();
     const isHome = location.pathname === '/';
-    const [brandingDone, setBrandingDone] = useState(hasCompletedBranding || !isHome);
+    const [brandingDone, setBrandingDone] = useState(() => {
+        if (!isHome) return true;
+        return sessionStorage.getItem('brandingDone') === 'true';
+    });
 
     useEffect(() => {
-        if (hasCompletedBranding || !isHome) return;
+        if (brandingDone || !isHome) return;
         document.body.style.overflow = 'hidden';
         const timer = setTimeout(() => {
             setBrandingDone(true);
-            hasCompletedBranding = true;
+            sessionStorage.setItem('brandingDone', 'true');
             document.body.style.overflow = '';
         }, INTRO_DURATION);
         return () => {
@@ -62,10 +66,10 @@ function App() {
     };
 
     return (
+        <ThemeProvider>
         <CartProvider>
             <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
 
-                {/* 2. ADD TOASTER COMPONENT HERE */}
                 <Toaster
                     position="bottom-center"
                     toastOptions={{
@@ -92,6 +96,7 @@ function App() {
                     <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
                         <Routes location={location} key={location.pathname}>
                             <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+                            <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
                             <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
                             <Route path="/catalog" element={<PageWrapper><Catalog /></PageWrapper>} />
                             <Route path="/plywood" element={<PageWrapper><Plywood /></PageWrapper>} />
@@ -109,6 +114,7 @@ function App() {
 
             </ReactLenis>
         </CartProvider>
+        </ThemeProvider>
     );
 }
 

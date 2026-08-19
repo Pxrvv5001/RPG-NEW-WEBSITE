@@ -22,27 +22,21 @@ const galleryImages = [
 ];
 
 const Gallery = () => {
-    const [selectedId, setSelectedId] = useState(null);
-    const [index, setIndex] = useState(0);
+    const [openIndex, setOpenIndex] = useState(null);
 
-    const openLightbox = (i) => {
-        setIndex(i);
-        setSelectedId(galleryImages[i].id);
-    };
+    const openLightbox = (i) => setOpenIndex(i);
 
     const nextImage = (e) => {
         e.stopPropagation();
-        const newIndex = (index + 1) % galleryImages.length;
-        setIndex(newIndex);
-        setSelectedId(galleryImages[newIndex].id);
+        setOpenIndex((prev) => (prev + 1) % galleryImages.length);
     };
 
     const prevImage = (e) => {
         e.stopPropagation();
-        const newIndex = (index - 1 + galleryImages.length) % galleryImages.length;
-        setIndex(newIndex);
-        setSelectedId(galleryImages[newIndex].id);
+        setOpenIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
     };
+
+    const currentImage = openIndex !== null ? galleryImages[openIndex] : null;
 
     return (
         // Theme: Charcoal BG
@@ -58,7 +52,7 @@ const Gallery = () => {
                     Our <span className="text-[#d97706]">Gallery</span>
                 </motion.h1>
                 <p className="text-stone-400 text-sm tracking-widest uppercase">
-                    A glimpse into our yard & operations
+                    A glimpse into our yard &amp; operations
                 </p>
             </div>
 
@@ -90,15 +84,15 @@ const Gallery = () => {
             </div>
 
             <AnimatePresence>
-                {selectedId && (
+                {openIndex !== null && currentImage && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm"
-                        onClick={() => setSelectedId(null)}
+                        onClick={() => setOpenIndex(null)}
                     >
-                        <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50" onClick={() => setSelectedId(null)}>
+                        <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50" onClick={() => setOpenIndex(null)}>
                             <X size={40} />
                         </button>
                         <button onClick={prevImage} className="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white/50 hover:text-[#d97706] transition-colors p-2 z-50">
@@ -109,19 +103,20 @@ const Gallery = () => {
                         </button>
 
                         <motion.img
-                            key={index}
-                            layoutId={`gallery-card-${galleryImages[index].id}`}
+                            key={openIndex}
+                            layoutId={`gallery-card-${currentImage.id}`}
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
                             transition={{ duration: 0.3 }}
-                            src={galleryImages[index].src}
+                            src={currentImage.src}
+                            alt={currentImage.category}
                             className="max-h-[85vh] max-w-full rounded shadow-2xl object-contain"
                             onClick={(e) => e.stopPropagation()}
                         />
 
                         <div className="absolute bottom-8 left-0 w-full text-center pointer-events-none">
-                            <p className="text-white/80 font-serif text-lg">{galleryImages[index].category}</p>
+                            <p className="text-white/80 font-serif text-lg">{currentImage.category}</p>
                         </div>
                     </motion.div>
                 )}

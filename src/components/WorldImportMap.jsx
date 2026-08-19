@@ -150,7 +150,7 @@ const WorldImportMap = () => {
                             {({ geographies }) =>
                                 geographies.map((geo) => (
                                     <Geography
-                                        key={geo.rpiKey}
+                                        key={geo.rsmKey}
                                         geography={geo}
                                         strokeWidth={0.5}
                                         className="fill-gray-200 dark:fill-[#1a1a2e] stroke-white dark:stroke-[#2a2a4a] hover:fill-gray-300 dark:hover:fill-[#222244] outline-none transition-colors duration-300"

@@ -2,23 +2,18 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     const navigate = useNavigate();
     const location = useLocation();
 
     // Helper to check if we are on the Home page
     const isHome = location.pathname === '/';
-
-    const [theme, setTheme] = useState(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) return savedTheme;
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-        return "light";
-    });
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,15 +22,6 @@ const Header = () => {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
-    useEffect(() => {
-        if (theme === "dark") {
-            document.documentElement.classList.add("dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-        }
-        localStorage.setItem("theme", theme);
-    }, [theme]);
 
     useEffect(() => {
         if (location.hash) {
@@ -59,10 +45,6 @@ const Header = () => {
                 element.scrollIntoView({ behavior: "smooth" });
             }
         }
-    };
-
-    const toggleTheme = () => {
-        setTheme(theme === "light" ? "dark" : "light");
     };
 
     const isActive = (path) => location.pathname === path ? "text-[#d97706]" : "text-white/90 hover:text-[#d97706]";
@@ -92,9 +74,9 @@ const Header = () => {
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative z-50">
                 <Link to="/" className="flex items-center gap-3 group z-50">
                     <div className="flex flex-col border-l-2 border-[#d97706] pl-3 py-1">
-                        <h1 className="text-xl md:text-2xl font-serif font-bold text-white leading-tight tracking-wider">
+                        <span className="text-xl md:text-2xl font-serif font-bold text-white leading-tight tracking-wider">
                             R.P. GOYAL <span className="text-[#d97706]">&</span> SON'S
-                        </h1>
+                        </span>
                         <span className="text-[10px] md:text-xs font-sans font-medium tracking-[0.4em] text-white/50 uppercase">
                             Pvt. Ltd.
                         </span>

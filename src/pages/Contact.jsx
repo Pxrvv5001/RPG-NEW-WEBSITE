@@ -10,7 +10,7 @@ import { useCart } from "../context/CartContext";
 
 const Contact = () => {
     const [state, handleSubmit] = useForm("mykgkgjq");
-    const { cart, removeFromCart } = useCart();
+    const { cart, removeFromCart, clearCart } = useCart();
 
     // Toggle between maps
     const [activeMap, setActiveMap] = useState("karnal");
@@ -24,6 +24,7 @@ const Contact = () => {
 
     useEffect(() => {
         if (state.succeeded) {
+            clearCart();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }, [state.succeeded]);
@@ -296,14 +297,7 @@ const Contact = () => {
                             <button
                                 type="submit"
                                 disabled={state.submitting}
-                                className="w-full py-3.5 rounded-lg font-bold uppercase tracking-widest text-sm flex items-center justify-center gap-2.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                                style={{
-                                    background: state.submitting ? '#555' : 'linear-gradient(135deg, #1c1c1c 0%, #3a3530 60%, #d97706 100%)',
-                                    color: '#fff',
-                                    boxShadow: '0 4px 20px rgba(217,119,6,0.25)'
-                                }}
-                                onMouseEnter={e => { if (!state.submitting) e.currentTarget.style.background = 'linear-gradient(135deg, #d97706 0%, #b45309 100%)'; }}
-                                onMouseLeave={e => { if (!state.submitting) e.currentTarget.style.background = 'linear-gradient(135deg, #1c1c1c 0%, #3a3530 60%, #d97706 100%)'; }}
+                                className="btn-enquiry w-full py-3.5 rounded-lg font-bold uppercase tracking-widest text-sm text-white flex items-center justify-center gap-2.5"
                             >
                                 {state.submitting ? (
                                     <>
