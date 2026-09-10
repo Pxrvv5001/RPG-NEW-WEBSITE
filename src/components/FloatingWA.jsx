@@ -75,13 +75,19 @@ const FloatingWA = () => {
 
                     {/* Main Floating Button */}
                     <motion.button
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        exit={{ scale: 0 }}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        initial={{ scale: 0, y: 20, opacity: 0 }}
+                        animate={{ scale: 1, y: 0, opacity: 1 }}
+                        exit={{ scale: 0, y: 12, opacity: 0 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 260,
+                            damping: 16,
+                            delay: 0.3,
+                        }}
+                        whileHover={{ scale: 1.08 }}
+                        whileTap={{ scale: 0.92 }}
                         onClick={() => setIsOpen(!isOpen)}
-                        className="relative w-14 h-14 bg-gradient-to-br from-[#25D366] to-[#128C7E] text-white rounded-full shadow-lg shadow-black/20 flex items-center justify-center hover:shadow-xl transition-all focus:outline-none z-50"
+                        className="relative w-14 h-14 bg-gradient-to-br from-[#25D366] to-[#128C7E] text-white rounded-full shadow-lg shadow-black/20 flex items-center justify-center hover:shadow-xl transition-shadow focus:outline-none z-50"
                     >
                         {/* Subtle breathing ring */}
                         <span className="absolute inset-[-4px] rounded-full border-2 border-[#25D366]/40 animate-[waBreath_3s_ease-in-out_infinite]" />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trees, Layers, Settings, X, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -178,6 +178,75 @@ const DivisionModal = ({ biz, onClose }) => {
     );
 };
 
+// ── TILT CARD ──
+const TiltCard = ({ biz, index, onClick }) => {
+    const cardRef = useRef(null);
+    const [tilt, setTilt] = useState({ x: 0, y: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+
+    const onMove = (e) => {
+        if (!cardRef.current) return;
+        const rect = cardRef.current.getBoundingClientRect();
+        const cx = rect.left + rect.width  / 2;
+        const cy = rect.top  + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width  / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        setTilt({ x: -dy * 10, y: dx * 10 });
+    };
+
+    const onLeave = () => {
+        setTilt({ x: 0, y: 0 });
+        setIsHovered(false);
+    };
+
+    return (
+        // OUTER: Framer Motion handles ONLY opacity reveal — no transform here
+        <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="h-full"
+        >
+            {/* INNER: pure CSS 3D tilt — no Framer Motion interference */}
+            <div
+                ref={cardRef}
+                onClick={onClick}
+                onMouseMove={onMove}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={onLeave}
+                style={{
+                    transform: `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(${isHovered ? -8 : 0}px)`,
+                    transition: isHovered
+                        ? "transform 0.1s cubic-bezier(0.23, 1, 0.32, 1)"
+                        : "transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)",
+                    willChange: "transform",
+                }}
+                className="flex flex-col h-full bg-white dark:bg-[#292524] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-colors relative overflow-hidden group active:scale-95"
+            >
+                <div className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors duration-300">
+                    {biz.icon}
+                </div>
+
+                <h3 className="text-xl md:text-2xl font-serif font-bold text-gray-900 dark:text-white mb-1 transition-colors">
+                    {biz.title}
+                </h3>
+                <p className="text-xs text-gray-400 dark:text-stone-500 mb-4 font-medium">
+                    {biz.subtitle}
+                </p>
+                <p className="text-gray-600 dark:text-stone-400 text-sm mb-6 leading-relaxed transition-colors flex-grow">
+                    {biz.desc}
+                </p>
+
+                <div className="flex items-center gap-2 text-[#d97706] font-bold text-xs tracking-widest uppercase mt-auto group-hover:gap-3 transition-all">
+                    <span>View Details</span>
+                    <ArrowRight size={16} />
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
 // ── MAIN ──
 const BusinessGrid = () => {
     const [selectedId, setSelectedId] = useState(null);
@@ -201,35 +270,12 @@ const BusinessGrid = () => {
                 {/* GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-fr">
                     {businesses.map((biz, index) => (
-                        <motion.div
+                        <TiltCard
                             key={biz.id}
+                            biz={biz}
+                            index={index}
                             onClick={() => setSelectedId(biz.id)}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
-                            viewport={{ once: true }}
-                            whileHover={{ y: -6 }}
-                            className="flex flex-col h-full bg-white dark:bg-[#292524] p-8 rounded-xl shadow-lg cursor-pointer border-t-4 border-transparent hover:border-[#d97706] transition-all relative overflow-hidden group active:scale-95"
-                        >
-                            <div className="mb-6 text-[#1c1c1c] dark:text-white group-hover:text-[#d97706] transition-colors duration-300">
-                                {biz.icon}
-                            </div>
-
-                            <h3 className="text-xl md:text-2xl font-serif font-bold text-gray-900 dark:text-white mb-1 transition-colors">
-                                {biz.title}
-                            </h3>
-                            <p className="text-xs text-gray-400 dark:text-stone-500 mb-4 font-medium">
-                                {biz.subtitle}
-                            </p>
-                            <p className="text-gray-600 dark:text-stone-400 text-sm mb-6 leading-relaxed transition-colors flex-grow">
-                                {biz.desc}
-                            </p>
-
-                            <div className="flex items-center gap-2 text-[#d97706] font-bold text-xs tracking-widest uppercase mt-auto group-hover:gap-3 transition-all">
-                                <span>View Details</span>
-                                <ArrowRight size={16} />
-                            </div>
-                        </motion.div>
+                        />
                     ))}
                 </div>
             </div>

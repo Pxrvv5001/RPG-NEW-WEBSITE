@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import heroBg from "../assets/timber-yard-stock-karnal.jpg";
 import TimberParticles from "./TimberParticles";
+import MagneticButton from "./MagneticButton";
 
 const INTRO_DURATION = 2800; // Branding phase (ms)
 const REVEAL_DELAY = 0.6;   // Seconds after branding fades for hero content to start
@@ -22,15 +23,17 @@ const Hero = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const scrollToDivisions = () => {
-        const element = document.getElementById("divisions");
-        if (element) element.scrollIntoView({ behavior: "smooth" });
+    const HEADER_OFFSET = 72; // px — matches sticky header height
+
+    const scrollToSection = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+        window.scrollTo({ top, behavior: "smooth" });
     };
 
-    const scrollToStats = () => {
-        const element = document.getElementById("stats");
-        if (element) element.scrollIntoView({ behavior: "smooth" });
-    };
+    const scrollToDivisions = () => scrollToSection("divisions");
+    const scrollToStats     = () => scrollToSection("stats");
 
     return (
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
@@ -146,15 +149,50 @@ const Hero = () => {
                             Est. 2004 · Haryana, India
                         </motion.p>
 
-                        {/* --- SEO CHANGE: OPTIMIZED H1 FOR LOCAL RANKING --- */}
-                        <motion.h1
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: REVEAL_DELAY + 0.3 }}
-                            className="text-4xl md:text-7xl font-serif font-bold text-white mb-4 md:mb-6 leading-tight drop-shadow-lg"
+                        {/* Word-by-word H1 reveal via clip-path mask */}
+                        <div
+                            className="mb-4 md:mb-6"
+                            aria-label="Timber Importers & Sawmill in Karnal & Gandhidham"
                         >
-                            Timber Importers & Sawmill<br /> in Karnal & Gandhidham
-                        </motion.h1>
+                            {/* Line 1 */}
+                            <div className="flex flex-wrap justify-center gap-x-3 gap-y-0">
+                                {["Timber", "Importers", "&", "Sawmill"].map((word, i) => (
+                                    <div key={i} className="overflow-hidden">
+                                        <motion.span
+                                            initial={{ y: "110%" }}
+                                            animate={{ y: "0%" }}
+                                            transition={{
+                                                duration: 0.7,
+                                                delay: REVEAL_DELAY + 0.3 + i * 0.08,
+                                                ease: [0.22, 1, 0.36, 1],
+                                            }}
+                                            className="block text-4xl md:text-7xl font-serif font-bold text-white leading-tight drop-shadow-lg"
+                                        >
+                                            {word}
+                                        </motion.span>
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Line 2 */}
+                            <div className="flex flex-wrap justify-center gap-x-3 gap-y-0 mt-1">
+                                {["in", "Karnal", "&", "Gandhidham"].map((word, i) => (
+                                    <div key={i} className="overflow-hidden">
+                                        <motion.span
+                                            initial={{ y: "110%" }}
+                                            animate={{ y: "0%" }}
+                                            transition={{
+                                                duration: 0.7,
+                                                delay: REVEAL_DELAY + 0.55 + i * 0.08,
+                                                ease: [0.22, 1, 0.36, 1],
+                                            }}
+                                            className="block text-4xl md:text-7xl font-serif font-bold text-white leading-tight drop-shadow-lg"
+                                        >
+                                            {word}
+                                        </motion.span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
 
                         <motion.p
                             initial={{ opacity: 0 }}
@@ -170,12 +208,14 @@ const Hero = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: REVEAL_DELAY + 0.7 }}
                         >
-                            <button
-                                onClick={scrollToDivisions}
-                                className="inline-block px-8 py-4 md:py-3 bg-[#d97706] text-white font-medium text-xs md:text-sm tracking-widest uppercase hover:bg-[#b45309] transition-all duration-300 rounded md:rounded-none cursor-pointer border-none shadow-lg"
-                            >
-                                Explore Divisions
-                            </button>
+                            <MagneticButton strength={0.4}>
+                                <button
+                                    onClick={scrollToDivisions}
+                                    className="inline-block px-8 py-4 md:py-3 bg-[#d97706] text-white font-medium text-xs md:text-sm tracking-widest uppercase hover:bg-[#b45309] transition-all duration-300 rounded md:rounded-none cursor-pointer border-none shadow-lg"
+                                >
+                                    Explore Divisions
+                                </button>
+                            </MagneticButton>
                         </motion.div>
                     </motion.div>
                 )}

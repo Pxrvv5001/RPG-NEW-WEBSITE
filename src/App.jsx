@@ -6,6 +6,9 @@ import { Toaster } from 'react-hot-toast';
 
 import FloatingWA from './components/FloatingWA';
 import ScrollProgress from './components/ScrollProgress';
+import CustomCursor from './components/CustomCursor';
+import PageCurtain from './components/PageCurtain';
+import ScrollToTopButton from './components/ScrollToTopButton';
 import { CartProvider } from './context/CartContext';
 import { ThemeProvider } from './context/ThemeContext';
 
@@ -29,14 +32,7 @@ const PageLoader = () => (
 );
 
 const PageWrapper = ({ children }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.3 }}
-    >
-        {children}
-    </motion.div>
+    <PageCurtain>{children}</PageCurtain>
 );
 
 function App() {
@@ -70,6 +66,8 @@ function App() {
         <CartProvider>
             <ReactLenis root options={{ lerp: 0.1, duration: 1.2, smoothWheel: true }}>
 
+                <CustomCursor />
+
                 <Toaster
                     position="bottom-center"
                     toastOptions={{
@@ -91,6 +89,7 @@ function App() {
 
                 {brandingDone && <ScrollProgress />}
                 {brandingDone && <FloatingWA />}
+                {brandingDone && <ScrollToTopButton />}
 
                 <Suspense fallback={<PageLoader />}>
                     <AnimatePresence mode="wait" onExitComplete={scrollToTop}>

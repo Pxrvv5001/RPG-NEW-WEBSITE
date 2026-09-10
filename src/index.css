@@ -7,6 +7,37 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hide native cursor on mouse/trackpad devices — CustomCursor replaces it */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* View Transitions API — theme circular reveal */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+/* Cursor elements get their own VT slots → excluded from root expansion snapshot.
+   We suppress any animation on those slots so they just stay still. */
+::view-transition-old(cursor-ring),
+::view-transition-new(cursor-ring),
+::view-transition-old(cursor-dot),
+::view-transition-new(cursor-dot) {
+  animation: none;
+  mix-blend-mode: normal;
+  opacity: 0;   /* hide the snapshot copies — the live React elements handle rendering */
+}
+
 /* Default Light Mode */
 body {
   background-color: #f9f8f4; /* Cream / Off-White */

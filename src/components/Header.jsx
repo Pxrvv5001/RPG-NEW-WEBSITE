@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
+import { triggerThemeReveal } from "./ThemeReveal";
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
+    const desktopToggleRef = useRef(null);
+    const mobileToggleRef  = useRef(null);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -95,7 +98,8 @@ const Header = () => {
                     <Link to="/contact" className={`transition-colors ${isActive('/contact')}`}>Contact</Link>
 
                     <button
-                        onClick={toggleTheme}
+                        ref={desktopToggleRef}
+                        onClick={() => triggerThemeReveal(desktopToggleRef, toggleTheme)}
                         className="bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors border border-white/10"
                         aria-label="Toggle theme"
                     >
@@ -104,7 +108,7 @@ const Header = () => {
                 </nav>
 
                 <div className="md:hidden flex items-center gap-4 z-50">
-                    <button onClick={toggleTheme} className="text-white" aria-label="Toggle theme">
+                    <button ref={mobileToggleRef} onClick={() => triggerThemeReveal(mobileToggleRef, toggleTheme)} className="text-white" aria-label="Toggle theme">
                         {theme === "light" ? <Moon size={20} /> : <Sun size={20} className="text-[#d97706]" />}
                     </button>
 
