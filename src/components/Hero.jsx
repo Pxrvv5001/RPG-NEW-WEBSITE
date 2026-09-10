@@ -68,40 +68,57 @@ const Hero = () => {
             </motion.div>
 
             {/* ========================================
-                4. BRANDING OVERLAY (Splash Phase)
+                4. BRANDING OVERLAY (Splash Phase) — Vertical Stack Wipe
                ======================================== */}
             <AnimatePresence>
                 {phase === "branding" && (
                     <motion.div
-                        className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 md:gap-5 px-6 overflow-hidden"
-                        exit={{ opacity: 0, scale: 0.97 }}
-                        transition={{ duration: 0.7, ease: "easeInOut" }}
+                        className="absolute inset-0 z-30 flex flex-col items-center justify-center px-6"
+                        exit={{ opacity: 0, y: -24, transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] } }}
                     >
-                        {/* Company Name */}
-                        <motion.h2
-                            initial={{ opacity: 0, letterSpacing: "0.15em", filter: "blur(10px)", scale: 1.04 }}
-                            animate={{ opacity: 1, letterSpacing: "0.08em", filter: "blur(0px)", scale: 1 }}
-                            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="text-[1.75rem] sm:text-4xl md:text-6xl font-serif font-bold text-white text-center leading-tight w-full"
-                            style={{ maxWidth: "min(90vw, 680px)" }}
-                        >
-                            R.P. Goyal <span className="text-[#d97706]">&</span> Son's
-                        </motion.h2>
+                        {/* LINE 1 — "R.P. GOYAL" slides up through a clip mask */}
+                        <div className="overflow-hidden">
+                            <motion.div
+                                initial={{ y: "105%" }}
+                                animate={{ y: "0%" }}
+                                transition={{ duration: 0.85, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <span className="block text-[2rem] sm:text-5xl md:text-7xl font-serif font-bold text-white tracking-[0.06em] leading-none">
+                                    R.P. GOYAL
+                                </span>
+                            </motion.div>
+                        </div>
 
-                        {/* Orange Line */}
-                        <motion.div
-                            initial={{ scaleX: 0, opacity: 0 }}
-                            animate={{ scaleX: 1, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.75, ease: "easeOut" }}
-                            className="h-[2px] w-24 md:w-36 bg-gradient-to-r from-transparent via-[#d97706] to-transparent origin-center"
-                        />
+                        {/* Orange rule — draws left to right */}
+                        <div className="overflow-hidden w-full flex justify-center my-3 md:my-4">
+                            <motion.div
+                                initial={{ scaleX: 0 }}
+                                animate={{ scaleX: 1 }}
+                                transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                                className="h-[1.5px] w-28 sm:w-36 md:w-48 bg-gradient-to-r from-transparent via-[#d97706] to-transparent origin-left"
+                            />
+                        </div>
 
-                        {/* Subtitle */}
+                        {/* LINE 2 — "& SON'S" slides up through its own clip mask */}
+                        <div className="overflow-hidden">
+                            <motion.div
+                                initial={{ y: "105%" }}
+                                animate={{ y: "0%" }}
+                                transition={{ duration: 0.85, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                <span className="block text-[1.4rem] sm:text-3xl md:text-5xl font-serif font-light text-white tracking-[0.18em] sm:tracking-[0.22em] leading-none">
+                                    &amp;&nbsp;
+                                    <span className="text-[#d97706] font-semibold">SON'S</span>
+                                </span>
+                            </motion.div>
+                        </div>
+
+                        {/* Pvt. Ltd. — drifts up last */}
                         <motion.p
                             initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 0.55, y: 0 }}
-                            transition={{ duration: 0.6, delay: 1.0 }}
-                            className="text-[10px] sm:text-xs md:text-sm text-white uppercase tracking-[0.25em] md:tracking-[0.4em] font-sans font-light"
+                            animate={{ opacity: 0.4, y: 0 }}
+                            transition={{ duration: 0.5, delay: 1.55 }}
+                            className="text-[9px] sm:text-[11px] text-white/60 uppercase tracking-[0.3em] font-sans font-light mt-4 md:mt-5"
                         >
                             Pvt. Ltd.
                         </motion.p>
