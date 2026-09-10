@@ -73,34 +73,35 @@ const Hero = () => {
             <AnimatePresence>
                 {phase === "branding" && (
                     <motion.div
-                        className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-4"
-                        exit={{ opacity: 0, y: -40 }}
-                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 md:gap-5 px-6 overflow-hidden"
+                        exit={{ opacity: 0, scale: 0.97 }}
+                        transition={{ duration: 0.7, ease: "easeInOut" }}
                     >
                         {/* Company Name */}
                         <motion.h2
-                            initial={{ opacity: 0, letterSpacing: "0.6em", filter: "blur(8px)" }}
-                            animate={{ opacity: 1, letterSpacing: "0.15em", filter: "blur(0px)" }}
+                            initial={{ opacity: 0, letterSpacing: "0.15em", filter: "blur(10px)", scale: 1.04 }}
+                            animate={{ opacity: 1, letterSpacing: "0.08em", filter: "blur(0px)", scale: 1 }}
                             transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="text-3xl md:text-6xl font-serif font-bold text-white text-center leading-tight"
+                            className="text-[1.75rem] sm:text-4xl md:text-6xl font-serif font-bold text-white text-center leading-tight w-full"
+                            style={{ maxWidth: "min(90vw, 680px)" }}
                         >
                             R.P. Goyal <span className="text-[#d97706]">&</span> Son's
                         </motion.h2>
 
                         {/* Orange Line */}
                         <motion.div
-                            initial={{ width: 0, opacity: 0 }}
-                            animate={{ width: 120, opacity: 1 }}
-                            transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                            className="h-[2px] bg-gradient-to-r from-transparent via-[#d97706] to-transparent"
+                            initial={{ scaleX: 0, opacity: 0 }}
+                            animate={{ scaleX: 1, opacity: 1 }}
+                            transition={{ duration: 0.8, delay: 0.75, ease: "easeOut" }}
+                            className="h-[2px] w-24 md:w-36 bg-gradient-to-r from-transparent via-[#d97706] to-transparent origin-center"
                         />
 
                         {/* Subtitle */}
                         <motion.p
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 0.5, y: 0 }}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 0.55, y: 0 }}
                             transition={{ duration: 0.6, delay: 1.0 }}
-                            className="text-[10px] md:text-sm text-white uppercase tracking-[0.4em] font-sans font-light"
+                            className="text-[10px] sm:text-xs md:text-sm text-white uppercase tracking-[0.25em] md:tracking-[0.4em] font-sans font-light"
                         >
                             Pvt. Ltd.
                         </motion.p>
