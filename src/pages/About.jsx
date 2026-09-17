@@ -293,6 +293,7 @@ const About = () => {
             <Helmet>
                 <title>About Us | R.P. Goyal &amp; Sons — Our Legacy Since 2004</title>
                 <meta name="description" content="Discover the story of R.P. Goyal & Sons — from a humble timber trading firm in 2004 to a leading importer and sawmill company serving Northern India. See our global sourcing network." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

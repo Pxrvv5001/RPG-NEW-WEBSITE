@@ -51,6 +51,7 @@ const Catalog = () => {
             <Helmet>
                 <title>Timber Catalog | R.P. Goyal & Sons</title>
                 <meta name="description" content="Browse our premium selection of Burma Teak, Pine, Meranti, and global hardwoods available for wholesale." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

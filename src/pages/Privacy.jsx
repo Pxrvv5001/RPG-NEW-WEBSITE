@@ -9,6 +9,7 @@ const Privacy = () => {
             <Helmet>
                 <title>Privacy Policy | R.P. Goyal &amp; Sons Private Limited</title>
                 <meta name="description" content="Read the Privacy Policy for R.P. Goyal & Sons Private Limited — how we collect, use, and protect your personal information." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

@@ -80,6 +80,7 @@ const Services = () => {
                 <title>Sawmill Services | R.P. Goyal & Sons</title>
                 {/* UPDATED META DESCRIPTION */}
                 <meta name="description" content="Professional wood processing services including Band Saws & Log Peeling. Manufacturing & Processing Unit located in Gandhidham, Gujarat." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

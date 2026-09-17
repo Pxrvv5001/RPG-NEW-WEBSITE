@@ -178,6 +178,7 @@ const Calculator = () => {
             <Helmet>
                 <title>Timber CBM Calculator | R.P. Goyal & Sons</title>
                 <meta name="description" content="Calculate wood volume in Cubic Meters (CBM) instantly." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

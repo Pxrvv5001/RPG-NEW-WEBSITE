@@ -1,4 +1,13 @@
 User-agent: *
-Allow: /
+Allow: /$
+Disallow: /about
+Disallow: /contact
+Disallow: /calculator
+Disallow: /catalog
+Disallow: /services
+Disallow: /plywood
+Disallow: /gallery
+Disallow: /privacy
+Disallow: /terms
 
 Sitemap: https://www.rpgglobal.co.in/sitemap.xml

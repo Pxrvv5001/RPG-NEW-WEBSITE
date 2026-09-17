@@ -123,6 +123,7 @@ const Plywood = () => {
                 {/* SEO CHANGE: Stronger Title */}
                 <title>Marine Grade Plywood & Laminates Manufacturer | R.P. Goyal Karnal</title>
                 <meta name="description" content="Manufacturers of Marine Grade (IS:710), Commercial Plywood, and Decorative Laminates in Karnal." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

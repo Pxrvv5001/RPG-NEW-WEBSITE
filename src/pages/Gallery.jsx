@@ -65,6 +65,7 @@ const Gallery = () => {
                     name="description"
                     content="A glimpse into R.P. Goyal & Sons yard, stock, and timber processing operations in Karnal and Gandhidham."
                 />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

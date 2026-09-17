@@ -61,6 +61,7 @@ const Contact = () => {
             <Helmet>
                 <title>Contact Us | R.P. Goyal & Sons</title>
                 <meta name="description" content="Visit us at our Karnal Head Office or Gandhidham Manufacturing Unit. Get a quote for timber and plywood today." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />

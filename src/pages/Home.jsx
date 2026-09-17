@@ -35,6 +35,8 @@ const Home = () => {
             <Helmet>
                 <title>R.P. Goyal & Sons | Premier Timber Importers & Sawmill</title>
                 <meta name="description" content="Importers of Teak, Pine, and Meranti in Karnal, Haryana. We offer timber supply, plywood manufacturing, and sawmill services." />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://www.rpgglobal.co.in/" />
             </Helmet>
 
             <AnimatePresence>

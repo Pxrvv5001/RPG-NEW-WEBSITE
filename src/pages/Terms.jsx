@@ -9,6 +9,7 @@ const Terms = () => {
             <Helmet>
                 <title>Terms of Service | R.P. Goyal &amp; Sons Private Limited</title>
                 <meta name="description" content="Read the Terms of Service for R.P. Goyal &amp; Sons Private Limited — the rules and regulations governing the use of our website." />
+                <meta name="robots" content="noindex, nofollow" />
             </Helmet>
 
             <Header />
