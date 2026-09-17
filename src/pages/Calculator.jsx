@@ -212,7 +212,7 @@ const Calculator = () => {
                                             type="text"
                                             value={clientName}
                                             onChange={(e) => setClientName(e.target.value)}
-                                            className="w-full pl-10 p-2.5 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-white/10 rounded text-sm text-gray-900 dark:text-white focus:border-[#d97706] outline-none"
+                                            className="w-full pl-10 pt-3 pb-3 pr-4 text-sm bg-gray-50 dark:bg-[#1a1918] border border-gray-200 dark:border-white/10 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-[#d97706] focus:ring-2 focus:ring-[#d97706]/20 transition-all"
                                             placeholder="Client Name"
                                         />
                                     </div>
@@ -222,7 +222,7 @@ const Calculator = () => {
                                             type="text"
                                             value={clientPhone}
                                             onChange={(e) => setClientPhone(e.target.value)}
-                                            className="w-full pl-10 p-2.5 bg-white dark:bg-[#1c1c1c] border border-gray-200 dark:border-white/10 rounded text-sm text-gray-900 dark:text-white focus:border-[#d97706] outline-none"
+                                            className="w-full pl-10 pt-3 pb-3 pr-4 text-sm bg-gray-50 dark:bg-[#1a1918] border border-gray-200 dark:border-white/10 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:border-[#d97706] focus:ring-2 focus:ring-[#d97706]/20 transition-all"
                                             placeholder="Phone Number"
                                         />
                                     </div>
@@ -238,9 +238,9 @@ const Calculator = () => {
                                             key={u}
                                             type="button"
                                             onClick={() => setUnit(u)}
-                                            className={`py-2 text-xs font-bold uppercase rounded border transition-all ${unit === u
-                                                    ? "bg-[#d97706] text-white border-[#d97706]"
-                                                    : "bg-transparent text-gray-600 dark:text-gray-400 border-gray-300 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/5"
+                                            className={`py-2 text-xs font-bold uppercase rounded-lg border transition-all duration-200 ${unit === u
+                                                    ? "bg-[#d97706] text-white border-[#d97706] shadow-md shadow-[#d97706]/25"
+                                                    : "bg-gray-50 dark:bg-[#1a1918] text-gray-600 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-[#d97706]/50 hover:text-[#d97706]"
                                                 }`}
                                         >
                                             {u === 'imperial' ? 'Ft / In' : u}
@@ -254,11 +254,11 @@ const Calculator = () => {
                                     <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">
                                         Length {unit === 'imperial' ? '(Ft)' : `(${unit})`}
                                     </label>
-                                    <input type="number" step="any" required value={length} onChange={(e) => setLength(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder={placeholders.l} />
+                                    <input type="number" step="any" required value={length} onChange={(e) => setLength(e.target.value)} className="w-full pt-3 pb-3 pl-4 pr-4 text-sm bg-gray-50 dark:bg-[#1a1918] rounded-lg border border-gray-200 dark:border-white/10 focus:outline-none focus:border-[#d97706] focus:ring-2 focus:ring-[#d97706]/20 dark:text-white transition-all" placeholder={placeholders.l} />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Quantity</label>
-                                    <input type="number" required value={quantity} onChange={(e) => setQuantity(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="1" />
+                                    <input type="number" required value={quantity} onChange={(e) => setQuantity(e.target.value)} className="w-full pt-3 pb-3 pl-4 pr-4 text-sm bg-gray-50 dark:bg-[#1a1918] rounded-lg border border-gray-200 dark:border-white/10 focus:outline-none focus:border-[#d97706] focus:ring-2 focus:ring-[#d97706]/20 dark:text-white transition-all" placeholder="1" />
                                 </div>
                             </div>
 
@@ -267,26 +267,26 @@ const Calculator = () => {
                                     <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">
                                         Width {unit === 'imperial' ? '(In)' : `(${unit})`}
                                     </label>
-                                    <input type="number" step="any" required value={width} onChange={(e) => setWidth(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder={placeholders.w} />
+                                    <input type="number" step="any" required value={width} onChange={(e) => setWidth(e.target.value)} className="w-full pt-3 pb-3 pl-4 pr-4 text-sm bg-gray-50 dark:bg-[#1a1918] rounded-lg border border-gray-200 dark:border-white/10 focus:outline-none focus:border-[#d97706] focus:ring-2 focus:ring-[#d97706]/20 dark:text-white transition-all" placeholder={placeholders.w} />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">
                                         Thickness {unit === 'imperial' ? '(In)' : `(${unit})`}
                                     </label>
-                                    <input type="number" step="any" required value={thickness} onChange={(e) => setThickness(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder={placeholders.t} />
+                                    <input type="number" step="any" required value={thickness} onChange={(e) => setThickness(e.target.value)} className="w-full pt-3 pb-3 pl-4 pr-4 text-sm bg-gray-50 dark:bg-[#1a1918] rounded-lg border border-gray-200 dark:border-white/10 focus:outline-none focus:border-[#d97706] focus:ring-2 focus:ring-[#d97706]/20 dark:text-white transition-all" placeholder={placeholders.t} />
                                 </div>
                             </div>
 
                             <div>
                                 <label className="block text-xs font-bold uppercase text-gray-500 dark:text-stone-400 mb-1">Price per CBM (Optional)</label>
-                                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full p-3 bg-gray-50 dark:bg-[#1c1c1c] rounded border border-gray-200 dark:border-white/10 focus:border-[#d97706] outline-none dark:text-white transition-colors" placeholder="e.g. 50000" />
+                                <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full pt-3 pb-3 pl-4 pr-4 text-sm bg-gray-50 dark:bg-[#1a1918] rounded-lg border border-gray-200 dark:border-white/10 focus:outline-none focus:border-[#d97706] focus:ring-2 focus:ring-[#d97706]/20 dark:text-white transition-all" placeholder="e.g. 50000" />
                             </div>
 
                             <div className="flex gap-4 pt-4">
-                                <button type="button" onClick={clearForm} className="px-4 py-3 text-gray-500 hover:bg-gray-100 dark:hover:bg-[#1c1c1c] rounded transition-colors">
+                                <button type="button" onClick={clearForm} className="px-4 py-3 text-gray-500 hover:text-[#d97706] hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl border border-gray-200 dark:border-white/8 transition-all duration-200">
                                     <RefreshCw size={20} />
                                 </button>
-                                <button type="submit" className="flex-1 bg-[#d97706] text-white font-bold uppercase tracking-widest rounded shadow-lg hover:bg-[#b45309] transition-all flex items-center justify-center gap-2">
+                                <button type="submit" className="flex-1 bg-[#d97706] text-white font-bold uppercase tracking-widest rounded-xl shadow-lg shadow-[#d97706]/25 hover:bg-[#b45309] hover:shadow-[#d97706]/40 transition-all duration-200 flex items-center justify-center gap-2 py-3">
                                     Calculate <ChevronRight size={18} />
                                 </button>
                             </div>
