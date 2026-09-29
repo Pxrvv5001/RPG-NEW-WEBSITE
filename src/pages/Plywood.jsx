@@ -17,8 +17,24 @@ import gurjanImg from "../assets/gurjan.jpg";
 import blockboardImg from "../assets/blockboard.jpg";
 import flushdoorImg from "../assets/flushdoor.jpg";
 import laminateImg from "../assets/laminate.jpg";
+import coreVeneerImg from "../assets/coreveneer.jpg";
 
 const plywoods = [
+    {
+        id: "ply-7",
+        name: "Core Veneer",
+        spec: "Rotary Cut",
+        tag: "Plywood Core",
+        desc: "Rotary-peeled core veneers used as inner layers in plywood manufacturing. Available in Poplar, Eucalyptus, and Hardwood species for optimal strength and bonding.",
+        image: coreVeneerImg,
+        specs: {
+            thickness: "1.7mm / 1.8mm / 2.2mm",
+            moisture: "Air Dried & Kiln Dried",
+            cut: "Rotary Peeled",
+            uses: "Ply Board / Shuttering Ply / Flush Door",
+            origin: "Tanzania / Mozambique / Vietnam / South Africa"
+        }
+    },
     {
         id: "ply-1",
         // SEO CHANGE: More descriptive name for Alt Text & Google
@@ -95,21 +111,6 @@ const plywoods = [
             sizes: "Custom sizes up to 8ft",
             durability: "Termite & Borer Proof"
         }
-    },
-    {
-        id: "ply-6",
-        name: "Decorative Laminates",
-        spec: "0.8mm & 1mm",
-        tag: "Interior Design",
-        desc: "A vast collection of textures and colors for surfacing furniture and walls.",
-        image: laminateImg,
-        specs: {
-            thickness: "0.8mm / 1.0mm",
-            finish: "Matte, Gloss, Texture, Suede",
-            resistance: "Scratch & Heat Resistant",
-            bonding: "Compatible with PVA Glue",
-            maintenance: "Zero Maintenance Surface"
-        }
     }
 ];
 
@@ -145,7 +146,7 @@ const Plywood = () => {
                             className="group bg-[#f9f8f4] dark:bg-[#292524] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-transparent hover:border-[#d97706] flex flex-col h-full"
                         >
                             <div className="h-64 overflow-hidden relative cursor-pointer" onClick={() => setSelectedItem(item)}>
-                                <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+                                <img src={item.image} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all" />
                                 <div className="absolute top-4 left-4 bg-[#d97706] text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded">
                                     {item.tag}
@@ -203,7 +204,7 @@ const Plywood = () => {
                             </button>
 
                             <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-100 dark:bg-gray-800">
-                                <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-full object-cover"/>
+                                <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-8">
                                     <h2 className="text-4xl font-serif font-bold text-white leading-tight">{selectedItem.name}</h2>
                                 </div>
