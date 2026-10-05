@@ -153,7 +153,7 @@ const WorldImportMap = () => {
                                         key={geo.rsmKey}
                                         geography={geo}
                                         strokeWidth={0.5}
-                                        className="fill-gray-200 dark:fill-[#1a1a2e] stroke-white dark:stroke-[#2a2a4a] hover:fill-gray-300 dark:hover:fill-[#222244] outline-none transition-colors duration-300"
+                                        className="fill-gray-200 dark:fill-[#1c1c21] stroke-white dark:stroke-[#2e2e38] hover:fill-gray-300 dark:hover:fill-[#282832] outline-none transition-colors duration-300"
                                         style={{
                                             default: { outline: "none" },
                                             hover: { outline: "none" },

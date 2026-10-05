@@ -12,6 +12,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import CallToAction from "../components/CallToAction";
 import Footer from "../components/Footer";
 import WorldImportMap, { importRoutes } from "../components/WorldImportMap";
+import GlobeImportMap from "../components/GlobeImportMap";
 
 const INTRO_DURATION = 2800; // Must match Hero's branding duration
 
@@ -89,7 +90,15 @@ const Home = () => {
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
                     >
-                        <WorldImportMap />
+                        {/* Desktop & Tablet: flat world map */}
+                        <div className="hidden md:block">
+                            <WorldImportMap />
+                        </div>
+
+                        {/* Mobile only: interactive rotating globe */}
+                        <div className="block md:hidden flex justify-center">
+                            <GlobeImportMap className="w-full max-w-md mx-auto" />
+                        </div>
                     </motion.div>
 
                     {/* Legend pills */}
