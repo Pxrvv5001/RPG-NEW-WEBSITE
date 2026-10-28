@@ -34,9 +34,9 @@ const Home = () => {
     return (
         <div className="font-sans antialiased text-gray-900 bg-white">
             <Helmet>
-                <title>Timber &amp; Plywood Supplier | R.P. Goyal &amp; Sons, Karnal</title>
-                <meta name="description" content="Leading timber importer &amp; plywood supplier in Karnal, Haryana. Wholesale teak, pine, marine plywood &amp; sawmill services for North India. Get a free quote." />
-                <meta name="keywords" content="timber supplier Karnal, plywood supplier Karnal, timber importer India, plywood manufacturer Haryana, Burma teak wood supplier, pine wood supplier, marine plywood manufacturer, wholesale timber North India, sawmill Gandhidham, timber market Karnal, R.P. Goyal Sons, RPG Global" />
+                <title>R.P. Goyal &amp; Sons | Timber &amp; Plywood Importers, India</title>
+                <meta name="description" content="Indian trading house with 22+ years in timber &amp; plywood importing via Mundra &amp; Kandla ports. Wholesale hardwood, softwood &amp; veneer across North India." />
+                <meta name="keywords" content="timber importer India, plywood importer India, hardwood importer, softwood importer, veneer supplier India, Mundra port timber, Kandla port timber, wholesale timber North India, R.P. Goyal Sons, RPG Global, Gandhidham timber, Karnal timber" />
                 <meta name="robots" content="index, follow" />
                 <link rel="canonical" href="https://www.rpgglobal.co.in/" />
             </Helmet>
