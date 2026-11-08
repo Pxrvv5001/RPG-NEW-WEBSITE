@@ -152,25 +152,25 @@ const WorldImportMap = () => {
                         onMouseEnter={() => setHoveredRoute(route.id)}
                         onMouseLeave={() => setHoveredRoute(null)}
                     >
-                        {/* Pulse ring */}
+                        {/* Static subtle accent ring */}
                         <circle
                             r={6}
-                            fill={route.color}
-                            opacity={0.25}
-                            className={inView ? "map-origin-dot" : ""}
+                            fill="none"
+                            stroke={route.color}
+                            strokeWidth={1}
+                            opacity={hoveredRoute === route.id ? 0.6 : 0.25}
                             style={{
-                                animationDelay: `${i * 0.3}s`,
-                                opacity: inView ? undefined : 0,
-                                transition: `opacity 0.5s ${i * 0.4}s`,
+                                opacity: inView ? (hoveredRoute === route.id ? 0.6 : 0.25) : 0,
+                                transition: "opacity 0.3s ease",
                             }}
                         />
-                        {/* Solid dot */}
+                        {/* Clean solid marker dot */}
                         <circle
-                            r={4}
+                            r={3.5}
                             fill={route.color}
                             style={{
                                 opacity: inView ? 1 : 0,
-                                transition: `opacity 0.5s ${i * 0.4}s`,
+                                transition: `opacity 0.4s ease ${i * 0.2}s`,
                                 cursor: "pointer",
                             }}
                         />

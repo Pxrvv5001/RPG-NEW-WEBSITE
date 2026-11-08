@@ -112,6 +112,14 @@ export default function GlobeImportMap({ className = "", size: customSize }) {
     let dragStart = null;
     let dragRotStart = null;
 
+    // Returns true if [lng, lat] is on the visible front hemisphere
+    const isFrontFace = ([lng, lat]) => {
+      const rot = projection.rotate();
+      const lngRad = (lng + rot[0]) * Math.PI / 180;
+      const latRad = lat * Math.PI / 180;
+      return Math.cos(latRad) * Math.cos(lngRad) > 0;
+    };
+
     // -- Main render loop ------------------------------------------------------
     const render = (ts) => {
       const C = getColors(isDarkRef.current);
@@ -171,35 +179,40 @@ export default function GlobeImportMap({ className = "", size: customSize }) {
           };
           const isHov = hoveredRoute === r.id;
 
-          // Glow layer
+          // — Premium solid route line —
+          // 1. Soft underglow (barely visible, not neon — just depth)
           context.save();
           context.beginPath();
           path(sliced);
           context.strokeStyle = r.color;
-          context.lineWidth = isHov ? 10 : 6;
-          context.globalAlpha = isHov ? 0.35 : 0.18;
+          context.lineWidth = isHov ? 6 : 4;
+          context.globalAlpha = isHov ? 0.13 : 0.08;
+          context.lineJoin = 'round';
+          context.lineCap = 'round';
           context.stroke();
           context.restore();
 
-          // Solid line
+          // 2. Crisp solid line
           context.save();
           context.beginPath();
           path(sliced);
           context.strokeStyle = r.color;
-          context.lineWidth = isHov ? 2.5 : 1.8;
-          context.globalAlpha = isHov ? 1 : 0.85;
+          context.lineWidth = isHov ? 1.8 : 1.2;
+          context.globalAlpha = isHov ? 1 : 0.75;
+          context.lineJoin = 'round';
+          context.lineCap = 'round';
           context.stroke();
           context.restore();
 
-          // Moving tip dot while drawing
+          // Line tip dot during entrance animation only
           if (prog < 1) {
             const tip = coords[sliceEnd - 1];
             const pp = projection(tip);
-            if (pp && pp[0] >= 0 && pp[0] <= currentSize && pp[1] >= 0 && pp[1] <= currentSize) {
+            if (pp) {
               context.beginPath();
-              context.arc(pp[0], pp[1], 3, 0, 2 * Math.PI);
+              context.arc(pp[0], pp[1], 2, 0, 2 * Math.PI);
               context.fillStyle = r.color;
-              context.globalAlpha = 1;
+              context.globalAlpha = 0.8;
               context.fill();
             }
           }
@@ -213,24 +226,24 @@ export default function GlobeImportMap({ className = "", size: customSize }) {
 
           const pp = projection(r.coords);
           if (!pp) return;
+          if (!isFrontFace(r.coords)) return; // hide when on back of globe
           const [px, py] = pp;
           if (px < 0 || px > currentSize || py < 0 || py > currentSize) return;
 
           const isHov = hoveredRoute === r.id;
-          const pulse = 0.5 + 0.5 * Math.sin(Date.now() / 600 + i);
 
-          // Pulse ring
+          // Crisp static accent ring
           context.beginPath();
-          context.arc(px, py, (isHov ? 10 : 7) + pulse * 4, 0, 2 * Math.PI);
+          context.arc(px, py, isHov ? 7 : 5.5, 0, 2 * Math.PI);
           context.strokeStyle = r.color;
           context.lineWidth = 1;
-          context.globalAlpha = 0.3 * (1 - pulse);
+          context.globalAlpha = isHov ? 0.6 : 0.25;
           context.stroke();
           context.globalAlpha = 1;
 
-          // Dot
+          // Solid marker dot
           context.beginPath();
-          context.arc(px, py, isHov ? 5 : 3.5, 0, 2 * Math.PI);
+          context.arc(px, py, isHov ? 4 : 3, 0, 2 * Math.PI);
           context.fillStyle = r.color;
           context.fill();
 
@@ -249,20 +262,18 @@ export default function GlobeImportMap({ className = "", size: customSize }) {
         if (ip) {
           const [ix, iy] = ip;
           if (ix >= 0 && ix <= currentSize && iy >= 0 && iy <= currentSize) {
-            const glow = 0.5 + 0.5 * Math.sin(Date.now() / 500);
-
-            for (let g = 0; g < 3; g++) {
-              context.beginPath();
-              context.arc(ix, iy, 8 + g * 5 + glow * 3, 0, 2 * Math.PI);
-              context.strokeStyle = "#d97706";
-              context.lineWidth = 1;
-              context.globalAlpha = (0.4 - g * 0.12) * arcProgress;
-              context.stroke();
-            }
+            // Crisp static anchor ring
+            context.beginPath();
+            context.arc(ix, iy, 9, 0, 2 * Math.PI);
+            context.strokeStyle = "#d97706";
+            context.lineWidth = 1.2;
+            context.globalAlpha = 0.35 * arcProgress;
+            context.stroke();
             context.globalAlpha = 1;
 
+            // Solid center
             context.beginPath();
-            context.arc(ix, iy, 6, 0, 2 * Math.PI);
+            context.arc(ix, iy, 4.5, 0, 2 * Math.PI);
             context.fillStyle = "#d97706";
             context.fill();
 
@@ -314,7 +325,7 @@ export default function GlobeImportMap({ className = "", size: customSize }) {
     const onDocMouseMove = (e) => {
       if (!dragging) return;
       rotation[0] = dragRotStart[0] + (e.clientX - dragStart.x) * 0.5;
-      rotation[1] = Math.max(-80, Math.min(80, dragRotStart[1] - (e.clientY - dragStart.y) * 0.5));
+      // Vertical rotation locked � horizontal only
       projection.rotate(rotation);
     };
     const onMouseUp = () => {
@@ -335,7 +346,7 @@ export default function GlobeImportMap({ className = "", size: customSize }) {
       e.preventDefault();
       const t = e.touches[0];
       rotation[0] = dragRotStart[0] + (t.clientX - dragStart.x) * 0.5;
-      rotation[1] = Math.max(-80, Math.min(80, dragRotStart[1] - (t.clientY - dragStart.y) * 0.5));
+      // Vertical rotation locked � horizontal only (touch)
       projection.rotate(rotation);
     };
     const onTouchEnd = () => {

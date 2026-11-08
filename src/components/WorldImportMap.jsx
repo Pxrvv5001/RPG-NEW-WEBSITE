@@ -183,32 +183,34 @@ const WorldImportMap = () => {
 
                             return (
                                 <g key={`route-group-${route.id}`}>
-                                    {/* Main colored line */}
+                                    {/* Premium solid route — underglow + crisp line */}
+                                    {/* Underglow */}
                                     <path
                                         d={pathD}
                                         fill="none"
                                         stroke={route.color}
-                                        strokeWidth={isMobile ? 2.5 : 2}
+                                        strokeWidth={hoveredRoute === route.id ? 7 : 5}
                                         strokeLinecap="round"
+                                        strokeLinejoin="round"
                                         style={{
-                                            opacity: inView ? 1 : 0,
-                                            strokeDasharray: 1000,
+                                            opacity: inView ? (hoveredRoute === route.id ? 0.14 : 0.08) : 0,
                                             strokeDashoffset: inView ? 0 : 1000,
-                                            transition: `stroke-dashoffset 2.5s ease-out ${i * 0.4}s, opacity 0.5s ease ${i * 0.4}s`,
+                                            transition: `stroke-dashoffset 2.5s ease-out ${i * 0.4}s, opacity 0.4s ease ${i * 0.4}s`,
                                         }}
                                     />
-                                    {/* Glow line */}
+                                    {/* Crisp solid line */}
                                     <path
                                         d={pathD}
                                         fill="none"
                                         stroke={route.color}
-                                        strokeWidth={isMobile ? 8 : 6}
+                                        strokeWidth={hoveredRoute === route.id ? 1.8 : 1.3}
                                         strokeLinecap="round"
+                                        strokeLinejoin="round"
                                         style={{
-                                            opacity: inView ? 0.15 : 0,
-                                            strokeDasharray: 1000,
-                                            strokeDashoffset: inView ? 0 : 1000,
-                                            transition: `stroke-dashoffset 2.5s ease-out ${i * 0.4}s, opacity 0.5s ease ${i * 0.4}s`,
+                                            opacity: inView ? (hoveredRoute === route.id ? 1 : 0.7) : 0,
+                                            strokeDasharray: 1200,
+                                            strokeDashoffset: inView ? 0 : 1200,
+                                            transition: `stroke-dashoffset 2.5s ease-out ${i * 0.4}s, opacity 0.4s ease ${i * 0.4}s`,
                                         }}
                                     />
                                 </g>
@@ -223,25 +225,25 @@ const WorldImportMap = () => {
                                 onMouseEnter={() => setHoveredRoute(route.id)}
                                 onMouseLeave={() => setHoveredRoute(null)}
                             >
-                                {/* Pulse ring */}
+                                {/* Static subtle accent ring */}
                                 <circle
-                                    r={isMobile ? 8 : 6}
-                                    fill={route.color}
-                                    opacity={0.25}
-                                    className={inView ? "map-origin-dot" : ""}
+                                    r={isMobile ? 7 : 6}
+                                    fill="none"
+                                    stroke={route.color}
+                                    strokeWidth={1}
+                                    opacity={hoveredRoute === route.id ? 0.6 : 0.25}
                                     style={{
-                                        animationDelay: `${i * 0.3}s`,
-                                        opacity: inView ? undefined : 0,
-                                        transition: `opacity 0.5s ${i * 0.4}s`,
+                                        opacity: inView ? (hoveredRoute === route.id ? 0.6 : 0.25) : 0,
+                                        transition: "opacity 0.3s ease",
                                     }}
                                 />
-                                {/* Solid dot */}
+                                {/* Clean solid marker dot */}
                                 <circle
-                                    r={isMobile ? 5 : 4}
+                                    r={isMobile ? 4 : 3.5}
                                     fill={route.color}
                                     style={{
                                         opacity: inView ? 1 : 0,
-                                        transition: `opacity 0.5s ${i * 0.4}s`,
+                                        transition: `opacity 0.4s ease ${i * 0.2}s`,
                                         cursor: "pointer",
                                     }}
                                 />
@@ -281,30 +283,25 @@ const WorldImportMap = () => {
 
                         {/* India destination marker */}
                         <Marker coordinates={INDIA_COORDS}>
-                            {/* Glow */}
+                            {/* Crisp static accent ring */}
                             <circle
-                                r={isMobile ? 22 : 18}
-                                fill="#d97706"
-                                opacity={0.12}
+                                r={isMobile ? 11 : 9}
+                                fill="none"
+                                stroke="#d97706"
+                                strokeWidth={1.2}
+                                opacity={0.35}
                                 style={{
-                                    opacity: inView ? 0.12 : 0,
-                                    transition: "opacity 0.8s 1.5s",
+                                    opacity: inView ? 0.35 : 0,
+                                    transition: "opacity 0.6s 0.8s",
                                 }}
                             />
-                            {/* Pulse */}
+                            {/* Solid center dot */}
                             <circle
-                                r={isMobile ? 10 : 8}
-                                fill="#d97706"
-                                opacity={0.3}
-                                className={inView ? "map-destination-dot" : ""}
-                            />
-                            {/* Solid center */}
-                            <circle
-                                r={isMobile ? 6 : 5}
+                                r={isMobile ? 5 : 4.5}
                                 fill="#d97706"
                                 style={{
                                     opacity: inView ? 1 : 0,
-                                    transition: "opacity 0.5s 1s",
+                                    transition: "opacity 0.5s 0.6s",
                                 }}
                             />
                             {/* Label */}
@@ -336,6 +333,8 @@ const WorldImportMap = () => {
                                 }}
                             >
                                 Mundra Port, Gujarat
+                            </text>
+                        </Marker>
                             </text>
                         </Marker>
                     </ComposableMap>
