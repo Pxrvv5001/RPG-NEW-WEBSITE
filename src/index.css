@@ -243,11 +243,11 @@ body {
 }
 
 .map-origin-dot {
-  animation: mapPulse 2s ease-in-out infinite;
+  opacity: 0.8;
 }
 
 .map-destination-dot {
-  animation: destinationGlow 2s ease-in-out infinite;
+  opacity: 0.9;
 }
 
 /* Timeline connector line */

@@ -208,30 +208,25 @@ const WorldImportMap = () => {
 
                 {/* India destination marker */}
                 <Marker coordinates={INDIA_COORDS}>
-                    {/* Glow */}
+                    {/* Crisp static accent ring */}
                     <circle
-                        r={18}
-                        fill="#d97706"
-                        opacity={0.12}
+                        r={9}
+                        fill="none"
+                        stroke="#d97706"
+                        strokeWidth={1.2}
+                        opacity={0.35}
                         style={{
-                            opacity: inView ? 0.12 : 0,
-                            transition: "opacity 0.8s 1.5s",
+                            opacity: inView ? 0.35 : 0,
+                            transition: "opacity 0.6s 0.8s",
                         }}
                     />
-                    {/* Pulse */}
+                    {/* Solid center dot */}
                     <circle
-                        r={8}
-                        fill="#d97706"
-                        opacity={0.3}
-                        className={inView ? "map-destination-dot" : ""}
-                    />
-                    {/* Solid center */}
-                    <circle
-                        r={5}
+                        r={4.5}
                         fill="#d97706"
                         style={{
                             opacity: inView ? 1 : 0,
-                            transition: "opacity 0.5s 1s",
+                            transition: "opacity 0.5s 0.6s",
                         }}
                     />
                     {/* Label */}
